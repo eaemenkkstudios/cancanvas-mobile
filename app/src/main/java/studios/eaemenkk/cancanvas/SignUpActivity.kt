@@ -46,7 +46,7 @@ class SignUpActivity : AppCompatActivity() {
         body.put("email", email)
         body.put("pass", password)
 
-        request.post("/signup", body, false, object: Callback {
+        request.post("/signup", body, "", object: Callback {
             override fun onResponse(call: Call, response: Response) {
                 runOnUiThread {
                     if(!response.isSuccessful) {

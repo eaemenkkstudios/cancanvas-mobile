@@ -15,9 +15,11 @@ class LoginActivity : AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        // val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE);
-        // val token = sharedPreferences.getString("token", null)
-        // if(!token.isNullOrEmpty()) Toast.makeText(this, "É", Toast.LENGTH_LONG).show()
+        val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE);
+        val token = sharedPreferences.getString("token", null)
+        if(!token.isNullOrEmpty()) {
+            return mainPage()
+        }
         loginBtn.setOnClickListener{ signIn() }
         loginSignupBtn.setOnClickListener{ signUp() }
     }
@@ -50,15 +52,22 @@ class LoginActivity : AppCompatActivity()  {
         val body = JSONObject()
         body.put("email", email)
         body.put("pass", password)
-        request.post("/signin", body, false,  object: Callback {
+        request.post("/signin", body, "",  object: Callback {
             override fun onResponse(call: Call, response: Response) {
                 runOnUiThread {
-                    val message = if (response.isSuccessful) {
-                        "Login realizado com sucesso!"
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@LoginActivity, "Login realizado com sucesso!", Toast.LENGTH_LONG).show()
+                        val responseData = JSONObject(response.body?.string())
+                        val token = responseData.get("token").toString()
+                        val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE).edit();
+                        sharedPreferences.putString("token", token)
+                        sharedPreferences.commit()
+                        mainPage()
                     } else {
-                        "Usuário e/ou senha incorretos!"
+                        Toast.makeText(this@LoginActivity, "Usuário e/ou senha incorretos!", Toast.LENGTH_LONG).show()
                     }
-                    Toast.makeText(this@LoginActivity, message, Toast.LENGTH_LONG).show()
+
+
                 }
             }
 
@@ -72,6 +81,12 @@ class LoginActivity : AppCompatActivity()  {
 
 
     }
+
+    private fun mainPage() {
+        val intentMain = Intent(this, MainActivity::class.java)
+        startActivity(intentMain)
+    }
+
 
     private fun signUp() {
         val intentMain = Intent(this, SignUpActivity::class.java)
