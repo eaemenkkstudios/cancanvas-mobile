@@ -15,29 +15,9 @@ class LoginActivity : AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE);
-        val token = sharedPreferences.getString("token", null)
-        if(!token.isNullOrEmpty()) Toast.makeText(this, "É", Toast.LENGTH_LONG).show()
-        var client = OkHttpClient()
-        var request = Api(client)
-
-        request.GET("http://192.168.0.10:8080/hello", object: Callback {
-            override fun onResponse(call: Call, response: Response) {
-                val responseData = response.body?.string()
-                runOnUiThread {
-                    val json = JSONObject(responseData)
-                    println(json)
-                    Toast.makeText(this@LoginActivity, responseData, Toast.LENGTH_LONG).show()
-                }
-            }
-
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-                runOnUiThread {
-                    Toast.makeText(this@LoginActivity, e.message, Toast.LENGTH_LONG).show()
-                }
-            }
-        })
+        // val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE);
+        // val token = sharedPreferences.getString("token", null)
+        // if(!token.isNullOrEmpty()) Toast.makeText(this, "É", Toast.LENGTH_LONG).show()
         loginBtn.setOnClickListener{ signIn() }
         loginSignupBtn.setOnClickListener{ signUp() }
     }
@@ -64,6 +44,33 @@ class LoginActivity : AppCompatActivity()  {
                 Toast.LENGTH_LONG
             ).show()
         }
+
+        var client = OkHttpClient()
+        var request = Api(client)
+        val body = JSONObject()
+        body.put("email", email)
+        body.put("pass", password)
+        request.post("/signin", body, false,  object: Callback {
+            override fun onResponse(call: Call, response: Response) {
+                runOnUiThread {
+                    val message = if (response.isSuccessful) {
+                        "Login realizado com sucesso!"
+                    } else {
+                        "Usuário e/ou senha incorretos!"
+                    }
+                    Toast.makeText(this@LoginActivity, message, Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+                runOnUiThread {
+                    Toast.makeText(this@LoginActivity, e.message, Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+
     }
 
     private fun signUp() {
