@@ -18,7 +18,7 @@ class LoginActivity : AppCompatActivity()  {
         val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE);
         val token = sharedPreferences.getString("token", null)
         if(!token.isNullOrEmpty()) {
-            return mainPage()
+            mainPage()
         }
         loginBtn.setOnClickListener{ signIn() }
         loginSignupBtn.setOnClickListener{ signUp() }
