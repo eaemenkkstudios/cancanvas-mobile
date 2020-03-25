@@ -39,8 +39,7 @@ class SignUpActivity : AppCompatActivity() {
             return Toast.makeText(this, "As senhas digitadas não conferem.", Toast.LENGTH_LONG).show()
         }
 
-        var client = OkHttpClient()
-        var request = Api(client)
+        var request = Api()
         val body = JSONObject()
         body.put("nick", username)
         body.put("email", email)

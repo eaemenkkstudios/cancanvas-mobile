@@ -6,7 +6,9 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
-class Api (private val client: OkHttpClient) {
+class Api () {
+    private val client = OkHttpClient()
+
     fun get(url: String, token: String = "", callback: Callback): Call {
 
         val headers = Headers.Builder()

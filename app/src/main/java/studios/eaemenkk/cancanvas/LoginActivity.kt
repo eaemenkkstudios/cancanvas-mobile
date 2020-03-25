@@ -48,12 +48,11 @@ class LoginActivity : AppCompatActivity()  {
             ).show()
         }
 
-        var client = OkHttpClient()
-        var request = Api(client)
+        val request = Api()
         val body = JSONObject()
         body.put("email", email)
         body.put("pass", password)
-        request.post("/signin", body, "",  object: Callback {
+        request.post("/login", body, "",  object: Callback {
             override fun onResponse(call: Call, response: Response) {
                 runOnUiThread {
                     if (response.isSuccessful) {
@@ -62,13 +61,11 @@ class LoginActivity : AppCompatActivity()  {
                         val token = responseData.get("token").toString()
                         val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE).edit();
                         sharedPreferences.putString("token", token)
-                        sharedPreferences.commit()
+                        sharedPreferences.apply()
                         mainPage()
                     } else {
                         Toast.makeText(this@LoginActivity, "Usuário e/ou senha incorretos!", Toast.LENGTH_LONG).show()
                     }
-
-
                 }
             }
 
