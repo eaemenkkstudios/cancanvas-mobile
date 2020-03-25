@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_login.*
-import okhttp3.*
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
 
@@ -57,7 +59,7 @@ class LoginActivity : AppCompatActivity()  {
                 runOnUiThread {
                     if (response.isSuccessful) {
                         Toast.makeText(this@LoginActivity, "Login realizado com sucesso!", Toast.LENGTH_LONG).show()
-                        val responseData = JSONObject(response.body?.string())
+                        val responseData = JSONObject(response.body?.string().toString())
                         val token = responseData.get("token").toString()
                         val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE).edit();
                         sharedPreferences.putString("token", token)

@@ -6,7 +6,6 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.Call
 import okhttp3.Callback
-import okhttp3.OkHttpClient
 import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private fun logout() {
         val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE);
         val token = sharedPreferences.getString("token", "").toString()
-        
+
         val request = Api()
         request.post("/logout", JSONObject(), token, object: Callback {
             override fun onResponse(call: Call, response: Response) {
