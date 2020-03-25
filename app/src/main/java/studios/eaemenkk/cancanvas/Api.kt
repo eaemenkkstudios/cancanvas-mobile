@@ -6,13 +6,13 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
-class Api () {
+class Api {
     private val client = OkHttpClient()
 
-    fun get(url: String, token: String = "", callback: Callback): Call {
+    fun get(url: String, token: String?, callback: Callback): Call {
 
         val headers = Headers.Builder()
-        if(token.isNotEmpty()) {
+        if(!token.isNullOrEmpty()) {
             headers.add("token", token)
         }
 
@@ -26,13 +26,13 @@ class Api () {
         return call
     }
 
-    fun post(url: String, parameters: JSONObject, token: String = "",  callback: Callback): Call {
+    fun post(url: String, parameters: JSONObject?, token: String?,  callback: Callback): Call {
 
-        val jsonString = parameters.toString()
+        val jsonString = parameters?.toString() ?: JSONObject().toString()
         val body = jsonString.toRequestBody(JSON)
         val headers = Headers.Builder()
         headers.add("Content-Type", "application/json")
-        if(token.isNotEmpty()) {
+        if(!token.isNullOrEmpty()) {
             headers.add("token", token)
         }
 

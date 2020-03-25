@@ -2,6 +2,7 @@ package studios.eaemenkk.cancanvas
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_login.*
@@ -54,7 +55,8 @@ class LoginActivity : AppCompatActivity()  {
         val body = JSONObject()
         body.put("email", email)
         body.put("pass", password)
-        request.post("/login", body, "",  object: Callback {
+        loadingIcon.visibility = View.VISIBLE
+        request.post("/login", body, null,  object: Callback {
             override fun onResponse(call: Call, response: Response) {
                 runOnUiThread {
                     if (response.isSuccessful) {
@@ -65,7 +67,9 @@ class LoginActivity : AppCompatActivity()  {
                         sharedPreferences.putString("token", token)
                         sharedPreferences.apply()
                         mainPage()
+                        finish()
                     } else {
+                        loadingIcon.visibility = View.GONE
                         Toast.makeText(this@LoginActivity, "Usuário e/ou senha incorretos!", Toast.LENGTH_LONG).show()
                     }
                 }
@@ -74,11 +78,11 @@ class LoginActivity : AppCompatActivity()  {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
                 runOnUiThread {
+                    loadingIcon.visibility = View.GONE
                     Toast.makeText(this@LoginActivity, e.message, Toast.LENGTH_LONG).show()
                 }
             }
         })
-
 
     }
 

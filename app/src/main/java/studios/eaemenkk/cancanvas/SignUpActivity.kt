@@ -1,6 +1,7 @@
 package studios.eaemenkk.cancanvas
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_signup.*
@@ -43,11 +44,12 @@ class SignUpActivity : AppCompatActivity() {
         body.put("nick", username)
         body.put("email", email)
         body.put("pass", password)
-
-        request.post("/signup", body, "", object: Callback {
+        loadingIcon.visibility = View.VISIBLE
+        request.post("/signup", body, null, object: Callback {
             override fun onResponse(call: Call, response: Response) {
                 runOnUiThread {
                     if(!response.isSuccessful) {
+                        loadingIcon.visibility = View.GONE
                         Toast.makeText(this@SignUpActivity, "Uma conta com este email já existe!", Toast.LENGTH_LONG).show()
                     } else {
                         Toast.makeText(this@SignUpActivity, "Conta criada com sucesso!", Toast.LENGTH_LONG).show()
@@ -61,6 +63,7 @@ class SignUpActivity : AppCompatActivity() {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
                 runOnUiThread {
+                    loadingIcon.visibility = View.GONE
                     Toast.makeText(this@SignUpActivity, "Falha ao criar conta!", Toast.LENGTH_LONG).show()
                 }
             }

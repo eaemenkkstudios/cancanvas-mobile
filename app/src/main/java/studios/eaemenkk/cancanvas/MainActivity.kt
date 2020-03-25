@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         val token = sharedPreferences.getString("token", "").toString()
 
         val request = Api()
-        request.post("/logout", JSONObject(), token, object: Callback {
+        request.post("/logout", null, token, object: Callback {
             override fun onResponse(call: Call, response: Response) {
                 val sharedPreferencesEditor = sharedPreferences.edit()
                 sharedPreferencesEditor.remove("token")
