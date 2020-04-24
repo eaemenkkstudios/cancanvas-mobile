@@ -1,4 +1,4 @@
-package studios.eaemenkk.cancanvas
+package studios.eaemenkk.cancanvas.view.activity
 
 import android.os.Bundle
 import android.view.View
@@ -9,6 +9,7 @@ import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
 import org.json.JSONObject
+import studios.eaemenkk.cancanvas.R
 import java.io.IOException
 
 class SignUpActivity : AppCompatActivity() {

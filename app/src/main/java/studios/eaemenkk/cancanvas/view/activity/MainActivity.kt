@@ -1,4 +1,4 @@
-package studios.eaemenkk.cancanvas
+package studios.eaemenkk.cancanvas.view.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
-import org.json.JSONObject
+import studios.eaemenkk.cancanvas.R
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
