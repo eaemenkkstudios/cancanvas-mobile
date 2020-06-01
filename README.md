@@ -22,7 +22,7 @@ Bancos de dados se organizam em dois modelos principais: relacionais e não-rela
 > [[7]](#7) O Teorema *CAP* (*Consistency*, *Avaliability* e *Partition Tolerance*) é muito importante no mundo da ciência de dados, especialmente quando precisamos decidir entre quais pilares são essenciais para cada caso.
 
 ![Teorema CAP](https://miro.medium.com/max/671/1*7mDBUO-j0yws52wZlSxbAg.png)
-*Imagem 1 - Teorema *CAP*
+*Imagem 1 - Teorema CAP*
 &nbsp;
 
 Os três pilares do Teorema *CAP* são:
