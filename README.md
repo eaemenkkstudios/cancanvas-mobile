@@ -175,6 +175,7 @@ Foram realizados testes, com as linguagens citadas anteriormente, para demonstra
 No primeiro teste foram executadas 2000 iterações, com 300 requisições simultâneas em cada iteração e apenas um cálculo de *hash* por requisição, ou seja N = 1.
 
 ![Imagem 2 - Teste 1: 2000 iterações, 300 requisições simultâneas, N = 1](https://uploads.toptal.io/blog/image/126909/toptal-blog-image-1534449533146-fbfd7f7f8fef1c1642379e78288ff833.png)
+
 *Imagem 2 - Teste 1: 2000 iterações, 300 requisições simultâneas, N = 1*
 &nbsp;
 
