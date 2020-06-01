@@ -1,5 +1,4 @@
 # cancanvas-mobile
-
 ## Plataforma para armazenamento de dados ##
 
 > [[1]](#1) Bancos de dados [...] são conjuntos de arquivos relacionados entre si com registros sobre pessoas, lugares ou coisas. São coleções organizadas de dados que se relacionam de forma a criar algum sentido (Informação) e dar mais eficiência durante uma pesquisa ou estudo cientifico.
@@ -23,12 +22,12 @@ Bancos de dados se organizam em dois modelos principais: relacionais e não-rela
 > [[7]](#7) O Teorema *CAP* (*Consistency*, *Avaliability* e *Partition Tolerance*) é muito importante no mundo da ciência de dados, especialmente quando precisamos decidir entre quais pilares são essenciais para cada caso.
 
 ![Teorema CAP](https://miro.medium.com/max/671/1*7mDBUO-j0yws52wZlSxbAg.png)
-<center style="text-align: center"><i>Imagem 1 - Teorema CAP</i></center>
+*Imagem 1 - Teorema CAP*
 &nbsp;
 
-<u>TODO: explicar por que escolhemos consistency e partition tolerance</u> 
+**TODO: explicar por que escolhemos consistency e partition tolerance** 
 
-<u>TODO: explicar por que escolhemos o mongodb</u> 
+**TODO: explicar por que escolhemos o mongodb**
 
 A Tolerância a Particionamento possibilita um futuro escalonamento horizontal do banco de dados. A Consistência dos dados é essencial entre as partições.
 
@@ -87,13 +86,13 @@ Foram realizados testes, com as linguagens citadas anteriormente, para demonstra
 No primeiro teste foram executadas 2000 iterações, com 300 requisições simultâneas em cada iteração e apenas um cálculo de *hash* por requisição, ou seja N = 1.
 
 ![Imagem 2 - Teste 1: 2000 iterações, 300 requisições simultâneas, N = 1](https://uploads.toptal.io/blog/image/126909/toptal-blog-image-1534449533146-fbfd7f7f8fef1c1642379e78288ff833.png)
-<center style="text-align: center"><i>Imagem 2 - Teste 1: 2000 iterações, 300 requisições simultâneas, N = 1</i></center>
+*Imagem 2 - Teste 1: 2000 iterações, 300 requisições simultâneas, N = 1*
 &nbsp;
 
 O gráfico acima mostra o tempo (em milissegundos) em que cada requisição foi respondida (em média) em cada um dos servidores testados, ou seja, quanto menor o tempo, melhor. Com o volume de conexões e processamento aplicados neste teste, não é possível obter um conclusão sobre qual linguagem é mais performática, os dados demonstram mais sobre a execução das linguagens do que sobre suas implementações de E/S.
 
 ![Imagem 3 - Teste 2: 2000 iterações, 300 requisições simultâneas, N = 1000](https://uploads.toptal.io/blog/image/126910/toptal-blog-image-1534449549951-9c5873ba6add8234d456199df802891e.png)
-<center style="text-align: center"><i>Imagem 3 - Teste 2: 2000 iterações, 300 requisições simultâneas, N = 1000</i></center>
+*Imagem 3 - Teste 2: 2000 iterações, 300 requisições simultâneas, N = 1000*
 &nbsp;
 
 No segundo teste, o número de iterações e requisições simultâneas foi mantido, porém, em cada requisição foram realizados 1000 cálculos de *hash*. O gráfico acima apresenta o tempo (em milissegundos), em média, em que cada requisição, foi respondida, então novamente, quanto menor for o tempo, melhor.
@@ -101,7 +100,7 @@ No segundo teste, o número de iterações e requisições simultâneas foi mant
 Por causa das operações de processamento intenso realizadas em cada requisição, a performance do *Node.js* é negativamente afetada.
 
 ![Imagem 4 - Teste 3: 2000 iterações, 5000 requisições simultâneas, N = 1](https://uploads.toptal.io/blog/image/126911/toptal-blog-image-1534449565382-9c3f283d73f19b6d1164372e9b2611ea.png)
-<center style="text-align: center"><i>Imagem 4 - Teste 3: 2000 iterações, 5000 requisições simultâneas, N = 1</i></center>
+*Imagem 4 - Teste 3: 2000 iterações, 5000 requisições simultâneas, N = 1*
 &nbsp;
 
 No terceiro teste, o número de iterações continuou o mesmo, porém o número de requisições simultâneas passou a ser 5000 e o N voltou a ser 1. O gráfico acima a quantidade de requisições que foram processadas por segundo, por cada servidor, dessa vez, quanto maior o número, melhor.
@@ -110,7 +109,7 @@ Devido ao grande volume de conexões, a performance do *PHP* foi negativamente a
 
 Portanto, o processamento das requisições utilizando *threads* (*goroutines*) e as operações de E/S não-bloqueantes, implementadas pela linguagem *Go*, são a combinação ideal para garantir uma melhor performance do servidor.
 
-<u>explicar por que escolhemos go</u> 
+**explicar por que escolhemos go**
 
 ## Bibliografia ##
 
@@ -137,5 +136,3 @@ https://towardsdatascience.com/cap-theorem-and-distributed-database-management-s
 
 ##### 8
 https://medium.com/@bikas.katwal10/mongodb-vs-cassandra-vs-rdbms-where-do-they-stand-in-the-cap-theorem-1bae779a7a15
-
-<style> * { text-align: justify; } </style>
