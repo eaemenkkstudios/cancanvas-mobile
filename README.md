@@ -22,22 +22,111 @@ Bancos de dados se organizam em dois modelos principais: relacionais e não-rela
 > [[7]](#7) O Teorema *CAP* (*Consistency*, *Avaliability* e *Partition Tolerance*) é muito importante no mundo da ciência de dados, especialmente quando precisamos decidir entre quais pilares são essenciais para cada caso.
 
 ![Teorema CAP](https://miro.medium.com/max/671/1*7mDBUO-j0yws52wZlSxbAg.png)
-*Imagem 1 - Teorema CAP*
+*Imagem 1 - Teorema *CAP*
 &nbsp;
 
-**TODO: explicar por que escolhemos consistency e partition tolerance** 
+Os três pilares do Teorema *CAP* são:
+ - Consistência: garante que todos os nós (instâncias) do banco de dados possuam os mesmos dados em todos os momentos. Um sistema é consistente se as transações começam com o sistema em um estado de consistência e terminam também em um estado de consistência. Porém, os nós precisam de tempo para se atualizarem, o que diminui a disponibilidade.
 
-**TODO: explicar por que escolhemos o mongodb**
+ - Disponibilidade: garante que todas as requisições feitas ao banco de dados receberão um resposta de sucesso ou fracasso. Alta disponibilidade exige que o sistema esteja operacional em todo o tempo. Todo cliente recebe uma resposta, independente do estado dos nós no sistema.
 
-A Tolerância a Particionamento possibilita um futuro escalonamento horizontal do banco de dados. A Consistência dos dados é essencial entre as partições.
+ - Tolerância de Partição: garante que o sistema continue funcionando, mesmo que haja mensagens atrasadas pela conexão de rede entre os nós. Um sistema que possui tolerância de partição pode suportar uma grande quantidade de falhas de rede, desde que as falhas não afetem todo o sistema.
 
-## Linguagem de programação para a estrutura do back-end ##
+Como o serviço proposto neste artigo é centrado no conteúdo enviado do servidor para a aplicação, é vital que o acesso dos usuários a este conteúdo não seja impedido em caso de falhas de rede e a consistência dos dados apresentados é de extrema importância para que os clientes do aplicativo possam fazer uso das informações recebidas. Portanto, o *MongoDB*, que é um banco de dados orientado a documentos, foi escolhido. O formato dos documentos armazenados no *MongoDB* é o *BSON* (*JSON* binário). A modelo de dados utilizado pelo *JSON* (JavaScript Object Notation) proporciona um fácil mapeamento dos dados para objetos utilizados nas diversas linguagens de programação. Como o esquema dos documentos é dinâmico, há uma maior flexibilidade para evoluir o modelo de dados.
 
-> [[2]](#2) Back-end, como o próprio nome sugere, vem da ideia do que tem por trás de uma aplicação.
+## *Back-end* e *Front-end*
+
+> [[2]](#2) *Back-end*, como o próprio nome sugere, vem da ideia do que há por trás de uma aplicação.
 
 Numa aplicação que utiliza serviços *online* próprios, o *software* *back-end* é a parte dessa aplicação que é executada num servidor. É responsável por processar requisições de usuários, (troca de informações) que podem incluir autenticações, transações financeiras e outras informações confidenciais.
 
-O programa *back-end* deve ser capaz de garantir, não só a segurança e integridade dessas informações, como também a capacidade de lidar com múltiplas conexões simultâneas, e processamento volumoso. Um dos fatores que mais impactam, na estruturação e performance desse tipo de *software* é a linguagem na qual foi concebido. [[3]](#3) Atualmente, algumas das linguagens mais utilizadas para desenvolvimento de aplicações *back-end* são [**Node.js**](https://nodejs.org/), [**PHP**](https://www.php.net/), [**Java**](https://www.java.com/) e [**Go**](https://golang.org/).
+> [[2]](#2) Podemos classificar como a parte visual de uma aplicação aquilo que conseguimos interagir. Quem trabalha com *front-end* é responsável por desenvolver por meio de código uma interface gráfica, normalmente com tecnologias base da *Web* [...].
+
+No caso do serviço proposto neste documento, a parte de *front-end* se estende, não para desenvolvimento de um *site*, mas sim para um aplicativo móvel, mencionado com detalhes posteriormente neste artigo.
+
+### [[10]](#10) Tipos de *API* ###
+
+> Para estabelecer quais são as melhores tecnologias, algorítmos e técnicas para o desenvolvimento de uma *API*, deve-se considerar as características de 3 dos principais casos de uso com *API*s.
+
+#### *Experience API*s ####
+
+> (*Experience API*s) são *API*s para consumo por aplicativos *front-end* e dispositivos para experiências digitais.
+>
+> Suas principais características são:
+> - Menor tempo de transferência de dados
+> - Menor tempo de resposta
+> - Uso em conjunto com padrão *BFF* (*back-end for front-end*)
+> - Menos requests para renderização de uma tela
+> - Maior nivel de monitoramento
+
+#### *Open API*s ####
+
+> (*Open API*s) são APIs para integrações com parceiros e inovação aberta.
+>
+> Suas principais características são:
+> - Experiencia de uso mais fácil e seguindo padres mais conhecidos
+> - Reuso de *API*s
+> - Documentação detalhada
+> - Maior nível de segurança
+> - Maior nível de governança
+
+#### *Internal API*s ####
+
+> (*Internal API*s) são APIS para comunicação entre microsserviços e integrações internas.
+>
+> Suas principais características são:
+> - Compatibilidade com a arquitetura de eventos ou arquitetura reativa
+> - Melhor desempeno
+> - Mais escalabilidade
+> - Maior nível de controle e monitoramento
+
+### Arquiteturas de transmissão de dados ###
+
+> [[12]](#12) (Arquiteturas de transmissão de dados) providenciam padrões entre sistemas de computadores conectados, facilitando sistemas a se comunicarem uns com os outros.
+
+#### [[13]](#13) *REST* ####
+
+A arquitetura *REST* é uma das mais conhecidas, definida pela primeira vez em 2000, por Roy Fielding. Por natureza, a arquitetura *REST* é sem-estado, construída de uma maneira de modo que qualquer serviço que a implemente possa receber informações textuais. Essas operações de envio e recebimento de informações são chamadas de "requisições", e podem ser do tipo *GET*, *POST*, *PUT* e outros, que servem para diferenciar tratativas de operações no *back-end*.
+
+##### Estudo de caso: *PayPal* #####
+
+O serviço *PayPal* tem uma forte função de negócios central, que providencia sistemas integrados para processamento de pagamento.
+
+Neste exemplo, retirado da documentação do *PayPal*, pode-se notar alguns dos componentes essenciais numa requisição *REST*:
+
+`curl -v -X GET https://api.sandbox.paypal.com/v1/activities/activities?start_time=2012-01-01T00:00:01.000Z&amp;end_time=2014-10-01T23:59:59.999Z&amp;page_size=10 \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer Access-Token"`
+
+O tipo da requisição (`GET`) indica que o usuário deseja **obter informações** do *back-end*. A rota neste caso, é definida como "`activities`", que é o que determina qual chamada (ou função) será executada no *back-end*. Outro componente de uma requisição *REST* são os *headers*, que podem ser interpretados como espécies de parâmetros passados para a *API*, tratados pela função executada. A linha `-H "Content-Type: application/json"` indica o formato no qual os outros *headers* serão representados, e a linha `-H "Authorization: Bearer Access-Token"` é propriamente uma informação de contexto, que passa uma *token* de acesso para o *PayPal*.
+
+#### [[13]](#13) *gRPC* ####
+
+A *gRPC* (*gRPC Remote Procedure Call*) é uma extensão do método *RPC* (*Remote Procedure Call*) &mdash; que visa a execução de funções (ou chamadas de procedimento), com tipos de parâmetros e retorno fixos, localmente ou através de uma rede de computadores &mdash; com suas próprias vantagens e desvantagens.
+
+> A principal diferença entre a *RPC* e a *REST* está na maneira como a *RPC* lida com suas negociações de contrato. Enquanto a *REST* define suas interações através de termos padronizados em suas requisições, a *RPC* funciona a partir da ideia de contratos, na qual a negociação é definida [...] pela relação cliente-servidor ou invés de pela arquitetura por si só. A *RPC* dá mais poder e responsabilidade ao cliente, [...] fazendo com que muito da responsabilidade de computação seja transferida do servidor ao cliente.
+
+A maior funcionalidade disponível na arquitetura *gRPC* é o conceito de *protobufs*, que é uma linguagem neutra em termos de plataforma e sistema utilizada para descrever os parâmetros dos contratos. Isso possibilita que as chamadas de procedimento sejam serializadas de uma maneira eficiente.
+
+##### Estudo de caso: *Google Cloud* #####
+
+Os serviços *Google Cloud PubSub API*, *Google Cloud Speech API* e *Google Cloud BigTable Client API* utilizam a arquitetura *gRPC* como intermediador e sistema de processamento para seus dados. Este é um caso apropriado, uma vez que o *design* da *gRPC* é relativamente ágil e é melhor utilizado em *stream*s (fila contínua) de informações.
+
+#### [[13]](#13) *GraphQL* ####
+
+Com *GraphQL*, é o cliente quem determina quais, quantos e o formato no qual a *API* deve enviar dados. Essas tratativas podem ser classificadas como uma forma reversa das tratativas clássicas do *REST* e *RPC*, nas quais o contrato é negociado pelo servidor e o cliente, mas é amplamente definido pelos recursos.
+
+> Deve ser notado que um grande benefício da *GraphQL* é o fato de que, a requisição enviada pelo servidor é tipicamente a menor possível. A *REST* por outro lado, geralmente envia todos os dados por padrão &mdash; quanto mais completa a requisição, melhor. Por causa disso, a *GraphQL* pode ser mais útil em casos de uso específicos onde o tipo de dados é bem-definido e um baixo volume é preferido.
+
+##### Estudo de caso: *Github API* #####
+
+Um exemplo de 
+
+
+
+## Linguagem de programação para o back-end ##
+
+O programa *back-end* deve ser capaz de garantir, não só a segurança e integridade dessas informações, como também a capacidade de lidar com múltiplas conexões simultâneas, e processamento volumoso. Um dos fatores que mais impactam, na estruturação e performance desse tipo de *software* é a linguagem na qual foi concebido. [[3]](#3) Atualmente, algumas das linguagens mais utilizadas para desenvolvimento de aplicações *back-end* são [***Node.js***](https://nodejs.org/), [***PHP***](https://www.php.net/), [***Java***](https://www.java.com/) e [***Go***](https://golang.org/).
 
 ### [[4]](#4) Chamadas de sistema ###
 
@@ -109,14 +198,18 @@ Devido ao grande volume de conexões, a performance do *PHP* foi negativamente a
 
 Portanto, o processamento das requisições utilizando *threads* (*goroutines*) e as operações de E/S não-bloqueantes, implementadas pela linguagem *Go*, são a combinação ideal para garantir uma melhor performance do servidor.
 
-**explicar por que escolhemos go**
+## *API* (*Application Programming Interface*) ##
+
+> [[9]](#9) Uma *API* (*Application Programming Interface*) é uma interface de computação que define interações entre múltiplos intermediários de software. Ela define os tipos de chamadas ou requisições que podem ser feitas, como fazê-las, o formato de dados que deve ser usado, etc.
+
+No caso do serviço proposto neste documento, a *API* se dá entre a interação do *back-end* (software em execução no servidor) com o *front-end* (aplicativo móvel).
 
 ## Bibliografia ##
 
 ##### 1 
 https://pt.wikipedia.org/wiki/Banco_de_dados
 
-##### 2 
+##### 2
 https://www.alura.com.br/artigos/o-que-e-front-end-e-back-end
 
 ##### 3
@@ -136,3 +229,18 @@ https://towardsdatascience.com/cap-theorem-and-distributed-database-management-s
 
 ##### 8
 https://medium.com/@bikas.katwal10/mongodb-vs-cassandra-vs-rdbms-where-do-they-stand-in-the-cap-theorem-1bae779a7a15
+
+##### 9
+https://en.wikipedia.org/wiki/Application_programming_interface
+
+##### 10
+https://sensedia.com/api/apis-rest-graphql-ou-grpc/
+
+##### 11
+https://nordicapis.com/when-to-use-what-rest-graphql-webhooks-grpc/
+
+##### 12
+https://www.codecademy.com/articles/what-is-rest
+
+##### 13
+https://nordicapis.com/when-to-use-what-rest-graphql-webhooks-grpc/
