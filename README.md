@@ -44,6 +44,12 @@ Numa aplicação que utiliza serviços *online* próprios, o *software* *back-en
 
 No caso do serviço proposto neste documento, a parte de *front-end* se estende, não para desenvolvimento de um *site*, mas sim para um aplicativo móvel, mencionado com detalhes posteriormente neste artigo.
 
+## *API* (*Application Programming Interface*) ##
+
+> [[9]](#9) Uma *API* (*Application Programming Interface*) é uma interface de computação que define interações entre múltiplos intermediários de software. Ela define os tipos de chamadas ou requisições que podem ser feitas, como fazê-las, o formato de dados que deve ser usado, etc.
+
+No caso do serviço proposto neste documento, a *API* se dá entre a interação do *back-end* (software em execução no servidor) com o *front-end* (aplicativo móvel).
+
 ### [[10]](#10) Tipos de *API* ###
 
 > Para estabelecer quais são as melhores tecnologias, algorítmos e técnicas para o desenvolvimento de uma *API*, deve-se considerar as características de 3 dos principais casos de uso com *API*s.
@@ -84,7 +90,7 @@ No caso do serviço proposto neste documento, a parte de *front-end* se estende,
 
 > [[12]](#12) (Arquiteturas de transmissão de dados) providenciam padrões entre sistemas de computadores conectados, facilitando sistemas a se comunicarem uns com os outros.
 
-#### [[13]](#13) *REST* ####
+#### [[11]](#11) *REST* ####
 
 A arquitetura *REST* é uma das mais conhecidas, definida pela primeira vez em 2000, por Roy Fielding. Por natureza, a arquitetura *REST* é sem-estado, construída de uma maneira de modo que qualquer serviço que a implemente possa receber informações textuais. Essas operações de envio e recebimento de informações são chamadas de "requisições", e podem ser do tipo *GET*, *POST*, *PUT* e outros, que servem para diferenciar tratativas de operações no *back-end*.
 
@@ -100,7 +106,7 @@ Neste exemplo, retirado da documentação do *PayPal*, pode-se notar alguns dos 
 
 O tipo da requisição (`GET`) indica que o usuário deseja **obter informações** do *back-end*. A rota neste caso, é definida como "`activities`", que é o que determina qual chamada (ou função) será executada no *back-end*. Outro componente de uma requisição *REST* são os *headers*, que podem ser interpretados como espécies de parâmetros passados para a *API*, tratados pela função executada. A linha `-H "Content-Type: application/json"` indica o formato no qual os outros *headers* serão representados, e a linha `-H "Authorization: Bearer Access-Token"` é propriamente uma informação de contexto, que passa uma *token* de acesso para o *PayPal*.
 
-#### [[13]](#13) *gRPC* ####
+#### [[11]](#11) *gRPC* ####
 
 A *gRPC* (*gRPC Remote Procedure Call*) é uma extensão do método *RPC* (*Remote Procedure Call*) &mdash; que visa a execução de funções (ou chamadas de procedimento), com tipos de parâmetros e retorno fixos, localmente ou através de uma rede de computadores &mdash; com suas próprias vantagens e desvantagens.
 
@@ -112,17 +118,41 @@ A maior funcionalidade disponível na arquitetura *gRPC* é o conceito de *proto
 
 Os serviços *Google Cloud PubSub API*, *Google Cloud Speech API* e *Google Cloud BigTable Client API* utilizam a arquitetura *gRPC* como intermediador e sistema de processamento para seus dados. Este é um caso apropriado, uma vez que o *design* da *gRPC* é relativamente ágil e é melhor utilizado em *stream*s (fila contínua) de informações.
 
-#### [[13]](#13) *GraphQL* ####
+#### [[11]](#11) *GraphQL* ####
 
 Com *GraphQL*, é o cliente quem determina quais, quantos e o formato no qual a *API* deve enviar dados. Essas tratativas podem ser classificadas como uma forma reversa das tratativas clássicas do *REST* e *RPC*, nas quais o contrato é negociado pelo servidor e o cliente, mas é amplamente definido pelos recursos.
 
 > Deve ser notado que um grande benefício da *GraphQL* é o fato de que, a requisição enviada pelo servidor é tipicamente a menor possível. A *REST* por outro lado, geralmente envia todos os dados por padrão &mdash; quanto mais completa a requisição, melhor. Por causa disso, a *GraphQL* pode ser mais útil em casos de uso específicos onde o tipo de dados é bem-definido e um baixo volume é preferido.
 
-##### Estudo de caso: *Github API* #####
+##### Estudo de caso: *GitHub API* #####
 
-Um exemplo de 
+> Um exemplo de uso da arquitetura *GraphQL* é a *API GraphQL da API do GitHub*. Mesmo que a *API* *REST* inicial fosse poderosa e fazia o que era proposto, a equipe do *GitHub* achou que a *API* era inflexível. Falando sobre o problema, a equipe disse que as repostas da *API* "ao mesmo tempo tinham dados demais e não incluiam os dados que os consumidores necessitavam.
 
+### [[11]](#11) Comparação de arquiteturas ###
 
+As principais diferenças entre as arquiteturas mencionadas acima podem se resumir ao seguinte quadro:
+
+![Las Arquitecturas y sus principales diferencias](https://3k64nh47gxyj39ud4k2tc04b-wpengine.netdna-ssl.com/wp-content/uploads/2019/05/apis-graphql-rest-grpc-1.png)
+*Comparativo de arquiteturas*
+&nbsp;
+
+Para *Experience API*s, a "matriz de elegibilidade" ou a "tabela de escores" das três arquiteturas fica da seguinte forma:
+
+![*Experience API*s](https://3k64nh47gxyj39ud4k2tc04b-wpengine.netdna-ssl.com/wp-content/uploads/2019/05/apis-graphql-rest-grpc-4.png)
+Tabela das arquiteturas para *Experience API*s
+&nbsp;
+
+Já para as *Open API*s, temos a tabela a seguir:
+
+![*Open API*s](https://3k64nh47gxyj39ud4k2tc04b-wpengine.netdna-ssl.com/wp-content/uploads/2019/05/apis-graphql-rest-grpc-5.png)
+Tabela das arquiteturas para *Open API*s
+&nbsp;
+
+Para as *Internal API*s, a arquitetura *REST* pode ser a mais eficiente:
+![*Internal API*s](https://3k64nh47gxyj39ud4k2tc04b-wpengine.netdna-ssl.com/wp-content/uploads/2019/05/apis-graphql-rest-grpc-6.png)
+Tabela das arquiteturas para *Internal API*s
+
+Portanto, a combinação de informações personalizadas para cada usuário, juntamente com o volume mínimo de informações possíveis, somada à alta performance da arquitetura ***GraphQL*** é ideal para o desenvolvimento do serviço proposto neste documento.
 
 ## Linguagem de programação para o back-end ##
 
@@ -146,7 +176,7 @@ O modelo de processamento de requisições implementado em servidores *PHP* é r
 
 O código-fonte é simplesmente inserido em sua página, e **operações de E/S são bloqueantes**.
 
-É importante destacar que a aproximação utilizada em servidores *Ruby* é praticamente idêntica à aproximação implementada em servidores *PHP*
+É importante destacar que a aproximação utilizada em servidores *Ruby* é praticamente idêntica à aproximação implementada em servidores *PHP*.
 
 #### Java ####
 
@@ -175,7 +205,6 @@ Foram realizados testes, com as linguagens citadas anteriormente, para demonstra
 No primeiro teste foram executadas 2000 iterações, com 300 requisições simultâneas em cada iteração e apenas um cálculo de *hash* por requisição, ou seja N = 1.
 
 ![Imagem 2 - Teste 1: 2000 iterações, 300 requisições simultâneas, N = 1](https://uploads.toptal.io/blog/image/126909/toptal-blog-image-1534449533146-fbfd7f7f8fef1c1642379e78288ff833.png)
-
 *Imagem 2 - Teste 1: 2000 iterações, 300 requisições simultâneas, N = 1*
 &nbsp;
 
@@ -197,13 +226,8 @@ No terceiro teste, o número de iterações continuou o mesmo, porém o número 
 
 Devido ao grande volume de conexões, a performance do *PHP* foi negativamente afetada, pois é preciso criar um novo processo para cada uma das requisições. No teste final, a linguagem *Go* foi a mais performática, seguida do *Java*, *Node.js* e finalmente do *PHP*.
 
-Portanto, o processamento das requisições utilizando *threads* (*goroutines*) e as operações de E/S não-bloqueantes, implementadas pela linguagem *Go*, são a combinação ideal para garantir uma melhor performance do servidor.
+Portanto, o processamento das requisições utilizando *threads* e as operações de E/S não-bloqueantes, implementadas pela linguagem *Go*, são a combinação ideal para garantir uma melhor performance do servidor.
 
-## *API* (*Application Programming Interface*) ##
-
-> [[9]](#9) Uma *API* (*Application Programming Interface*) é uma interface de computação que define interações entre múltiplos intermediários de software. Ela define os tipos de chamadas ou requisições que podem ser feitas, como fazê-las, o formato de dados que deve ser usado, etc.
-
-No caso do serviço proposto neste documento, a *API* se dá entre a interação do *back-end* (software em execução no servidor) com o *front-end* (aplicativo móvel).
 
 ## Bibliografia ##
 
@@ -242,6 +266,3 @@ https://nordicapis.com/when-to-use-what-rest-graphql-webhooks-grpc/
 
 ##### 12
 https://www.codecademy.com/articles/what-is-rest
-
-##### 13
-https://nordicapis.com/when-to-use-what-rest-graphql-webhooks-grpc/
