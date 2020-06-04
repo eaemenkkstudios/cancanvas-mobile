@@ -5,12 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_signup.*
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.Response
-import org.json.JSONObject
 import studios.eaemenkk.cancanvas.R
-import java.io.IOException
 
 class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,35 +35,7 @@ class SignUpActivity : AppCompatActivity() {
             return Toast.makeText(this, "As senhas digitadas não conferem.", Toast.LENGTH_LONG).show()
         }
 
-        var request = Api()
-        val body = JSONObject()
-        body.put("nick", username)
-        body.put("email", email)
-        body.put("pass", password)
         loadingIcon.visibility = View.VISIBLE
-        request.post("/signup", body, null, object: Callback {
-            override fun onResponse(call: Call, response: Response) {
-                runOnUiThread {
-                    if(!response.isSuccessful) {
-                        loadingIcon.visibility = View.GONE
-                        Toast.makeText(this@SignUpActivity, "Uma conta com este email já existe!", Toast.LENGTH_LONG).show()
-                    } else {
-                        Toast.makeText(this@SignUpActivity, "Conta criada com sucesso!", Toast.LENGTH_LONG).show()
-                        finish()
-                    }
-
-
-                }
-            }
-
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-                runOnUiThread {
-                    loadingIcon.visibility = View.GONE
-                    Toast.makeText(this@SignUpActivity, "Falha ao criar conta!", Toast.LENGTH_LONG).show()
-                }
-            }
-        })
 
     }
 }

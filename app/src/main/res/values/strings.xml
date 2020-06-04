@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Cancanvas</string>
-    <string name="api_base_url">http://192.168.0.10:8080</string>
+    <string name="api_base_url">https://cancanvas-backend.herokuapp.com</string>
 </resources>
