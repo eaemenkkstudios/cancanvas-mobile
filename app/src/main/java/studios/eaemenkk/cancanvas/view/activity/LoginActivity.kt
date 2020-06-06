@@ -1,6 +1,7 @@
 package studios.eaemenkk.cancanvas.view.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -19,12 +20,11 @@ class LoginActivity : AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE);
-        token = sharedPreferences.getString("token", null)
-        if(!token.isNullOrEmpty()) {
-            mainPage()
-            finish()
-        }
+
+        videoView.setOnPreparedListener { mp -> mp.isLooping = true }
+        videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.login_video))
+        videoView.start()
+
         loginBtn.setOnClickListener{ login() }
         loginSignupBtn.setOnClickListener{ signUp() }
     }

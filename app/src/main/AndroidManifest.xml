@@ -11,23 +11,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".WelcomeActivity"></activity>
         <activity android:name=".view.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.LoginActivity">
             <intent-filter>
                 <action android:name="CANCANVAS_LOGIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="CANCANVAS_LOGIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.MainActivity"  />
+        <activity android:name=".view.activity.MainActivity" />
         <activity android:name=".view.activity.SignUpActivity">
             <intent-filter>
                 <action android:name="CANCANVAS_SIGN_UP" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="CANCANVAS_SIGN_UP" />
             </intent-filter>
