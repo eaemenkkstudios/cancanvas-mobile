@@ -1,7 +1,8 @@
-package studios.eaemenkk.cancanvas
+package studios.eaemenkk.cancanvas.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import studios.eaemenkk.cancanvas.R
 
 class WelcomeActivity : AppCompatActivity() {
 

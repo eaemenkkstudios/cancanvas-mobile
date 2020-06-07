@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.apollographql.apollo'
 
 android {
     compileSdkVersion 29
@@ -74,4 +75,10 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    /** Apollo Dependencies */
+    implementation 'com.apollographql.apollo:apollo-runtime:2.1.0'
+    implementation 'com.apollographql.apollo:apollo-normalized-cache-sqlite:2.1.0'
+    implementation 'com.apollographql.apollo:apollo-coroutines-support:2.1.0'
+    implementation 'com.apollographql.apollo:apollo-api:2.1.0'
 }
