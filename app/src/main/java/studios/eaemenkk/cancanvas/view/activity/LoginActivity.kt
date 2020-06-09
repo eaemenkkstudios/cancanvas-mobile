@@ -16,7 +16,6 @@ import java.lang.Exception
 
 class LoginActivity : AppCompatActivity()  {
 
-    private var token: String? = null
     private val viewModel: AuthViewModel by lazy {
         ViewModelProvider(this).get(AuthViewModel::class.java)
     }
@@ -29,10 +28,11 @@ class LoginActivity : AppCompatActivity()  {
         videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.login_video))
         videoView.start()
 
-        loginBtn.setOnClickListener{ login() }
-        loginSignupBtn.setOnClickListener{ signUp() }
+        btnLogin.setOnClickListener{ login() }
+        btnSignup.setOnClickListener{ signUp() }
 
         viewModel.loginResponse.observe(this, Observer { result ->
+            Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
             if(result.status) {
                 val intent = Intent("CANCANVAS_MAIN").addCategory("CANCANVAS_MAIN")
                 startActivity(intent)
@@ -42,22 +42,23 @@ class LoginActivity : AppCompatActivity()  {
     }
 
     private fun login() {
-        val email = loginEmail.text.toString()
-        val pass = loginPassword.text.toString()
+        val nickname = etNickname.text.toString()
+        val password = etPassword.text.toString()
         try {
-            viewModel.login(email, pass)
+            viewModel.login(nickname, password)
         } catch (e: Exception) {
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun mainPage() {
-        val intentMain = Intent(this, MainActivity::class.java)
-        startActivity(intentMain)
+    private fun signUp() {
+        val intent = Intent("CANCANVAS_SIGN_UP").addCategory("CANCANVAS_SIGN_UP")
+        startActivity(intent)
     }
 
-    private fun signUp() {
-        val intentMain = Intent(this, SignUpActivity::class.java)
-        startActivity(intentMain)
+    override fun onResume() {
+        super.onResume()
+        videoView.start()
     }
+
 }

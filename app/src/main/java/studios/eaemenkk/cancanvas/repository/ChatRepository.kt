@@ -4,10 +4,10 @@ import android.content.Context
 import com.apollographql.apollo.ApolloSubscriptionCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
-import studios.eaemenkk.cancanvas.NewChatMessageSubscription
+import studios.eaemenkk.cancanvas.subscriptions.NewChatMessageSubscription
 
 class ChatRepository(context: Context, baseUrl: String, subscriptionUrl: String):BaseApollo(context, baseUrl, subscriptionUrl) {
-    public fun newChatMessage() {
+    fun newChatMessage() {
         val onlineUsersSubscriptionQuery = NewChatMessageSubscription()
         val onlineUsersSubscription = apolloClient.subscribe(onlineUsersSubscriptionQuery)
         onlineUsersSubscription?.execute(object: ApolloSubscriptionCall.Callback<NewChatMessageSubscription.Data> {
@@ -16,7 +16,9 @@ class ChatRepository(context: Context, baseUrl: String, subscriptionUrl: String)
             }
             override fun onResponse(response: Response<NewChatMessageSubscription.Data>) {
                 val message = response.data
-                println("Response: ${response.data}" )
+                println(response.errors?.size)
+                println(response.errors?.get(0)?.message)
+                println("Response: ${response.data}")
             }
             override fun onConnected() {
                 println("Connected" )

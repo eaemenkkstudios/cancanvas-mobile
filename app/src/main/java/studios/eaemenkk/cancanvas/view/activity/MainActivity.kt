@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        fAB.setOnClickListener{ ChatRepository(this, getString(R.string.api_base_url), getString(R.string.api_subscription_url)).newChatMessage()};
+        fAB.setOnClickListener{ ChatRepository(this, getString(R.string.api_base_url), getString(R.string.api_subscription_url)).newChatMessage() }
     }
 
     private fun chat() {

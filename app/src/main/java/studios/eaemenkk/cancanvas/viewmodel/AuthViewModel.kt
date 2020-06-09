@@ -10,7 +10,7 @@ class AuthViewModel(app: Application) : AndroidViewModel(app) {
     private val interactor = AuthInteractor(app.applicationContext)
 
     val loginResponse = MutableLiveData<RequestResponse>()
-    val signupResponse = MutableLiveData<Boolean>()
+    val signupResponse = MutableLiveData<RequestResponse>()
 
     fun login(email: String, pass: String) {
         interactor.login(email, pass) { response ->
@@ -18,8 +18,8 @@ class AuthViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun signup(nick: String, email: String, password: String, confirmPassword: String) {
-        interactor.signup(nick, email, password, confirmPassword) {result -> signupResponse.postValue(result)}
+    fun signup(nick: String, name: String, email: String, password: String, confirmPassword: String) {
+        interactor.signup(nick, name, email, password, confirmPassword) {result -> signupResponse.postValue(result)}
     }
 
 }

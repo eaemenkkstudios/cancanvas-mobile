@@ -4,38 +4,46 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_signup.*
 import studios.eaemenkk.cancanvas.R
+import studios.eaemenkk.cancanvas.viewmodel.AuthViewModel
+import java.lang.Exception
 
 class SignUpActivity : AppCompatActivity() {
+    private val viewModel: AuthViewModel by lazy {
+        ViewModelProvider(this).get(AuthViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
-        signupBtn.setOnClickListener{ signup() }
+        btnSignup.setOnClickListener{ signup() }
+
+        viewModel.signupResponse.observe(this, Observer { result ->
+            loadingIcon.visibility = View.GONE
+            if (result.status) {
+                Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_LONG).show()
+                finish()
+            } else {
+                Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun signup() {
-        val username = signupUsername.text.toString()
-        val email = signupEmail.text.toString()
-        val password = signupPassword.text.toString()
-        val confirmPassword = signupConfirmPassword.text.toString()
-
-        if(username.isEmpty()) {
-            return Toast.makeText(this, "Por favor digite seu nome de usuário.", Toast.LENGTH_LONG).show()
+        val nickname = etUsername.text.toString()
+        val name = etName.text.toString()
+        val email = etEmail.text.toString()
+        val password = etPassword.text.toString()
+        val confirmPassword = etConfirmPassword.text.toString()
+        try {
+            loadingIcon.visibility = View.VISIBLE
+            viewModel.signup(nickname, name, email, password, confirmPassword)
+        } catch (e: Exception) {
+            loadingIcon.visibility = View.GONE
+            Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
         }
-        if(email.isEmpty()) {
-            return Toast.makeText(this, "Por favor digite seu email.", Toast.LENGTH_LONG).show()
-        }
-        if(password.isEmpty()) {
-            return Toast.makeText(this, "Por favor digite sua senha", Toast.LENGTH_LONG).show()
-        } else if (password.length < 6) {
-            return Toast.makeText(this, "O tamanho mínimo da senha é de 6 caracteres.", Toast.LENGTH_LONG).show()
-        }
-        if(password != confirmPassword) {
-            return Toast.makeText(this, "As senhas digitadas não conferem.", Toast.LENGTH_LONG).show()
-        }
-
-        loadingIcon.visibility = View.VISIBLE
-
     }
 }
