@@ -27,7 +27,14 @@
                 <category android:name="CANCANVAS_LOGIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.MainActivity" />
+        <activity android:name=".view.activity.MainActivity" >
+            <intent-filter>
+                <action android:name="CANCANVAS_MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="CANCANVAS_MAIN" />
+            </intent-filter>
+        </activity>
         <activity android:name=".view.activity.SignUpActivity">
             <intent-filter>
                 <action android:name="CANCANVAS_SIGN_UP" />

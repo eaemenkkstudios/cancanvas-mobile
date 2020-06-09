@@ -1,57 +1,44 @@
 package studios.eaemenkk.cancanvas.repository
 
+import android.app.DownloadManager
 import android.content.Context
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.POST
-import studios.eaemenkk.cancanvas.domain.LoginResponse
-import studios.eaemenkk.cancanvas.domain.LoginUser
-import studios.eaemenkk.cancanvas.domain.NewUser
+import android.os.Handler
+import com.apollographql.apollo.ApolloCall
+import com.apollographql.apollo.ApolloSubscriptionCall
+import com.apollographql.apollo.api.Response
+import com.apollographql.apollo.exception.ApolloException
+import studios.eaemenkk.cancanvas.LoginQuery
+import studios.eaemenkk.cancanvas.NewChatMessageSubscription
+import studios.eaemenkk.cancanvas.R
+import studios.eaemenkk.cancanvas.domain.RequestResponse
 
-interface AuthService {
+class AuthRepository (val context: Context, baseUrl: String, subscriptionUrl: String): BaseApollo(context, baseUrl, subscriptionUrl) {
 
-    @POST("/login")
-    fun login(
-        @Body user: LoginUser
-    ): Call<LoginResponse>
+    fun login(nickname: String, password: String, callback: (result: RequestResponse) -> Unit) {
 
-    @POST("/signup")
-    fun signup(
-        @Body user: NewUser
-    ): Call<Void>
-}
+        apolloClient.query(LoginQuery(nickname, password))
+            .enqueue(object : ApolloCall.Callback<LoginQuery.Data>() {
+                override fun onFailure(e: ApolloException) {
+                    println("Apollo Error$e")
+                }
 
-class AuthRepository (context: Context, baseUrl: String): BaseRetrofit(context, baseUrl) {
-    private val service = retrofit.create(AuthService::class.java)
-
-    fun login(user: LoginUser, callback: (result: LoginResponse?) -> Unit) {
-        service.login(user).enqueue(object: Callback<LoginResponse> {
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                val res = response.body()
-                callback(res)
-            }
-
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                callback(null)
-            }
-        })
+                override fun onResponse(response: com.apollographql.apollo.api.Response<LoginQuery.Data>) {
+                    if(response.data?.login != null) {
+                        Handler(context.mainLooper).run {
+                            val sharedPreferences = context.getSharedPreferences(
+                                context.packageName,
+                                Context.MODE_PRIVATE
+                            ).edit()
+                            sharedPreferences.putString("session", response.data?.login)
+                            sharedPreferences.apply()
+                            callback(RequestResponse(true, ""))
+                        }
+                    }
+                }
+            })
     }
 
-    fun signup(user: NewUser, callback: (result: Boolean) -> Unit) {
-        service.signup(user).enqueue(object: Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if(response.code() <= 201) {
-                    callback(true)
-                } else {
-                    callback(false)
-                }
-            }
+    fun signup(callback: (result: Boolean) -> Unit) {
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                callback(false)
-            }
-        })
     }
 }

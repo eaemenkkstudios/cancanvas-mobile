@@ -82,3 +82,7 @@ dependencies {
     implementation 'com.apollographql.apollo:apollo-coroutines-support:2.1.0'
     implementation 'com.apollographql.apollo:apollo-api:2.1.0'
 }
+
+apollo {
+    generateKotlinModels.set(true) // or false for Java models
+}

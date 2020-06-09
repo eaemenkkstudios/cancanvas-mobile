@@ -5,12 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 import studios.eaemenkk.cancanvas.R
+import studios.eaemenkk.cancanvas.repository.ChatRepository
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        fAB.setOnClickListener{ ChatRepository(this, getString(R.string.api_base_url), getString(R.string.api_subscription_url)).newChatMessage()};
+    }
+
+    private fun chat() {
 
     }
 

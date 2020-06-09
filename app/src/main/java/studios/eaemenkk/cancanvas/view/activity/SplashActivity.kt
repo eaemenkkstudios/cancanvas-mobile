@@ -23,12 +23,12 @@ class SplashActivity: AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         Handler().postDelayed({
             val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE)
-            val token = sharedPreferences.getString("token", null)
+            val token = sharedPreferences.getString("session", null)
             if(token.isNullOrEmpty()) {
                 val intent = Intent("CANCANVAS_LOGIN").addCategory("CANCANVAS_LOGIN")
                 startActivity(intent)
             } else {
-                val intent = Intent("FEED").addCategory("FEED")
+                val intent = Intent("CANCANVAS_MAIN").addCategory("CANCANVAS_MAIN")
                 startActivity(intent)
             }
 

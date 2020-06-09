@@ -50,29 +50,28 @@
                 android:id="@+id/loginEmail"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorLight"
+                android:backgroundTint="@color/colorBackgroundLight"
                 android:ems="10"
                 android:hint="your@email.com"
                 android:inputType="textEmailAddress"
                 android:text=""
                 android:textAlignment="center"
-                android:textColor="@color/colorLight"
-                android:textColorHint="@color/colorMidLight"
-                android:textColorLink="@color/colorLight" />
+                android:textColor="@color/colorAccentLight"
+                android:textColorHint="@color/colorSecondary" />
 
             <EditText
                 android:id="@+id/loginPassword"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:backgroundTint="@color/colorLight"
+                android:backgroundTint="@color/colorBackgroundLight"
                 android:ems="10"
                 android:hint="p***word"
                 android:inputType="textPassword"
                 android:text=""
                 android:textAlignment="center"
-                android:textColor="@color/colorLight"
-                android:textColorHint="@color/colorMidLight" />
+                android:textColor="@color/colorAccentLight"
+                android:textColorHint="@color/colorSecondary" />
         </LinearLayout>
 
         <LinearLayout
@@ -82,24 +81,23 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/loginBtn"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:backgroundTint="@color/colorBackgroundLight"
+                android:text="Log in" />
+
+            <Button
                 android:id="@+id/loginSignupBtn"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_margin="5dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="50dp"
-                android:backgroundTint="@color/colorLight"
-                android:text="Sign up"
-                android:textColor="@color/colorDark" />
+                android:backgroundTint="@color/colorBackgroundLight"
+                android:text="Sign up" />
 
-            <Button
-                android:id="@+id/loginBtn"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:backgroundTint="@color/colorLight"
-                android:text="Log in"
-                android:textColor="@color/colorDark" />
         </LinearLayout>
 
     </LinearLayout>

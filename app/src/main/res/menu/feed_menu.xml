@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id = "@+id/btGlobal"
+        android:icon = "@drawable/feed"
+        android:title = "@string/feed"
+        />
+    <item
+        android:id = "@+id/btFollowing"
+        android:icon = "@drawable/following"
+        android:title = "@string/following"
+        />
+    <item
+        android:id = "@+id/btChat"
+        android:icon = "@drawable/chat"
+        android:title = "@string/chat"
+        />
+    <item
+        android:id = "@+id/btProfile"
+        android:icon = "@drawable/profile"
+        android:title = "@string/profile"
+        />
+</menu>

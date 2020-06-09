@@ -1,0 +1,8 @@
+subscription NewChatMessage {
+    newChatMessage {
+        chatID
+        message
+        timestamp
+        sender
+    }
+}

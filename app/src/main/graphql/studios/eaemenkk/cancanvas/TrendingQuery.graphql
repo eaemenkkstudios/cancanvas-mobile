@@ -1,0 +1,12 @@
+query Trending($page:Int) {
+  trending(page: $page) {
+    id
+    author
+    description
+    content
+    timestamp
+    likes
+    likeCount
+  }
+}
+
