@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -24,7 +25,10 @@ class LoginActivity : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        videoView.setOnPreparedListener { mp -> mp.isLooping = true }
+        videoView.setOnPreparedListener { mp ->
+            mp.isLooping = true
+            ivVideoFrame.visibility = View.INVISIBLE
+        }
         videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.login_video))
         videoView.start()
 

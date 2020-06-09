@@ -36,29 +36,24 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/feedLoadingContainer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#00000000"
-        android:clickable="false"
-        android:translationZ="1dp"
+        android:id="@+id/clLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/srlFeed"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/ivLoading"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:background="@drawable/animation_loading"
-            android:backgroundTint="@color/colorPrimary"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@drawable/loading_16"
             android:contentDescription="@string/loading"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:layout_editor_absoluteX="174dp"
+            tools:layout_editor_absoluteY="334dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

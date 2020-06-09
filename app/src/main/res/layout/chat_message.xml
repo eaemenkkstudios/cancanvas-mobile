@@ -16,7 +16,7 @@
         android:layout_margin="10dp"
         android:layout_marginStart="30dp"
         android:minWidth="75dp"
-        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardBackgroundColor="?attr/colorPrimary"
         app:cardCornerRadius="20dp"
         app:cardElevation="0dp">
 
@@ -58,8 +58,7 @@
             android:layout_marginBottom="10dp"
             android:layout_weight="0"
             android:elevation="10dp"
-            android:tint="?attr/colorAccent"
-            android:visibility="visible"
+            android:tint="?attr/colorSecondary"
             app:srcCompat="@drawable/chat_border_right" />
     </FrameLayout>
 
