@@ -3,17 +3,19 @@ package studios.eaemenkk.cancanvas.domain
 data class PostAuction (
     val type: String,
     val id: String,
-    val author: String?,
+    var author: String?,
     val description: String?,
     val content: String?,
     val timestamp: String?,
     val comments: CommentList?,
     val likeCount: Int?,
     val likes: List<String>?,
-    val host: String?,
+    var host: String?,
     val offer: Double?,
     val bids: List<Bid>?,
-    val deadline: String?
+    val deadline: String?,
+    val picture: String?,
+    val name: String?
 )
 
 data class Bid (

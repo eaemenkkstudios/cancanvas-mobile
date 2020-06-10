@@ -1,10 +1,15 @@
 package studios.eaemenkk.cancanvas.view.activity
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.res.TypedArray
+import android.graphics.Color
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.view.adapter.PostAdapter
 import studios.eaemenkk.cancanvas.viewmodel.PostViewModel
+
 
 class MainActivity : AppCompatActivity() {
     private var page = 1
@@ -25,12 +31,21 @@ class MainActivity : AppCompatActivity() {
         ViewModelProvider(this).get(PostViewModel::class.java)
     }
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        ivLoading.setBackgroundResource(R.drawable.animation_loading)
+        (ivLoading.background as AnimationDrawable).start()
         srlFeed.setOnRefreshListener { onRefresh() }
+        val attrs = intArrayOf(R.attr.colorPrimary, R.attr.colorAccent)
+        val themeId = packageManager.getActivityInfo(componentName, 0).theme
+        val ta: TypedArray = obtainStyledAttributes(themeId, attrs)
+        srlFeed.setColorSchemeColors(ta.getColor(0, Color.BLACK))
+        srlFeed.setProgressBackgroundColorSchemeColor(ta.getColor(1, Color.BLACK))
         configureRecyclerView()
         getFeed()
+        ta.recycle()
     }
 
     private fun configureRecyclerView() {

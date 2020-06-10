@@ -2,10 +2,13 @@ package studios.eaemenkk.cancanvas.view.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.formats.MediaView
@@ -19,8 +22,10 @@ import kotlinx.android.synthetic.main.auction_card.view.tvName
 import kotlinx.android.synthetic.main.auction_card.view.tvNickname
 import kotlinx.android.synthetic.main.auction_card.view.tvTime
 import kotlinx.android.synthetic.main.post_card.view.*
+import kotlinx.android.synthetic.main.post_card.view.tvDescription
 import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.domain.PostAuction
+import studios.eaemenkk.cancanvas.viewmodel.PostViewModel
 
 private const val AD_INTERVAL = 8
 
@@ -64,12 +69,25 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
                 holder.bids.text = postAuction.bids?.size.toString()
                 holder.nickname.text = postAuction.host
                 holder.time.text = postAuction.timestamp
+                holder.description.text = postAuction.description
             }
             is PostViewHolder -> {
                 holder.likes.text = postAuction.likeCount.toString()
                 holder.comments.text = postAuction.comments?.count.toString()
                 holder.nickname.text = postAuction.author
                 holder.time.text = postAuction.timestamp
+                Picasso.get().load(postAuction.content).into(holder.content)
+                holder.description.text = postAuction.description
+                holder.likePost.setOnClickListener {
+                    holder.likePost.setImageResource(R.drawable.animation_clap)
+                    holder.likePost.isClickable = false
+                    (holder.likePost.drawable as AnimationDrawable).start()
+                    Handler().postDelayed({
+                        (holder.likePost.drawable as AnimationDrawable).stop()
+                        holder.likePost.setImageResource(R.drawable.clap)
+                        holder.likePost.isClickable = true
+                    }, 1000)
+                }
             }
             is AdViewHolder -> {
                /* val adLoader = AdLoader.Builder(context, context.getString(R.string.ad_native_id))
@@ -118,6 +136,8 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
                 dataSet.add(PostAuction(
                     "ad",
                     "",
+                    null,
+                    null,
                     null,
                     null,
                     null,
@@ -215,6 +235,7 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
         val follow: Switch = itemView.sFollow
         val bids: TextView = itemView.tvBids
         val time: TextView = itemView.tvTime
+        val description: TextView = itemView.tvDescription
     }
 
     class PostViewHolder(itemView: View): AuctionPostViewHolder(itemView) {
@@ -223,6 +244,12 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
         val name: TextView = itemView.tvName
         val time: TextView = itemView.tvTime
         val comments: TextView = itemView.tvComments
+        val viewComments: ImageView = itemView.ivComment
+        val likePost: ImageView = itemView.ivLike
         val likes: TextView = itemView.tvLikes
+        val follow: ImageView = itemView.ivFollow
+        val remove: ImageView = itemView.ivRemove
+        val content: ImageView = itemView.ivPost
+        val description: TextView = itemView.tvDescription
     }
 }

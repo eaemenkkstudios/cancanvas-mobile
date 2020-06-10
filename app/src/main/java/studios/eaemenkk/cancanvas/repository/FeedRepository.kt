@@ -2,6 +2,7 @@ package studios.eaemenkk.cancanvas.repository
 
 import android.content.Context
 import com.apollographql.apollo.ApolloCall
+import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.exception.ApolloException
 import studios.eaemenkk.cancanvas.domain.Bid
 import studios.eaemenkk.cancanvas.domain.CommentList
@@ -10,7 +11,7 @@ import studios.eaemenkk.cancanvas.queries.TrendingQuery
 
 class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String): BaseApollo(context, baseUrl, subscriptionUrl) {
     fun trending(page: Int = 1, callback: (ArrayList<PostAuction>) -> Unit) {
-        apolloClient.query(TrendingQuery())
+        apolloClient.query(TrendingQuery(Input.optional(page)))
             .enqueue(object : ApolloCall.Callback<TrendingQuery.Data>() {
                 override fun onFailure(e: ApolloException) {
                     println("Apollo Error$e")
@@ -32,7 +33,9 @@ class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String
                             deadline = null,
                             host = null,
                             likes = null,
-                            offer = null
+                            offer = null,
+                            name = null,
+                            picture = null
                         ))
                     }
                     response.data?.auctions?.forEach { a ->
@@ -60,7 +63,9 @@ class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String
                             content =  null,
                             comments = null,
                             likeCount = null,
-                            likes = null
+                            likes = null,
+                            name = null,
+                            picture = null
                         ))
                     }
                     callback(postAuctions)

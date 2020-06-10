@@ -8,14 +8,26 @@ import studios.eaemenkk.cancanvas.domain.RequestResponse
 import studios.eaemenkk.cancanvas.interactor.PostInteractor
 
 class PostViewModel(app: Application) : AndroidViewModel(app) {
-    private val interactor = PostInteractor(app.applicationContext)
+    private val postInteractor = PostInteractor(app.applicationContext)
 
     val postAuctionList = MutableLiveData<ArrayList<PostAuction>>()
     val error = MutableLiveData<RequestResponse>()
 
     fun getFeed(page: Int = 1) {
-        interactor.getFeed(page) {postAuctions ->
+        postInteractor.getFeed(page) {postAuctions ->
+            postAuctions.forEach { auction ->
+                if (auction.author != null) {
+                    auction.author = "@${auction.author}"
+                }
+                if (auction.host != null) {
+                    auction.host = "@${auction.host}"
+                }
+            }
             postAuctionList.postValue(postAuctions)
         }
+    }
+
+    fun getPostUserInfo(username: String) {
+
     }
 }
