@@ -32,12 +32,18 @@
     <string-array name="pelicanvas_dialog">
         <item>Oi! Hello there. My name is Pelicanvas, a very respected artist.</item>
         <item>What? You\'ve never heard of me? That\'s rubbish! Are you that unlearned?</item>
-        <item>Anyways, I know you\'re probably thinking that I\'ll explain everything to you, but fortunately, I won't have to.</item>
-        <item>The developers are really chuffed about how this app is intuitive and yada yada yada… So I'll let it with them.</item>
-        <item>But just in case it isn't reeeally like that, I'll be on the chat section if you need some help.</item>
+        <item>Anyways, I know you\'re probably thinking that I\'ll explain everything to you, but fortunately, I won\'t have to.</item>
+        <item>The developers are really chuffed about how this app is intuitive and yada yada yada… So I\'ll let it with them.</item>
+        <item>But just in case it isn't reeeally like that, I\'ll be on the chat section if you need some help.</item>
         <item>Anyways, being you a professional, an aspirant or someone who's planning to splash out on some good arts, you're welcome!</item>
-        <item>Don't forget to call me on the chat section so we can have a good old chinwag.</item>
+        <item>Don\'t forget to call me on the chat section so we can have a good old chinwag.</item>
         <item>Farewell, mate.</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
+    <string name="name_sample">Harold H.</string>
+    <string name="bio_sample">\"Meu gato pôs um ovo, mas gato não põe ovo.\"</string>
+    <string name="nickname_sample">\@hidethepain</string>
+    <string name="gallery">Gallery</string>
+    <string name="location">Location</string>
 
 </resources>
