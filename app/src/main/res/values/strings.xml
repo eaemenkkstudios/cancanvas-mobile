@@ -39,6 +39,16 @@
         <item>Don\'t forget to call me on the chat section so we can have a good old chinwag.</item>
         <item>Farewell, mate.</item>
     </string-array>
+    <string-array name="pelicanvas_sprites">
+        <item>@drawable/pelicanvas_idle</item>
+        <item>@drawable/pelicanvas_angry</item>
+        <item>@drawable/pelicanvas_serious</item>
+        <item>@drawable/pelicanvas_confident</item>
+        <item>@drawable/pelicanvas_confused</item>
+        <item>@drawable/pelicanvas_idle</item>
+        <item>@drawable/pelicanvas_confident</item>
+        <item>@drawable/pelicanvas_serious</item>
+    </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="name_sample">Harold H.</string>
     <string name="bio_sample">\"Meu gato pôs um ovo, mas gato não põe ovo.\"</string>
