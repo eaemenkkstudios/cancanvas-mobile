@@ -28,7 +28,7 @@ class AuthRepository (val context: Context, baseUrl: String, subscriptionUrl: St
                                 context.packageName,
                                 Context.MODE_PRIVATE
                             ).edit()
-                            sharedPreferences.putString("session", response.data?.login)
+                            sharedPreferences.putString("session", response.data?.login?.token)
                             sharedPreferences.apply()
                             callback(RequestResponse(true, context.getString(R.string.login_succeeded)))
                         }

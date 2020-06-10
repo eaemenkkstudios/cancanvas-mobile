@@ -20,9 +20,10 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
         btnSignup.setOnClickListener{ signup() }
+        btnCancel.setOnClickListener { finish() }
 
         viewModel.signupResponse.observe(this, Observer { result ->
-            loadingIcon.visibility = View.GONE
+            clLoading.visibility = View.GONE
             if (result.status) {
                 Toast.makeText(this, getString(R.string.account_created), Toast.LENGTH_LONG).show()
                 finish()
@@ -33,16 +34,16 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun signup() {
-        val nickname = etUsername.text.toString()
+        val nickname = etNickname.text.toString()
         val name = etName.text.toString()
         val email = etEmail.text.toString()
         val password = etPassword.text.toString()
-        val confirmPassword = etConfirmPassword.text.toString()
+        val confirmPassword = etPassword2.text.toString()
         try {
-            loadingIcon.visibility = View.VISIBLE
+            clLoading.visibility = View.VISIBLE
             viewModel.signup(nickname, name, email, password, confirmPassword)
         } catch (e: Exception) {
-            loadingIcon.visibility = View.GONE
+            clLoading.visibility = View.GONE
             Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
         }
     }

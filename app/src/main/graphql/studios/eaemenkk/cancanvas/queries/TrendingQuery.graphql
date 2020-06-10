@@ -5,8 +5,26 @@ query Trending($page: Int) {
     description
     content
     timestamp
-    likes
     likeCount
+    comments {
+        count
+    }
+  }
+  auctions(page: $page) {
+    id
+    host
+    description
+    offer
+    bids {
+        id
+        issuer
+        deadline
+        price
+        timestamp
+        selected
+    }
+    timestamp
+    deadline
   }
 }
 

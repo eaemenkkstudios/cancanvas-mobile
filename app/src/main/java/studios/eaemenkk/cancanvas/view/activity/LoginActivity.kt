@@ -46,7 +46,7 @@ class LoginActivity : AppCompatActivity()  {
     }
 
     private fun login() {
-        val nickname = etNickname.text.toString()
+        val nickname = etEmail.text.toString()
         val password = etPassword.text.toString()
         try {
             viewModel.login(nickname, password)
