@@ -17,10 +17,10 @@ class PostViewModel(app: Application) : AndroidViewModel(app) {
         postInteractor.getFeed(page) {postAuctions ->
             postAuctions.forEach { auction ->
                 if (auction.author != null) {
-                    auction.author = "@${auction.author}"
+                    auction.author?.nickname = "@${auction.author?.nickname}"
                 }
                 if (auction.host != null) {
-                    auction.host = "@${auction.host}"
+                    auction.host?.nickname = "@${auction.host?.nickname}"
                 }
             }
             postAuctionList.postValue(postAuctions)

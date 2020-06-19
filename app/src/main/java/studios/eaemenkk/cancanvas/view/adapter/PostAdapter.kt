@@ -67,14 +67,14 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
         when (holder) {
             is AuctionViewHolder -> {
                 holder.bids.text = postAuction.bids?.size.toString()
-                holder.nickname.text = postAuction.host
+                holder.nickname.text = postAuction.host?.nickname
                 holder.time.text = postAuction.timestamp
                 holder.description.text = postAuction.description
             }
             is PostViewHolder -> {
                 holder.likes.text = postAuction.likeCount.toString()
                 holder.comments.text = postAuction.comments?.count.toString()
-                holder.nickname.text = postAuction.author
+                holder.nickname.text = postAuction.author?.nickname
                 holder.time.text = postAuction.timestamp
                 Picasso.get().load(postAuction.content).into(holder.content)
                 holder.description.text = postAuction.description

@@ -4,9 +4,7 @@ import android.content.Context
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.exception.ApolloException
-import studios.eaemenkk.cancanvas.domain.Bid
-import studios.eaemenkk.cancanvas.domain.CommentList
-import studios.eaemenkk.cancanvas.domain.PostAuction
+import studios.eaemenkk.cancanvas.domain.*
 import studios.eaemenkk.cancanvas.queries.TrendingQuery
 
 class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String): BaseApollo(context, baseUrl, subscriptionUrl) {
@@ -23,7 +21,11 @@ class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String
                         postAuctions.add(PostAuction(
                             type = "post",
                             id = t.id,
-                            author = t.author,
+                            author = FeedUser(
+                                nickname = t.author.nickname,
+                                name = t.author.name,
+                                picture = t.author.picture
+                            ),
                             description = t.description,
                             content =  t.content,
                             timestamp = t.timestamp.toString(),
@@ -57,7 +59,11 @@ class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String
                             timestamp = a.timestamp.toString(),
                             deadline = a.deadline.toString(),
                             bids = bids,
-                            host = a.host,
+                            host = FeedUser(
+                                name = a.host.name,
+                                nickname = a.host.nickname,
+                                picture = a.host.picture
+                            ),
                             offer = a.offer,
                             author = null,
                             content =  null,

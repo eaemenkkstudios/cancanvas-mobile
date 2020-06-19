@@ -1,7 +1,11 @@
 query Trending($page: Int) {
   trending(page: $page) {
     id
-    author
+    author {
+        nickname
+        name
+        picture
+    }
     description
     content
     timestamp
@@ -12,7 +16,11 @@ query Trending($page: Int) {
   }
   auctions(page: $page) {
     id
-    host
+    host {
+        nickname
+        name
+        picture
+    }
     description
     offer
     bids {
