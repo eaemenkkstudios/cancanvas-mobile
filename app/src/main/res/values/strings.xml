@@ -55,5 +55,7 @@
     <string name="nickname_sample">\@hidethepain</string>
     <string name="gallery">Gallery</string>
     <string name="location">Location</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
 </resources>
