@@ -30,17 +30,15 @@ class PostViewModel(private val app: Application) : AndroidViewModel(app) {
                 if (auction.host != null) {
                     auction.host?.nickname = "@${auction.host?.nickname}"
                 }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    auction.timestamp = timestampToTimeInterval(Instant.parse(auction.timestamp).epochSecond)
-                }
+                auction.timestamp = auction.timestamp?.let { timestampToTimeInterval(it) }
             }
             postAuctionList.postValue(postAuctions)
         }
     }
 
-    private fun timestampToTimeInterval(timestamp: Long): String {
+    private fun timestampToTimeInterval(timestamp: String): String {
         val currentTimestamp = System.currentTimeMillis() / 1000
-        val timestampDiff = currentTimestamp - timestamp
+        val timestampDiff = currentTimestamp - timestamp.toLong()
 
         val ago = app.applicationContext.getString(R.string.ago)
         val word: String

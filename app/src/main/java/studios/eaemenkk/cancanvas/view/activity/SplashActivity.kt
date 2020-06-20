@@ -32,19 +32,19 @@ class SplashActivity: AppCompatActivity() {
         ft.commit()
 
 
-//        Handler().postDelayed({
-//            val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE)
-//            val token = sharedPreferences.getString("session", null)
-//            if(token.isNullOrEmpty()) {
-//                val intent = Intent("CANCANVAS_LOGIN").addCategory("CANCANVAS_LOGIN")
-//                startActivity(intent)
-//            } else {
-//                val intent = Intent("CANCANVAS_FEED").addCategory("CANCANVAS_FEED")
-//                startActivity(intent)
-//            }
-//
-//            finish()
-//        },4000)
+        Handler().postDelayed({
+            val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE)
+            val token = sharedPreferences.getString("session", null)
+            if(token.isNullOrEmpty()) {
+                val intent = Intent("CANCANVAS_LOGIN").addCategory("CANCANVAS_LOGIN")
+                startActivity(intent)
+            } else {
+                val intent = Intent("CANCANVAS_FEED").addCategory("CANCANVAS_FEED")
+                startActivity(intent)
+            }
+
+            finish()
+        },4000)
 
 
     }

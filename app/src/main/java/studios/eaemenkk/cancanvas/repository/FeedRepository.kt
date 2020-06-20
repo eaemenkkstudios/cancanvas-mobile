@@ -28,7 +28,7 @@ class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String
                             ),
                             description = t.description,
                             content =  t.content,
-                            timestamp = t.timestamp.toString(),
+                            timestamp = t.timestamp,
                             comments = CommentList(null, t.comments.count),
                             likeCount = t.likeCount,
                             bids = null,
@@ -46,7 +46,7 @@ class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String
                             bids.add(Bid(
                                 id = b.id,
                                 deadline = b.deadline,
-                                timestamp = b.timestamp.toString(),
+                                timestamp = b.timestamp,
                                 issuer = b.issuer,
                                 price = b.price,
                                 selected = b.selected
@@ -56,8 +56,8 @@ class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String
                             type = "auction",
                             id = a.id,
                             description = a.description,
-                            timestamp = a.timestamp.toString(),
-                            deadline = a.deadline.toString(),
+                            timestamp = a.timestamp,
+                            deadline = a.deadline,
                             bids = bids,
                             host = FeedUser(
                                 name = a.host.name,
