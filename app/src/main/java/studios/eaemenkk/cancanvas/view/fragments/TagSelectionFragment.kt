@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.fragment_tag.*
 import kotlinx.android.synthetic.main.fragment_tag_selection.*
 import studios.eaemenkk.cancanvas.R
 
@@ -20,6 +19,11 @@ class TagSelectionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_tag_selection, container, false)
+        addTag("Ubuntu")
+        addTag("Ubuntu")
+        addTag("Ubuntu")
+        addTag("Ubuntu")
+        addTag("Ubuntu")
         addTag("Ubuntu")
         return view
     }
@@ -40,7 +44,6 @@ class TagSelectionFragment : Fragment() {
 
     private fun addRow() {
         lastRow = LinearLayout(context)
-        lastRow?.id = View.generateViewId()
         llTags.addView(lastRow)
     }
 
@@ -58,23 +61,28 @@ class TagSelectionFragment : Fragment() {
 
         // Waits for the tag to be rendered
         tag.viewAvailable.observe(viewLifecycleOwner, Observer{view ->
-            view.viewTreeObserver.addOnGlobalLayoutListener {
-                view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                println("batata frita ${view.width}")
+            val globalLayoutListener = object: ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    println("batata frita ${dpWidth}")
 
-                // If there are no rows, adds one and removes the view from the scroll view
-                if(lastRow == null) addRow()
-                (view.parent as ViewGroup).removeView(view)
+                    // If there are no rows, adds one and removes the view from the scroll view
+                    if(lastRow == null) addRow()
+                    (view.parent as ViewGroup).removeView(view)
+                    println("amoeba ${view.width} ${lastRow?.width}")
+                    // If it's offscreen, adds a new row
+                    if(view.width + view.left >= dpWidth) {
+                        addRow()
+                    }
 
-                // If it's offscreen, adds a new row
-                if(view.width + view.left >= dpWidth) addRow()
+                    // Adds the tag to the last row available
+                    lastRow?.addView(view)
 
-                // Adds the tag to the last row available
-                lastRow?.addView(view)
-
-                // Properly renders the tag
-                view.visibility = View.VISIBLE
+                    // Properly renders the tag
+                    view.visibility = View.VISIBLE
+                }
             }
+            view.viewTreeObserver.addOnGlobalLayoutListener(globalLayoutListener)
         })
     }
 }
