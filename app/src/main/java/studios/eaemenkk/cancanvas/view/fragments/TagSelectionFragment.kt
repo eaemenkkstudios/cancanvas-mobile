@@ -6,25 +6,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.LinearLayout
+import androidx.core.view.get
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
+import kotlinx.android.synthetic.main.fragment_tag.view.*
 import kotlinx.android.synthetic.main.fragment_tag_selection.*
 import studios.eaemenkk.cancanvas.R
 
 class TagSelectionFragment : Fragment() {
     private var lastRow: LinearLayout? = null
+    private var elementsSize: Float = 0f
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_tag_selection, container, false)
+        addTag("Teste")
+        addTag("ADSAD")
+        addTag("BSDFSD")
+        addTag("AWE#%23")
+        addTag("BFDTGW")
         addTag("Ubuntu")
-        addTag("Ubuntu")
-        addTag("Ubuntu")
-        addTag("Ubuntu")
-        addTag("Ubuntu")
-        addTag("Ubuntu")
+        addTag("AAAAAAAAAAAAAAAAAAAAAAA")
         return view
     }
 
@@ -44,6 +51,7 @@ class TagSelectionFragment : Fragment() {
 
     private fun addRow() {
         lastRow = LinearLayout(context)
+        elementsSize = 0f
         llTags.addView(lastRow)
     }
 
@@ -64,16 +72,17 @@ class TagSelectionFragment : Fragment() {
             val globalLayoutListener = object: ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
                     view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    println("batata frita ${dpWidth}")
 
                     // If there are no rows, adds one and removes the view from the scroll view
                     if(lastRow == null) addRow()
                     (view.parent as ViewGroup).removeView(view)
-                    println("amoeba ${view.width} ${lastRow?.width}")
+
                     // If it's offscreen, adds a new row
-                    if(view.width + view.left >= dpWidth) {
+                    val dpViewWidth = (view.measuredWidth + view.marginLeft + view.marginRight) / density
+                    if(dpViewWidth + elementsSize >= dpWidth) {
                         addRow()
                     }
+                    elementsSize += dpViewWidth
 
                     // Adds the tag to the last row available
                     lastRow?.addView(view)

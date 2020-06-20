@@ -1,13 +1,14 @@
 package studios.eaemenkk.cancanvas.view.activity
 
-import android.R.attr.fragment
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.gms.ads.MobileAds
+import kotlinx.android.synthetic.main.activity_splash.*
 import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.view.fragments.TagSelectionFragment
 
@@ -22,8 +23,9 @@ class SplashActivity: AppCompatActivity() {
         }
         window.requestFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
         setContentView(R.layout.activity_splash)
+        ivLoading.enableMergePathsForKitKatAndAbove(true)
+
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.add(R.id.flView, TagSelectionFragment())
