@@ -5,8 +5,9 @@
     android:id="@+id/cvTag"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="2dp"
     app:cardBackgroundColor="#BD1818"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="30dp"
     tools:context=".view.fragments.TagFragment">
 
     <TextView
@@ -14,6 +15,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:breakStrategy="simple"
+        android:maxLines="1"
         android:text="Fractal"
-        android:textColor="?android:attr/colorBackground" />
+        android:textColor="?android:attr/colorBackground"
+        android:textSize="20sp" />
 </androidx.cardview.widget.CardView>

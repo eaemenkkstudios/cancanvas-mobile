@@ -19,4 +19,15 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="false"
         app:lottie_rawRes="@raw/palette" />
+
+    <FrameLayout
+        android:id="@+id/flView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

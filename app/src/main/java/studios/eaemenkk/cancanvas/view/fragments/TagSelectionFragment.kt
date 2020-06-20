@@ -1,63 +1,80 @@
 package studios.eaemenkk.cancanvas.view.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_tag_selection.view.*
+import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import kotlinx.android.synthetic.main.fragment_tag.*
+import kotlinx.android.synthetic.main.fragment_tag_selection.*
 import studios.eaemenkk.cancanvas.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [TagSelectionFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TagSelectionFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    private var lastRow: LinearLayout? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_tag_selection, container, false)
-        inflater.inflate(R.layout.fragment_tag, view.glTags, false)
+        addTag("Ubuntu")
         return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TagSelectionFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TagSelectionFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun getWidth(v: View): Int {
+        v.measure(
+            View.MeasureSpec.makeMeasureSpec(
+                llTags.width,
+                View.MeasureSpec.EXACTLY
+            ),
+            View.MeasureSpec.makeMeasureSpec(
+                0,
+                View.MeasureSpec.UNSPECIFIED
+            )
+        )
+        return v.measuredWidth
+    }
+
+    private fun addRow() {
+        lastRow = LinearLayout(context)
+        lastRow?.id = View.generateViewId()
+        llTags.addView(lastRow)
+    }
+
+    fun addTag(tagName: String) {
+        // Creates fragment
+        val tag = TagFragment(tagName)
+        // Gets screen size
+        val density = resources.displayMetrics.density
+        val dpWidth = resources.displayMetrics.widthPixels / density
+
+        // Adds tag to scroll view
+        val ft: FragmentTransaction = childFragmentManager.beginTransaction()
+        ft.add(R.id.llTags, tag)
+        ft.commit()
+
+        // Waits for the tag to be rendered
+        tag.viewAvailable.observe(viewLifecycleOwner, Observer{view ->
+            view.viewTreeObserver.addOnGlobalLayoutListener {
+                view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                println("batata frita ${view.width}")
+
+                // If there are no rows, adds one and removes the view from the scroll view
+                if(lastRow == null) addRow()
+                (view.parent as ViewGroup).removeView(view)
+
+                // If it's offscreen, adds a new row
+                if(view.width + view.left >= dpWidth) addRow()
+
+                // Adds the tag to the last row available
+                lastRow?.addView(view)
+
+                // Properly renders the tag
+                view.visibility = View.VISIBLE
             }
+        })
     }
 }
