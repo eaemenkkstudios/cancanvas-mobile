@@ -65,5 +65,8 @@
     <string name="week">week</string>
     <string name="month">month</string>
     <string name="year">year</string>
+    <string name="follow">Follow</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="unsubscribe">Unsubscribe</string>
 
 </resources>

@@ -5,6 +5,10 @@
         android:id="@+id/btEdit"
         android:title="@string/edit" />
     <item
+        android:id="@+id/btFollow"
+        android:title="@string/follow" />
+    <item
         android:id="@+id/btDelete"
         android:title="@string/delete" />
+
 </menu>

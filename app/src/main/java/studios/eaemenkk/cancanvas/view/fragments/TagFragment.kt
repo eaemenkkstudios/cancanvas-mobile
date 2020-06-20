@@ -49,15 +49,13 @@ class TagFragment(tagName: String) : Fragment() {
 
         // Sets random color
         view.cvTag.setCardBackgroundColor(hashedColor);
-
-        view.cvTag.setOnClickListener{onClickOnTag()}
         viewAvailable.value = view
 
-        // Inflate the layout for this fragment
+        // Inflates the layout for this fragment
         return view
     }
 
-    private fun onClickOnTag() {
+    fun selectTag() {
         if(!selected) {
             val typedValue = TypedValue()
             val theme = requireContext().theme
@@ -65,5 +63,9 @@ class TagFragment(tagName: String) : Fragment() {
             cvTag.setCardBackgroundColor(typedValue.data);
         } else cvTag.setCardBackgroundColor(hashedColor);
         selected = !selected
+    }
+
+    fun searchTag() {
+
     }
 }

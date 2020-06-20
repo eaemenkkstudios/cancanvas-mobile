@@ -1,15 +1,15 @@
 package studios.eaemenkk.cancanvas.view.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.LinearLayout
-import androidx.core.view.get
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
@@ -17,9 +17,22 @@ import kotlinx.android.synthetic.main.fragment_tag.view.*
 import kotlinx.android.synthetic.main.fragment_tag_selection.*
 import studios.eaemenkk.cancanvas.R
 
+
 class TagSelectionFragment : Fragment() {
     private var lastRow: LinearLayout? = null
     private var elementsSize: Float = 0f
+    private var selectable = false
+    private var searchable = true
+
+    override fun onInflate(context: Context, attrs: AttributeSet, savedInstanceState: Bundle?) {
+        super.onInflate(context, attrs, savedInstanceState)
+        val a = requireActivity().obtainStyledAttributes(attrs, R.styleable.TagSelectionFragment)
+
+        selectable = a.getBoolean(R.styleable.TagSelectionFragment_selectable, false)
+        searchable = a.getBoolean(R.styleable.TagSelectionFragment_selectable, true)
+        a.recycle()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -91,6 +104,12 @@ class TagSelectionFragment : Fragment() {
 
                     // Properly renders the tag
                     view.visibility = View.VISIBLE
+
+                    // Sets click listener to search
+                    if(searchable) view.cvTag.setOnClickListener{tag.searchTag()}
+
+                    // Sets click listener to select
+                    if(selectable) view.cvTag.setOnClickListener{tag.selectTag()}
                 }
             }
             view.viewTreeObserver.addOnGlobalLayoutListener(globalLayoutListener)

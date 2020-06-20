@@ -146,6 +146,14 @@
                 android:background="?attr/colorAccent"
                 android:orientation="vertical">
 
+                <fragment
+                    android:id="@+id/tsTags"
+                    android:name="studios.eaemenkk.cancanvas.view.fragments.TagSelectionFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:selectable="false"
+                    app:searchable="true"/>
+
                 <TextView
                     android:id="@+id/textView11"
                     android:layout_width="match_parent"

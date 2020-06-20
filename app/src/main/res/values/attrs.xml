@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="TagSelectionFragment">
         <attr name="selectable" format="boolean"/>
+        <attr name="searchable" format="boolean"/>
     </declare-styleable>
 </resources>
