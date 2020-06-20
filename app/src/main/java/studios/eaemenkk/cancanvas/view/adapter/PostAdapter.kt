@@ -1,18 +1,16 @@
 package studios.eaemenkk.cancanvas.view.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
+import android.os.Build
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.lifecycle.ViewModelProvider
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.ads.*
 import com.google.android.gms.ads.formats.MediaView
-import com.google.android.gms.ads.formats.NativeAdOptions
 import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.google.android.gms.ads.formats.UnifiedNativeAdView
 import com.squareup.picasso.Picasso
@@ -25,7 +23,7 @@ import kotlinx.android.synthetic.main.post_card.view.*
 import kotlinx.android.synthetic.main.post_card.view.tvDescription
 import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.domain.PostAuction
-import studios.eaemenkk.cancanvas.viewmodel.PostViewModel
+import kotlin.collections.ArrayList
 
 private const val AD_INTERVAL = 8
 
@@ -53,6 +51,7 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
         return dataSet.size
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: AuctionPostViewHolder, position: Int) {
         val postAuction = dataSet[position]
         if(holder !is AdViewHolder) {
@@ -68,6 +67,11 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
             is AuctionViewHolder -> {
                 holder.bids.text = postAuction.bids?.size.toString()
                 holder.nickname.text = postAuction.host?.nickname
+                holder.name.text = postAuction.host?.name
+                if (postAuction.host?.picture != "") {
+                    Picasso.get().load(postAuction.host?.picture).into(holder.picture)
+                }
+
                 holder.time.text = postAuction.timestamp
                 holder.description.text = postAuction.description
             }
@@ -75,6 +79,10 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
                 holder.likes.text = postAuction.likeCount.toString()
                 holder.comments.text = postAuction.comments?.count.toString()
                 holder.nickname.text = postAuction.author?.nickname
+                holder.name.text = postAuction.author?.name
+                if (postAuction.author?.picture != "") {
+                    Picasso.get().load(postAuction.author?.picture).into(holder.picture)
+                }
                 holder.time.text = postAuction.timestamp
                 Picasso.get().load(postAuction.content).into(holder.content)
                 holder.description.text = postAuction.description

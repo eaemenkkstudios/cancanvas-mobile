@@ -6,7 +6,7 @@ data class PostAuction (
     var author: FeedUser?,
     val description: String?,
     val content: String?,
-    val timestamp: String?,
+    var timestamp: String?,
     val comments: CommentList?,
     val likeCount: Int?,
     val likes: List<String>?,

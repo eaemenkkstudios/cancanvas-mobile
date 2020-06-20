@@ -13,13 +13,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_feed.*
 import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.view.adapter.PostAdapter
 import studios.eaemenkk.cancanvas.viewmodel.PostViewModel
 
 
-class MainActivity : AppCompatActivity() {
+class FeedActivity : AppCompatActivity() {
     private var page = 1
     private var refresh = true
     private var isLoading = false
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_feed)
         ivLoading.setBackgroundResource(R.drawable.animation_loading)
         (ivLoading.background as AnimationDrawable).start()
         srlFeed.setOnRefreshListener { onRefresh() }

@@ -31,6 +31,8 @@ class TagSelectionFragment : Fragment() {
         addTag("AWE#%23")
         addTag("BFDTGW")
         addTag("Ubuntu")
+        addTag("dasd")
+        addTag("dasdbd")
         addTag("AAAAAAAAAAAAAAAAAAAAAAA")
         return view
     }

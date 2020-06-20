@@ -39,7 +39,7 @@ class SplashActivity: AppCompatActivity() {
 //                val intent = Intent("CANCANVAS_LOGIN").addCategory("CANCANVAS_LOGIN")
 //                startActivity(intent)
 //            } else {
-//                val intent = Intent("CANCANVAS_MAIN").addCategory("CANCANVAS_MAIN")
+//                val intent = Intent("CANCANVAS_FEED").addCategory("CANCANVAS_FEED")
 //                startActivity(intent)
 //            }
 //

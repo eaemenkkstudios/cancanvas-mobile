@@ -57,5 +57,13 @@
     <string name="location">Location</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="ago">ago</string>
+    <string name="second">second</string>
+    <string name="minute">minute</string>
+    <string name="hour">hour</string>
+    <string name="day">day</string>
+    <string name="week">week</string>
+    <string name="month">month</string>
+    <string name="year">year</string>
 
 </resources>
