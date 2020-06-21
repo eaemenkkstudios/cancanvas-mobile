@@ -15,10 +15,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".45"
         app:lottie_autoPlay="true"
-        app:lottie_loop="false"
-        app:lottie_rawRes="@raw/palette" />
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/pelicanvas_idle" />
 
     <FrameLayout
         android:id="@+id/flView"
