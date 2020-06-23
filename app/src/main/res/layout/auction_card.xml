@@ -55,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/nickname_sample"
-                        android:textColor="@color/colorSecondary" />
+                        android:textColor="?attr/colorSecondary" />
 
                     <TextView
                         android:id="@+id/tvName"

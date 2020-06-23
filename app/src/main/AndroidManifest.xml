@@ -16,8 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PhotoActivity"></activity>
-        <activity android:name=".view.activity.CommentActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -63,6 +61,30 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="CANCANVAS_SIGN_UP" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activity.PhotoActivity">
+            <intent-filter>
+                <action android:name="CANCANVAS_PHOTO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="CANCANVAS_PHOTO" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activity.CommentsActivity">
+            <intent-filter>
+                <action android:name="CANCANVAS_COMMENTS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="CANCANVAS_COMMENTS" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activity.ProfileActivity">
+            <intent-filter>
+                <action android:name="CANCANVAS_PROFILE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="CANCANVAS_PROFILE" />
             </intent-filter>
         </activity>
 

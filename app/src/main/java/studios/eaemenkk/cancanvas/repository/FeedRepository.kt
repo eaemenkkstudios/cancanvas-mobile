@@ -36,7 +36,6 @@ class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String
                             host = null,
                             likes = null,
                             offer = null,
-                            name = null,
                             picture = null
                         ))
                     }
@@ -70,7 +69,6 @@ class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String
                             comments = null,
                             likeCount = null,
                             likes = null,
-                            name = null,
                             picture = null
                         ))
                     }

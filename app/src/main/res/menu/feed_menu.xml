@@ -3,22 +3,22 @@
 
     <item
         android:id = "@+id/btGlobal"
-        android:icon = "@drawable/feed"
+        android:icon = "@drawable/ic_feed"
         android:title = "@string/feed"
         />
     <item
         android:id = "@+id/btFollowing"
-        android:icon = "@drawable/following"
+        android:icon = "@drawable/ic_follow"
         android:title = "@string/following"
         />
     <item
         android:id = "@+id/btChat"
-        android:icon = "@drawable/chat"
+        android:icon = "@drawable/ic_chat"
         android:title = "@string/chat"
         />
     <item
         android:id = "@+id/btProfile"
-        android:icon = "@drawable/profile"
+        android:icon = "@drawable/ic_profile"
         android:title = "@string/profile"
         />
 </menu>

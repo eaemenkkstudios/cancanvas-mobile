@@ -14,8 +14,7 @@ data class PostAuction (
     val offer: Double?,
     val bids: List<Bid>?,
     val deadline: String?,
-    val picture: String?,
-    val name: String?
+    val picture: String?
 )
 
 data class FeedUser (
@@ -31,18 +30,4 @@ data class Bid (
     val deadline: String?,
     val timestamp: String?,
     val selected: Boolean?
-)
-
-data class CommentList (
-    val list: List<Comment>?,
-    val count: Int?
-)
-
-data class Comment (
-    val id: String?,
-    val author: String?,
-    val text: String?,
-    val likeCount: Int?,
-    val likes: List<String>?,
-    val timestamp: String?
 )

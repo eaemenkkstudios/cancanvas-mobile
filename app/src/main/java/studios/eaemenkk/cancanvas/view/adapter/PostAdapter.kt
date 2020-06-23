@@ -1,17 +1,16 @@
 package studios.eaemenkk.cancanvas.view.adapter
 
-import android.R.menu
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
-import android.os.Build
 import android.os.Handler
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.ads.formats.MediaView
 import com.google.android.gms.ads.formats.UnifiedNativeAd
@@ -25,6 +24,7 @@ import kotlinx.android.synthetic.main.auction_card.view.tvTime
 import kotlinx.android.synthetic.main.post_card.view.*
 import kotlinx.android.synthetic.main.post_card.view.ivMenu
 import kotlinx.android.synthetic.main.post_card.view.tvDescription
+import studios.eaemenkk.cancanvas.view.activity.PhotoActivity
 import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.domain.PostAuction
 
@@ -90,17 +90,28 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
                 holder.time.text = postAuction.timestamp
                 Picasso.get().load(postAuction.content).into(holder.content)
                 holder.description.text = postAuction.description
-                holder.likePost.setOnClickListener {
-                    holder.likePost.setImageResource(R.drawable.animation_clap)
-                    holder.likePost.isClickable = false
-                    (holder.likePost.drawable as AnimationDrawable).start()
+                holder.like.setOnClickListener {
+                    holder.like.setImageResource(R.drawable.animation_clap)
+                    holder.like.isClickable = false
+                    (holder.like.drawable as AnimationDrawable).start()
                     Handler().postDelayed({
-                        (holder.likePost.drawable as AnimationDrawable).stop()
-                        holder.likePost.setImageResource(R.drawable.clap)
-                        holder.likePost.isClickable = true
+                        (holder.like.drawable as AnimationDrawable).stop()
+                        holder.like.setImageResource(R.drawable.clap)
+                        holder.like.isClickable = true
                     }, 1000)
                 }
                 holder.menu.setOnClickListener { inflateMenu(holder.menu, R.menu.post_menu) }
+                holder.content.setOnClickListener {
+                    val intent = Intent("CANCANVAS_PHOTO").addCategory("CANCANVAS_PHOTO")
+                        .putExtra("id", postAuction.id)
+                        .putExtra("name", postAuction.author?.name)
+                        .putExtra("nickname", postAuction.author?.nickname)
+                        .putExtra("picture", postAuction.author?.picture)
+                        .putExtra("content", postAuction.content)
+                        .putExtra("comments", postAuction.comments?.count)
+                        .putExtra("likes", postAuction.likeCount)
+                    context.startActivity(intent)
+                }
             }
             is AdViewHolder -> {
                /* val adLoader = AdLoader.Builder(context, context.getString(R.string.ad_native_id))
@@ -149,7 +160,6 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
                 dataSet.add(PostAuction(
                     "ad",
                     "",
-                    null,
                     null,
                     null,
                     null,
@@ -258,7 +268,7 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
         val time: TextView = itemView.tvTime
         val comments: TextView = itemView.tvComments
         val viewComments: ImageView = itemView.ivComment
-        val likePost: ImageView = itemView.ivLike
+        val like: ImageView = itemView.ivLike
         val likes: TextView = itemView.tvLikes
         val content: ImageView = itemView.ivPost
         val description: TextView = itemView.tvDescription
@@ -266,7 +276,6 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
     }
 
     private fun inflateMenu(view: View, menu: Int) {
-        println("batata")
         val popup = PopupMenu(context, view)
         val inflater = popup.menuInflater
         inflater.inflate(menu, popup.menu)

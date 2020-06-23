@@ -1,0 +1,14 @@
+query Comments ($id: String!, $page: Int){
+  comments(postID: $id, page: $page) {
+    id
+    author {
+        nickname
+        name
+        picture
+    }
+    text
+    likes
+    liked
+    timestamp
+  }
+}
