@@ -78,7 +78,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     /** Lottie */
-    implementation "com.airbnb.android:lottie:3.4.1"
+    implementation 'com.airbnb.android:lottie:3.4.1'
+
+    /** PhotoView */
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
     /** Apollo Dependencies */
     implementation 'com.apollographql.apollo:apollo-runtime:2.1.0'

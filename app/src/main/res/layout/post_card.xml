@@ -83,20 +83,20 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:fontFamily="sans-serif-light"
-                    android:text="He an thing rapid these after going drawn or. Timed she his law the spoil round defer. In surprise concerns informed betrayed he learning is ye."
-                    android:textAlignment="viewStart"
-                    android:textColor="?attr/colorSecondary" />
-
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif"
+            android:text="He an thing rapid these after going drawn or. Timed she his law the spoil round defer. In surprise concerns informed betrayed he learning is ye."
+            android:textAlignment="viewStart"
+            android:textColor="?attr/colorSecondary" />
 
         <ImageView
             android:id="@+id/ivPost"

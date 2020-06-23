@@ -18,7 +18,6 @@ import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.view.adapter.PostAdapter
 import studios.eaemenkk.cancanvas.viewmodel.PostViewModel
 
-
 class FeedActivity : AppCompatActivity() {
     private var page = 1
     private var refresh = true
