@@ -2,6 +2,7 @@ package studios.eaemenkk.cancanvas.view.activity
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.content.res.TypedArray
 import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_feed.*
 import studios.eaemenkk.cancanvas.R
@@ -39,6 +41,35 @@ class FeedActivity : AppCompatActivity() {
         val ta: TypedArray = obtainStyledAttributes(themeId, attrs)
         srlFeed.setColorSchemeColors(ta.getColor(0, Color.BLACK))
         srlFeed.setProgressBackgroundColorSchemeColor(ta.getColor(1, Color.BLACK))
+
+        bnvFeed.selectedItemId = R.id.btGlobal
+        bnvFeed.setOnNavigationItemSelectedListener { menuItem ->
+            when(menuItem.itemId) {
+                R.id.btFollowing -> {
+
+                }
+                R.id.btChat -> {
+
+                }
+                R.id.btProfile -> {
+                    startActivity(Intent("CANCANVAS_PROFILE")
+                        .addCategory("CANCANVAS_PROFILE")
+                        .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+                    overridePendingTransition(0, 0)
+                }
+                else -> {
+                    val smoothScroller: RecyclerView.SmoothScroller = object: LinearSmoothScroller(this) {
+                        override fun getVerticalSnapPreference(): Int {
+                            return SNAP_TO_START
+                        }
+                    }
+                    smoothScroller.targetPosition = 0
+                    layoutManager.startSmoothScroll(smoothScroller)
+                }
+            }
+            false
+        }
+
         configureRecyclerView()
         getFeed()
         ta.recycle()
