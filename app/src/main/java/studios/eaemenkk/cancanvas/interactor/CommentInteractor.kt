@@ -17,4 +17,8 @@ class CommentInteractor(private val context: Context) {
         if (message.isEmpty()) throw Exception("")
         repository.commentOnPost(postId, message, callback)
     }
+
+    fun likePost(postId: String, callback: (status: Boolean) -> Unit) {
+        repository.likePost(postId, callback)
+    }
 }

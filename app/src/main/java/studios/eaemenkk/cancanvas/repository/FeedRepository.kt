@@ -31,6 +31,7 @@ class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String
                             timestamp = t.timestamp,
                             comments = CommentList(null, t.comments.count),
                             likes = t.likes,
+                            liked = t.liked,
                             bids = null,
                             deadline = null,
                             host = null,
@@ -67,7 +68,8 @@ class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String
                             content =  null,
                             comments = null,
                             likes = null,
-                            picture = null
+                            picture = null,
+                            liked = null
                         ))
                     }
                     callback(postAuctions)

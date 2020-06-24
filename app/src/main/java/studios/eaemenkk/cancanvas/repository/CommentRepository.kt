@@ -10,6 +10,7 @@ import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.domain.*
 import studios.eaemenkk.cancanvas.mutations.CommentMutation
 import studios.eaemenkk.cancanvas.mutations.CreateUserMutation
+import studios.eaemenkk.cancanvas.mutations.LikePostMutation
 import studios.eaemenkk.cancanvas.queries.CommentsQuery
 import studios.eaemenkk.cancanvas.queries.LoginQuery
 import studios.eaemenkk.cancanvas.queries.TrendingQuery
@@ -53,5 +54,18 @@ class CommentRepository (val context: Context, baseUrl: String, subscriptionUrl:
             }
 
         })
+    }
+
+    fun likePost(postId: String, callback: (status: Boolean) -> Unit) {
+        apolloClient.mutate(LikePostMutation(postId)).enqueue(object: ApolloCall.Callback<LikePostMutation.Data>() {
+            override fun onFailure(e: ApolloException) {
+                println("Apollo Error$e")
+            }
+
+            override fun onResponse(response: Response<LikePostMutation.Data>) {
+                response.data?.likePost?.let { callback(it) }
+            }
+        })
+
     }
 }

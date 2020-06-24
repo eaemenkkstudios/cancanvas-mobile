@@ -13,6 +13,7 @@ class CommentViewModel(app: Application) : AndroidViewModel(app) {
 
     val commentList = MutableLiveData<ArrayList<Comment>>()
     val commentPosted = MutableLiveData<Boolean>()
+    val likeStatus = MutableLiveData<Boolean>()
 
     fun getComments(postId: String, page: Int = 1) {
         interactor.getComments(postId, page) { comments ->
@@ -26,5 +27,9 @@ class CommentViewModel(app: Application) : AndroidViewModel(app) {
 
     fun commentOnPost(postId: String, message: String) {
         interactor.commentOnPost(postId, message) { commentPosted.postValue(true) }
+    }
+
+    fun likePost(postId: String) {
+        interactor.likePost(postId) { status -> likeStatus.postValue(status) }
     }
 }

@@ -9,6 +9,7 @@ data class PostAuction (
     var timestamp: String?,
     val comments: CommentList?,
     val likes: Int?,
+    val liked: Boolean?,
     var host: FeedUser?,
     val offer: Double?,
     val bids: List<Bid>?,

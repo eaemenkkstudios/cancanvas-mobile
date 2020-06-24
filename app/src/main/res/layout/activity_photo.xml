@@ -22,20 +22,21 @@
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:clickable="false"
             android:focusable="false"
-            android:scaleType="fitEnd"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/gradient" />
 
         <ImageView
             android:id="@+id/imageView5"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:clickable="false"
             android:focusable="false"
             android:rotation="180"
-            android:scaleType="fitEnd"
+            android:scaleType="fitXY"
             app:srcCompat="@drawable/gradient" />
 
         <LinearLayout
@@ -151,7 +152,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:lottie_autoPlay="true"
+                app:lottie_autoPlay="false"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/clap" />
 

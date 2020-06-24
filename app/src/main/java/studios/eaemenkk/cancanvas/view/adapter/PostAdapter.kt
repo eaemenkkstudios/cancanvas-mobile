@@ -110,6 +110,7 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
                         .putExtra("content", postAuction.content)
                         .putExtra("comments", postAuction.comments?.count)
                         .putExtra("likes", postAuction.likes)
+                        .putExtra("liked", postAuction.liked)
                     context.startActivity(intent)
                 }
                 holder.viewComments.setOnClickListener {
@@ -165,6 +166,7 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
                 dataSet.add(PostAuction(
                     "ad",
                     "",
+                    null,
                     null,
                     null,
                     null,
