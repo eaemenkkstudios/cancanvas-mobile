@@ -1,0 +1,83 @@
+query Users($nickname: String, $page: Int) {
+    users(nickname: $nickname, page: $page) {
+        nickname
+        name
+        picture
+        bio
+        cover
+        followersCount
+        followers
+        following
+        lat
+        lng
+    }
+}
+
+query User($nickname: String!) {
+    user(nickname: $nickname) {
+        nickname
+        name
+        picture
+        bio
+        cover
+        followersCount
+        followers
+        following
+        lat
+        lng
+    }
+}
+
+query Self {
+    self {
+        nickname
+        name
+        picture
+        bio
+        cover
+        followersCount
+        followers
+        following
+        lat
+        lng
+    }
+}
+
+query UserTags($nickname: String!) {
+    userTags(nickname: $nickname)
+}
+
+query UsersByTags($tags: [String!]!, $page: Int) {
+    usersByTags(tags: $tags, page: $page) {
+        nickname
+        name
+        picture
+        bio
+        cover
+        followersCount
+        followers
+        following
+        lat
+        lng
+    }
+}
+
+query UserPosts($nickname: String!, $page: Int) {
+    userPosts(nickname: $nickname, page: $page) {
+        id
+        author
+        description
+        content
+        timestamp
+        comments {
+            count
+        }
+        likeCount
+        liked
+        bidID
+    }
+}
+
+query IsFollowing($nickname: String!) {
+    isFollowing(nickname: $nickname)
+}

@@ -37,3 +37,22 @@ query Trending($page: Int) {
   }
 }
 
+query Feed($page: Int) {
+    feed(page: $page) {
+        id
+        author {
+            nickname
+            name
+            picture
+        }
+        description
+        content
+        timestamp
+        likes
+        liked
+        comments {
+            count
+        }
+    }
+}
+

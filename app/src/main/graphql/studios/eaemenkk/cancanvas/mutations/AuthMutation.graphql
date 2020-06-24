@@ -1,0 +1,7 @@
+mutation SendForgotPasswordEmail($nickname: String!) {
+    sendForgotPasswordEmail(nickname: $nickname)
+}
+
+mutation ResetPassword($token: String!, $newPassword: String!) {
+    resetPassword(token: $token, newPassword: $newPassword)
+}

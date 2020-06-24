@@ -1,0 +1,21 @@
+query AcceptedBids {
+    acceptedBids {
+        id
+        host {
+            nickname
+            name
+            picture
+        }
+        description
+        offer
+        bids {
+            id
+        }
+        timestamp
+        deadline
+    }
+}
+
+query BidPaymentLink($auctionID: String!, $bidID: String!) {
+    bidPaymentLink(auctionID: $auctionID, bidID: $bidID)
+}

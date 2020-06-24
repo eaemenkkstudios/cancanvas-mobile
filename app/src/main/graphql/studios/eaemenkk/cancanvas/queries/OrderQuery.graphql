@@ -1,0 +1,23 @@
+query Order($orderID: String!) {
+    order(orderID: $orderID) {
+        id
+        paymentID
+        paymentURL
+        payerID
+        auctionID
+        bidID
+        status
+    }
+}
+
+query Orders {
+    orders {
+        id
+        paymentID
+        paymentURL
+        payerID
+        auctionID
+        bidID
+        status
+    }
+}

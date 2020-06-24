@@ -1,0 +1,13 @@
+mutation CreateBid($auctionID: String!, $deadline: String!, $price: Float!) {
+    createBid(auctionID: $auctionID, deadline: $deadline, price: $price) {
+        id
+    }
+}
+
+mutation DeleteBid($auctionID: String!, $bidID: String!) {
+    deleteBid(auctionID: $auctionID, bidID: $bidID)
+}
+
+mutation AcceptBid($auctionID: String!, $bidID: String!) {
+    acceptBid(auctionID: $auctionID, bidID: $bidID)
+}
