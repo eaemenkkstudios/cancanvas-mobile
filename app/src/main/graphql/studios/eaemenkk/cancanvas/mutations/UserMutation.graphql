@@ -28,6 +28,10 @@ mutation RemoveTagFromUser($tag: String!) {
     removeTagFromUser(tag: $tag)
 }
 
+mutation UpdateUserTags($tags: [String!]!) {
+    updateUserTags(tags: $tags)
+}
+
 mutation FollowUser($nickname: String!) {
     follow(nickname: $nickname)
 }

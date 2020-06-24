@@ -11,4 +11,8 @@ class PostInteractor(private val context: Context) {
     fun getFeed(page: Int = 1, callback: (postAuctions: ArrayList<PostAuction>) -> Unit) {
         repository.trending(page, callback)
     }
+
+    fun getLocalFeed(page: Int = 1, callback: (postAuctions: ArrayList<PostAuction>) -> Unit) {
+        repository.getLocalFeed(page, callback)
+    }
 }

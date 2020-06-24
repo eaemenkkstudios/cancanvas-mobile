@@ -78,6 +78,35 @@ query UserPosts($nickname: String!, $page: Int) {
     }
 }
 
+query UserWithPosts($nickname: String!, $page: Int) {
+    user(nickname: $nickname) {
+        nickname
+        name
+        picture
+        bio
+        cover
+        followersCount
+        followers
+        following
+        lat
+        lng
+     }
+
+    userPosts(nickname: $nickname, page: $page) {
+        id
+        author
+        description
+        content
+        timestamp
+        comments {
+            count
+        }
+        likeCount
+        liked
+        bidID
+    }
+}
+
 query IsFollowing($nickname: String!) {
     isFollowing(nickname: $nickname)
 }

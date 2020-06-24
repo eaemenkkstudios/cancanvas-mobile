@@ -3,8 +3,10 @@ package studios.eaemenkk.cancanvas.repository
 import android.content.Context
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.Input
+import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import studios.eaemenkk.cancanvas.domain.*
+import studios.eaemenkk.cancanvas.queries.FeedQuery
 import studios.eaemenkk.cancanvas.queries.TrendingQuery
 
 class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String): BaseApollo(context, baseUrl, subscriptionUrl) {
@@ -75,5 +77,41 @@ class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String
                     callback(postAuctions)
                 }
             })
+    }
+
+    fun getLocalFeed(page: Int = 1, callback: (ArrayList<PostAuction>) -> Unit) {
+        apolloClient.query(FeedQuery(Input.optional(page))).enqueue(object: ApolloCall.Callback<FeedQuery.Data>() {
+            override fun onFailure(e: ApolloException) {
+                println("Apollo Error$e")
+            }
+
+            override fun onResponse(response: Response<FeedQuery.Data>) {
+                val postAuctions = ArrayList<PostAuction>()
+                response.data?.feed?.forEach { t ->
+                    postAuctions.add(PostAuction(
+                        type = "post",
+                        id = t.id,
+                        author = FeedUser(
+                            nickname = t.author.nickname,
+                            name = t.author.name,
+                            picture = t.author.picture
+                        ),
+                        description = t.description,
+                        content =  t.content,
+                        timestamp = t.timestamp,
+                        comments = CommentList(null, t.comments.count),
+                        likes = t.likes,
+                        liked = t.liked,
+                        bids = null,
+                        deadline = null,
+                        host = null,
+                        offer = null,
+                        picture = null
+                    ))
+                }
+                callback(postAuctions)
+            }
+
+        })
     }
 }

@@ -21,12 +21,20 @@ class PostViewModel(app: Application) : AndroidViewModel(app) {
     private val utils = Utils(app.applicationContext)
 
     val postAuctionList = MutableLiveData<ArrayList<PostAuction>>()
+    val postAuctionLocalList = MutableLiveData<ArrayList<PostAuction>>()
     val error = MutableLiveData<RequestResponse>()
 
     fun getFeed(page: Int = 1) {
         postInteractor.getFeed(page) {postAuctions ->
             postAuctions.forEach { auction -> auction.timestamp = auction.timestamp?.let { utils.timestampToTimeInterval(it) } }
             postAuctionList.postValue(postAuctions)
+        }
+    }
+
+    fun getLocalFeed(page: Int = 1) {
+        postInteractor.getLocalFeed(page) {postAuctions ->
+            postAuctions.forEach { auction -> auction.timestamp = auction.timestamp?.let { utils.timestampToTimeInterval(it) } }
+            postAuctionLocalList.postValue(postAuctions)
         }
     }
 }

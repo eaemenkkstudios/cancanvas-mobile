@@ -3,6 +3,7 @@ package studios.eaemenkk.cancanvas.interactor
 import android.content.Context
 import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.domain.User
+import studios.eaemenkk.cancanvas.domain.UserWithPosts
 import studios.eaemenkk.cancanvas.repository.UserRepository
 
 class UserInteractor(private val context: Context) {
@@ -14,5 +15,9 @@ class UserInteractor(private val context: Context) {
 
     fun getUser(nickname: String, callback: (user: User) -> Unit) {
         repository.getUser(nickname, callback)
+    }
+
+    fun getUserWithPosts(nickname: String, callback: (user: UserWithPosts) -> Unit) {
+        repository.getUserWithPosts(nickname, callback)
     }
 }
