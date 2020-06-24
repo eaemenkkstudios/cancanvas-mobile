@@ -59,7 +59,10 @@ class FollowingActivity : AppCompatActivity() {
                     overridePendingTransition(0, 0)
                 }
                 R.id.btChat -> {
-
+                    startActivity(Intent("CANCANVAS_PELICANVAS")
+                        .addCategory("CANCANVAS_PELICANVAS")
+                        .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+                    overridePendingTransition(0, 0)
                 }
                 R.id.btProfile -> {
                     startActivity(Intent("CANCANVAS_PROFILE")

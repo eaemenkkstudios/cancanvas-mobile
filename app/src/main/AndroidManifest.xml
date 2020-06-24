@@ -101,6 +101,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".view.activity.PelicanvasActivity" >
+            <intent-filter>
+                <action android:name="CANCANVAS_PELICANVAS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="CANCANVAS_PELICANVAS" />
+            </intent-filter>
+        </activity>
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ad_app_id" />
