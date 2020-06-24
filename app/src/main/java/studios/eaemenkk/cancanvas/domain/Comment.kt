@@ -10,5 +10,5 @@ data class Comment (
     val author: FeedUser?,
     val text: String?,
     val likes: Int?,
-    val timestamp: String?
+    var timestamp: String?
 )

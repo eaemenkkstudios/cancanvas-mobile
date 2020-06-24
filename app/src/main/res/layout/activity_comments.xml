@@ -35,7 +35,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/ivBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="left|center_vertical"
@@ -50,7 +50,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/rvComments"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/cardView2"
@@ -78,7 +78,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/editTextTextMultiLine"
+                    android:id="@+id/etComment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -91,7 +91,7 @@
                     tools:text="wow. such image. much talent. very nice. such artist." />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/floatingActionButton2"
+                    android:id="@+id/fabComment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"

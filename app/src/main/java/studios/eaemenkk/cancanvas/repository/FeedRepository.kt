@@ -30,11 +30,10 @@ class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String
                             content =  t.content,
                             timestamp = t.timestamp,
                             comments = CommentList(null, t.comments.count),
-                            likeCount = t.likeCount,
+                            likes = t.likes,
                             bids = null,
                             deadline = null,
                             host = null,
-                            likes = null,
                             offer = null,
                             picture = null
                         ))
@@ -67,7 +66,6 @@ class FeedRepository (context: Context, baseUrl: String, subscriptionUrl: String
                             author = null,
                             content =  null,
                             comments = null,
-                            likeCount = null,
                             likes = null,
                             picture = null
                         ))

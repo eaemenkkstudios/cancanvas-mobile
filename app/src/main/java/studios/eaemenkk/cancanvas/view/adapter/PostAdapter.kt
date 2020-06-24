@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.gms.ads.formats.MediaView
 import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.google.android.gms.ads.formats.UnifiedNativeAdView
@@ -80,7 +81,7 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
                 holder.menu.setOnClickListener { inflateMenu(holder.menu, R.menu.auction_menu) }
             }
             is PostViewHolder -> {
-                holder.likes.text = postAuction.likeCount.toString()
+                holder.likes.text = postAuction.likes.toString()
                 holder.comments.text = postAuction.comments?.count.toString()
                 holder.nickname.text = postAuction.author?.nickname
                 holder.name.text = postAuction.author?.name
@@ -91,14 +92,13 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
                 Picasso.get().load(postAuction.content).into(holder.content)
                 holder.description.text = postAuction.description
                 holder.like.setOnClickListener {
-                    holder.like.setImageResource(R.drawable.animation_clap)
+                    (holder.like as LottieAnimationView).playAnimation()
                     holder.like.isClickable = false
-                    (holder.like.drawable as AnimationDrawable).start()
                     Handler().postDelayed({
-                        (holder.like.drawable as AnimationDrawable).stop()
-                        holder.like.setImageResource(R.drawable.clap)
+                        holder.like.progress = 0F
+                        holder.like.pauseAnimation()
                         holder.like.isClickable = true
-                    }, 1000)
+                    }, 1100)
                 }
                 holder.menu.setOnClickListener { inflateMenu(holder.menu, R.menu.post_menu) }
                 holder.content.setOnClickListener {
@@ -109,7 +109,12 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
                         .putExtra("picture", postAuction.author?.picture)
                         .putExtra("content", postAuction.content)
                         .putExtra("comments", postAuction.comments?.count)
-                        .putExtra("likes", postAuction.likeCount)
+                        .putExtra("likes", postAuction.likes)
+                    context.startActivity(intent)
+                }
+                holder.viewComments.setOnClickListener {
+                    val intent = Intent("CANCANVAS_COMMENTS").addCategory("CANCANVAS_COMMENTS")
+                        .putExtra("id", postAuction.id)
                     context.startActivity(intent)
                 }
             }
@@ -160,7 +165,6 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
                 dataSet.add(PostAuction(
                     "ad",
                     "",
-                    null,
                     null,
                     null,
                     null,

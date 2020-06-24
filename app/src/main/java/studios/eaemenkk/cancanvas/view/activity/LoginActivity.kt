@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity()  {
         viewModel.loginResponse.observe(this, Observer { result ->
             Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
             if(result.status) {
-                val intent = Intent("CANCANVAS_MAIN").addCategory("CANCANVAS_MAIN")
+                val intent = Intent("CANCANVAS_FEED").addCategory("CANCANVAS_FEED")
                 startActivity(intent)
                 finish()
             }

@@ -22,6 +22,7 @@ class PhotoActivity : AppCompatActivity() {
         Picasso.get().load(intent.extras?.get("content") as String).into(pvPhoto)
         tvComments.text = String.format((intent.extras?.get("comments")).toString())
         tvLikes.text = String.format((intent.extras?.get("likes")).toString())
+        ivBack.setOnClickListener { finish() }
         ivComment.setOnClickListener {
             val intent = Intent("CANCANVAS_COMMENTS").addCategory("CANCANVAS_COMMENTS")
                 .putExtra("id", String.format((intent.extras?.get("id")).toString()))

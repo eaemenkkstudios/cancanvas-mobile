@@ -26,19 +26,21 @@ class CommentAdapter(private val context: Context): RecyclerView.Adapter<Comment
         return CommentViewHolder(view)
     }
 
-    class CommentViewHolder(itemView: View) : PostAdapter.AuctionPostViewHolder(itemView) {
-        val picture: ImageView = itemView.ivProfile
-        val nickname: TextView = itemView.tvNickname
-        val name: TextView = itemView.tvName
-        val time: TextView = itemView.tvTime
-        val like: ImageView = itemView.ivLike
-        val likes: TextView = itemView.tvLikes
-        val content: ImageView = itemView.ivPost
-        val menu: ImageView = itemView.ivMenu
-    }
-
     override fun getItemCount(): Int {
         return dataSet.size
+    }
+
+    override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
+        val comment = dataSet[position]
+
+        holder.description.text = comment.text
+        holder.name.text = comment.author?.name
+        holder.nickname.text = comment.author?.nickname
+        if (comment.author?.picture != "") {
+            Picasso.get().load(comment.author?.picture).into(holder.picture)
+        }
+        holder.likes.text = comment.likes.toString()
+        holder.time.text = comment.timestamp
     }
 
     private fun addComment(index: Int, comment: Comment?) {
@@ -52,7 +54,7 @@ class CommentAdapter(private val context: Context): RecyclerView.Adapter<Comment
         comments?.forEachIndexed { index, comment -> addComment(index, comment) }
     }
 
-    fun setComment(comments: ArrayList<Comment>?) {
+    fun setComments(comments: ArrayList<Comment>?) {
         if(comments != null) {
             dataSet = ArrayList()
             comments.forEachIndexed { index, comment -> addComment(index, comment)
@@ -60,13 +62,14 @@ class CommentAdapter(private val context: Context): RecyclerView.Adapter<Comment
         }
     }
 
-    override fun onBindViewHolder(holder: CommentAdapter.CommentViewHolder, position: Int) {
-        val comment = dataSet[position]
-
-        holder.name.text = comment.author?.name
-        holder.nickname.text = comment.author?.nickname
-        Picasso.get().load(comment.author?.picture).into(holder.picture)
-        holder.likes.text = comment.likes.toString()
-        holder.time.text = comment.timestamp
+    class CommentViewHolder(itemView: View) : PostAdapter.AuctionPostViewHolder(itemView) {
+        val picture: ImageView = itemView.ivProfile
+        val nickname: TextView = itemView.tvNickname
+        val name: TextView = itemView.tvName
+        val time: TextView = itemView.tvTime
+        val like: ImageView = itemView.ivLike
+        val likes: TextView = itemView.tvLikes
+        val menu: ImageView = itemView.ivMenu
+        val description: TextView = itemView.tvDescription
     }
 }

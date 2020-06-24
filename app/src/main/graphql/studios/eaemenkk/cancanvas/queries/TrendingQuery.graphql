@@ -9,7 +9,7 @@ query Trending($page: Int) {
     description
     content
     timestamp
-    likeCount
+    likes
     comments {
         count
     }
