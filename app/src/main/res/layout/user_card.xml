@@ -63,7 +63,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/ivMenu2"
+            android:id="@+id/ivMenu"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"

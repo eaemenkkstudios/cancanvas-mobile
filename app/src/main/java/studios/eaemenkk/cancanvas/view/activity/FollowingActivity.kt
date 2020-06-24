@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_feed.*
 import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.view.adapter.PostAdapter
+import studios.eaemenkk.cancanvas.viewmodel.CommentViewModel
 import studios.eaemenkk.cancanvas.viewmodel.PostViewModel
 
 class FollowingActivity : AppCompatActivity() {
@@ -26,7 +27,10 @@ class FollowingActivity : AppCompatActivity() {
     private var isLoading = false
     private var showLoadingIcon = true
     private val layoutManager = LinearLayoutManager(this)
-    private val adapter = PostAdapter(this)
+    private lateinit var adapter: PostAdapter
+    private val commentViewModel: CommentViewModel by lazy {
+        ViewModelProvider(this).get(CommentViewModel::class.java)
+    }
     private val viewModel: PostViewModel by lazy {
         ViewModelProvider(this).get(PostViewModel::class.java)
     }
@@ -35,6 +39,9 @@ class FollowingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_following)
+
+        adapter = PostAdapter(this, commentViewModel)
+
         srlFeed.setOnRefreshListener { onRefresh() }
         val attrs = intArrayOf(R.attr.colorPrimary, R.attr.colorAccent)
         val themeId = packageManager.getActivityInfo(componentName, 0).theme

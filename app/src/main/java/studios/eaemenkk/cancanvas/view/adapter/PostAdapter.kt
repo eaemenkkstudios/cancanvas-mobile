@@ -2,21 +2,28 @@ package studios.eaemenkk.cancanvas.view.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.AnimationDrawable
+import android.content.res.TypedArray
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Handler
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieProperty
+import com.airbnb.lottie.model.KeyPath
 import com.google.android.gms.ads.formats.MediaView
 import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.google.android.gms.ads.formats.UnifiedNativeAdView
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_photo.*
 import kotlinx.android.synthetic.main.auction_card.view.*
 import kotlinx.android.synthetic.main.auction_card.view.ivProfile
 import kotlinx.android.synthetic.main.auction_card.view.tvName
@@ -25,14 +32,15 @@ import kotlinx.android.synthetic.main.auction_card.view.tvTime
 import kotlinx.android.synthetic.main.post_card.view.*
 import kotlinx.android.synthetic.main.post_card.view.ivMenu
 import kotlinx.android.synthetic.main.post_card.view.tvDescription
-import studios.eaemenkk.cancanvas.view.activity.PhotoActivity
+import kotlinx.android.synthetic.main.post_card.view.tvLikes
 import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.domain.PostAuction
+import studios.eaemenkk.cancanvas.viewmodel.CommentViewModel
 
 
 private const val AD_INTERVAL = 8
 
-class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapter.AuctionPostViewHolder>() {
+class PostAdapter(private val context: Context, private val viewModel: CommentViewModel): RecyclerView.Adapter<PostAdapter.AuctionPostViewHolder>() {
     private var dataSet = ArrayList<PostAuction>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AuctionPostViewHolder {
@@ -91,12 +99,50 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
                 holder.time.text = postAuction.timestamp
                 Picasso.get().load(postAuction.content).into(holder.content)
                 holder.description.text = postAuction.description
+
+//                val attrs = intArrayOf(R.attr.colorPrimary, R.attr.colorAccent)
+//                val themeId = context.packageManager.getActivityInfo(componentName, 0).theme
+//                val ta: TypedArray = obtainStyledAttributes(themeId, attrs)
+                holder.like.addValueCallback(
+                        KeyPath("**"),
+                LottieProperty.COLOR_FILTER,
+                { PorterDuffColorFilter(context.getColor(
+                    if(postAuction.liked!!)
+                        R.color.colorPrimaryLight
+                    else
+                        R.color.colorSecondaryLight),
+                    PorterDuff.Mode.SRC_ATOP) }
+                )
+
+                if(postAuction.liked!!) holder.like.playAnimation()
+
                 holder.like.setOnClickListener {
-                    (holder.like as LottieAnimationView).playAnimation()
-                    holder.like.isClickable = false
-                    Handler().postDelayed({
+//                   val attrs = intArrayOf(R.attr.colorPrimary, R.attr.colorAccent)
+//                   val themeId = context.packageManager.getActivityInfo(componentName, 0).theme
+//                   val ta: TypedArray = obtainStyledAttributes(themeId, attrs)
+
+                    viewModel.likePost(postAuction.id)
+                    holder.like.addValueCallback(
+                        KeyPath("**"),
+                        LottieProperty.COLOR_FILTER,
+                        { PorterDuffColorFilter(context.getColor(
+                            if(!holder.like.isAnimating)
+                                R.color.colorSecondaryLight
+                            else
+                                R.color.colorPrimaryLight),
+                            PorterDuff.Mode.SRC_ATOP) }
+                    )
+
+                    holder.likes.text = (Integer.parseInt(holder.likes.text as String) + if(!holder.like.isAnimating) 1 else -1).toString()
+
+                    if(holder.like.isAnimating) {
                         holder.like.progress = 0F
                         holder.like.pauseAnimation()
+                    } else
+                        holder.like.playAnimation()
+
+                    holder.like.isClickable = false
+                    Handler().postDelayed({
                         holder.like.isClickable = true
                     }, 1100)
                 }
@@ -274,7 +320,7 @@ class PostAdapter(private val context: Context): RecyclerView.Adapter<PostAdapte
         val time: TextView = itemView.tvTime
         val comments: TextView = itemView.tvComments
         val viewComments: ImageView = itemView.ivComment
-        val like: ImageView = itemView.ivLike
+        val like: LottieAnimationView = itemView.ivLike
         val likes: TextView = itemView.tvLikes
         val content: ImageView = itemView.ivPost
         val description: TextView = itemView.tvDescription
