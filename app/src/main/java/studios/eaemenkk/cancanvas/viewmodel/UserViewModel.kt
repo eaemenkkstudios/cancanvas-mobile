@@ -11,6 +11,7 @@ class UserViewModel(app: Application) : AndroidViewModel(app) {
 
     val userData = MutableLiveData<User>()
     val selfData = MutableLiveData<User>()
+    val users = MutableLiveData<ArrayList<User>>()
 
     fun getSelf() {
         interactor.getSelf { self -> selfData.postValue(self) }
@@ -18,5 +19,9 @@ class UserViewModel(app: Application) : AndroidViewModel(app) {
 
     fun getUser(nickname: String) {
         interactor.getUser(nickname) { user -> userData.postValue(user) }
+    }
+
+    fun getUsersByTags(tags: ArrayList<String>) {
+        interactor.getUsersByTags(tags) { u -> users.postValue(u) }
     }
 }

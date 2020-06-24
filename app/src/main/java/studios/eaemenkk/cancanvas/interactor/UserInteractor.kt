@@ -20,4 +20,8 @@ class UserInteractor(private val context: Context) {
     fun getUserWithPosts(nickname: String, callback: (user: UserWithPosts) -> Unit) {
         repository.getUserWithPosts(nickname, callback)
     }
+
+    fun getUsersByTags(tags: ArrayList<String>, callback: (users: ArrayList<User>) -> Unit) {
+        repository.getUsersByTags(tags, callback)
+    }
 }
