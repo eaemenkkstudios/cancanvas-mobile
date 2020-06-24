@@ -90,7 +90,7 @@ class FollowingActivity : AppCompatActivity() {
 
     private fun configureRecyclerView() {
         rvFeed.adapter = adapter
-        viewModel.postAuctionList.observe(this, Observer { postAuctions ->
+        viewModel.postAuctionLocalList.observe(this, Observer { postAuctions ->
             srlFeed.isRefreshing = false
             clLoading.visibility = View.GONE
             isLoading = postAuctions.isNullOrEmpty()
@@ -125,7 +125,7 @@ class FollowingActivity : AppCompatActivity() {
     private fun getFeed() {
         if(showLoadingIcon) clLoading.visibility = View.VISIBLE
         isLoading = true
-        viewModel.getFeed(page)
+        viewModel.getLocalFeed(page)
     }
 
     override fun onBackPressed() {

@@ -26,6 +26,7 @@ class FeedActivity : AppCompatActivity() {
     private var showLoadingIcon = true
     private val layoutManager = LinearLayoutManager(this)
     private lateinit var adapter: PostAdapter
+
     private val commentViewModel: CommentViewModel by lazy {
         ViewModelProvider(this).get(CommentViewModel::class.java)
     }

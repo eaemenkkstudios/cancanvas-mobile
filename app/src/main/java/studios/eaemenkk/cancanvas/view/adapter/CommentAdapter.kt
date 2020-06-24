@@ -1,12 +1,17 @@
 package studios.eaemenkk.cancanvas.view.adapter
 
 import android.content.Context
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieProperty
+import com.airbnb.lottie.model.KeyPath
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.comment_card.view.ivLike
 import kotlinx.android.synthetic.main.comment_card.view.ivProfile
@@ -41,6 +46,14 @@ class CommentAdapter(private val context: Context): RecyclerView.Adapter<Comment
         }
         holder.likes.text = comment.likes.toString()
         holder.time.text = comment.timestamp
+
+        holder.like.addValueCallback(
+            KeyPath("**"),
+            LottieProperty.COLOR_FILTER,
+            { PorterDuffColorFilter(context.getColor(
+                    R.color.colorSecondaryLight),
+                PorterDuff.Mode.SRC_ATOP) }
+        )
     }
 
     private fun addComment(index: Int, comment: Comment?) {
@@ -67,7 +80,7 @@ class CommentAdapter(private val context: Context): RecyclerView.Adapter<Comment
         val nickname: TextView = itemView.tvNickname
         val name: TextView = itemView.tvName
         val time: TextView = itemView.tvTime
-        val like: ImageView = itemView.ivLike
+        val like: LottieAnimationView = itemView.ivLike
         val likes: TextView = itemView.tvLikes
         val menu: ImageView = itemView.ivMenu
         val description: TextView = itemView.tvDescription

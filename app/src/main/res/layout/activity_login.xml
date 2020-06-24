@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorBackgroundLight"
                 android:ems="10"
-                android:hint="@string/email_example"
+                android:hint="@string/nickname_example"
                 android:inputType="textEmailAddress"
                 android:text=""
                 android:textAlignment="center"

@@ -221,7 +221,8 @@
                     android:layout_margin="10dp"
                     android:text="@string/gallery"
                     android:textColor="?attr/colorPrimary"
-                    android:textSize="25sp" />
+                    android:textSize="25sp"
+                    android:visibility="gone" />
 
                 <androidx.gridlayout.widget.GridLayout
                     android:id="@+id/glGallery"

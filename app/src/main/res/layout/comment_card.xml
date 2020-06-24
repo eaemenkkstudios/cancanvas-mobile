@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:minWidth="50dp"
                     android:text="50k"
-                    android:textAlignment="center"
+                    android:textAlignment="textEnd"
                     android:textColor="?attr/colorSecondary"
                     android:textSize="20sp" />
 

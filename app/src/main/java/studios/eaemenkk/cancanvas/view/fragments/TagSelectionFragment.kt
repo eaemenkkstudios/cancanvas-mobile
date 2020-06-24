@@ -41,15 +41,9 @@ class TagSelectionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_tag_selection, container, false)
-        addTag("Teste")
-        addTag("ADSAD")
-        addTag("BSDFSD")
-        addTag("AWE#%23")
-        addTag("BFDTGW")
-        addTag("Ubuntu")
-        addTag("dasd")
-        addTag("dasdbd")
-        addTag("AAAAAAAAAAAAAAAAAAAAAAA")
+        addTag("2D Painting")
+        addTag("Fractal")
+        addTag("3D Modeling")
         return view
     }
 
