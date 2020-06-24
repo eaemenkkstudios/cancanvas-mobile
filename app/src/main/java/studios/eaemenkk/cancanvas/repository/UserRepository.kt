@@ -8,9 +8,12 @@ import studios.eaemenkk.cancanvas.domain.CommentList
 import studios.eaemenkk.cancanvas.domain.Post
 import studios.eaemenkk.cancanvas.domain.User
 import studios.eaemenkk.cancanvas.domain.UserWithPosts
+import studios.eaemenkk.cancanvas.mutations.FollowUserMutation
+import studios.eaemenkk.cancanvas.mutations.UnfollowUserMutation
 import studios.eaemenkk.cancanvas.queries.SelfQuery
 import studios.eaemenkk.cancanvas.queries.UserQuery
 import studios.eaemenkk.cancanvas.queries.UserWithPostsQuery
+import studios.eaemenkk.cancanvas.queries.UsersByTagsQuery
 
 class UserRepository(context: Context, baseUrl: String, subscriptionUrl: String): BaseApollo(context, baseUrl, subscriptionUrl) {
     fun getSelf(callback: (user: User) -> Unit) {
@@ -100,6 +103,60 @@ class UserRepository(context: Context, baseUrl: String, subscriptionUrl: String)
                     ))
                 }
                 callback(UserWithPosts(user, posts))
+            }
+
+        })
+    }
+
+    fun getUsersByTags(tags: ArrayList<String>, callback: (users: ArrayList<User>) -> Unit) {
+        apolloClient.query(UsersByTagsQuery(tags)).enqueue(object: ApolloCall.Callback<UsersByTagsQuery.Data>() {
+            override fun onFailure(e: ApolloException) {
+                println("Apollo Error $e")
+            }
+
+            override fun onResponse(response: Response<UsersByTagsQuery.Data>) {
+                val users = ArrayList<User>()
+                response.data?.usersByTags?.forEach { user ->
+                    users.add(User(
+                        nickname = user.nickname,
+                        name = user.name,
+                        picture = user.picture,
+                        bio = user.bio,
+                        cover = user.cover,
+                        followers = user.followers as ArrayList<String>?,
+                        followersCount = user.followersCount,
+                        following = user.following as ArrayList<String>?,
+                        lat = user.lat,
+                        lng = user.lng
+                    ))
+                    callback(users)
+                }
+            }
+
+        })
+    }
+
+    fun follow(nickname: String, callback: (status: Boolean) -> Unit) {
+        apolloClient.mutate(FollowUserMutation(nickname)).enqueue(object: ApolloCall.Callback<FollowUserMutation.Data>() {
+            override fun onFailure(e: ApolloException) {
+                println("Apollo Error $e")
+            }
+
+            override fun onResponse(response: Response<FollowUserMutation.Data>) {
+                response.data?.follow?.let { callback(it) }
+            }
+
+        })
+    }
+
+    fun unfollow(nickname: String, callback: (status: Boolean) -> Unit) {
+        apolloClient.mutate(UnfollowUserMutation(nickname)).enqueue(object: ApolloCall.Callback<UnfollowUserMutation.Data>() {
+            override fun onFailure(e: ApolloException) {
+                println("Apollo Error $e")
+            }
+
+            override fun onResponse(response: Response<UnfollowUserMutation.Data>) {
+                response.data?.unfollow?.let { callback(it) }
             }
 
         })
