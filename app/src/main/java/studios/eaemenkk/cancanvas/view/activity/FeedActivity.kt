@@ -47,6 +47,13 @@ class FeedActivity : AppCompatActivity() {
         srlFeed.setColorSchemeColors(ta.getColor(0, Color.BLACK))
         srlFeed.setProgressBackgroundColorSchemeColor(ta.getColor(1, Color.BLACK))
 
+        fabPost.setOnClickListener {
+            startActivity(Intent("CANCANVAS_POST")
+                .addCategory("CANCANVAS_POST")
+                .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+            overridePendingTransition(0, 0)
+        }
+
         bnvFeed.selectedItemId = R.id.btGlobal
         bnvFeed.setOnNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId) {

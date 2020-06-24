@@ -76,5 +76,9 @@
     <string name="search_example">fractal art</string>
     <string name="search">Search</string>
     <string name="tags">Please, choose the tags that suit you the most.</string>
+    <string name="artist_location">Artist Location</string>
+    <string name="load_map_failed">Map loading failed.</string>
+    <string name="post">What kind of masterpiece will you post today?</string>
+    <string name="post_example">This is the description of my masterpiece.</string>
 
 </resources>
