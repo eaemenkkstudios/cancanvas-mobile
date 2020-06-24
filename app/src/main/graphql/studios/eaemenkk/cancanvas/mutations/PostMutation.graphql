@@ -1,3 +1,15 @@
 mutation LikePost($id: String!) {
     likePost(postID: $id)
 }
+
+mutation EditPost($id: String!, $description: String!) {
+    editPost(postID: $id, description: $description)
+}
+
+mutation DeletePost($id: String!) {
+    deletePost(postID: $id)
+}
+
+mutation CreatePost($content: Upload!, $description: String, $bidID: String) {
+    createPost(content: $content, description: $description, bidID: $bidID)
+}

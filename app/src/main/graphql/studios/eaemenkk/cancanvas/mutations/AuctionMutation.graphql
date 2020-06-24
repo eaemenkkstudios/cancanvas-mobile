@@ -1,0 +1,22 @@
+mutation CreateAuction($offer: Float!, $description: String!) {
+    createAuction(offer: $offer, description: $description) {
+        id
+        host
+        description
+        offer
+        bids {
+            id
+            issuer
+            deadline
+            price
+            timestamp
+            selected
+        }
+       timestamp
+       deadline
+    }
+}
+
+mutation DeleteAuction($id: String!) {
+    deleteAuction(auctionID: $id)
+}

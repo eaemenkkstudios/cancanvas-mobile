@@ -26,12 +26,6 @@ class SplashActivity: AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         ivLoading.enableMergePathsForKitKatAndAbove(true)
 
-
-//        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-//        ft.add(R.id.flView, TagSelectionFragment())
-//        ft.commit()
-
-
         Handler().postDelayed({
             val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE)
             val token = sharedPreferences.getString("session", null)

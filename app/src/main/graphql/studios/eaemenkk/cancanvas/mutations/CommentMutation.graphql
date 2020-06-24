@@ -1,3 +1,15 @@
 mutation Comment($postID: String!, $message: String!) {
     commentOnPost(postID: $postID, message: $message)
 }
+
+mutation LikeComment($postID: String!, $commentID: String!) {
+    likeComment(postID: $postID, commentID: $commentID)
+}
+
+mutation EditComment($postID: String!, $commentID: String!, $message: String!) {
+    editComment(postID: $postID, commentID: $commentID, message: $message)
+}
+
+mutation DeleteComment($postID: String!, $commentID: String!) {
+    deleteComment(postID: $postID, commentID: $commentID)
+}

@@ -1,0 +1,37 @@
+mutation CreateUser($nickname: String!, $name: String!, $email: String!, $password: String!) {
+    createUser(input: { nickname: $nickname, name: $name, email: $email, password: $password }) {
+        nickname
+    }
+}
+
+mutation UpdateUserPicture($picture: Upload!) {
+    updateUserPicture(picture: $picture)
+}
+
+mutation UpdateUserLocation($lat: Float!, $lng: Float!) {
+    updateUserLocation(lat: $lat, lng: $lng)
+}
+
+mutation UpdateUserBio($bio: String!) {
+    updateUserBio(bio: $bio)
+}
+
+mutation UpdateUserCover($cover: Upload!) {
+    updateUserCover(cover: $cover)
+}
+
+mutation AddTagToUser($tag: String!) {
+    addTagToUser(tag: $tag)
+}
+
+mutation RemoveTagFromUser($tag: String!) {
+    removeTagFromUser(tag: $tag)
+}
+
+mutation FollowUser($nickname: String!) {
+    follow(nickname: $nickname)
+}
+
+mutation UnfollowUser($nickname: String!) {
+    unfollow(nickname: $nickname)
+}

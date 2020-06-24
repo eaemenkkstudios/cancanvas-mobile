@@ -1,5 +1,0 @@
-mutation CreateUser($nickname: String!, $name: String!, $email: String!, $password: String!) {
-    createUser(input: { nickname: $nickname, name: $name, email: $email, password: $password }) {
-        nickname
-    }
-}

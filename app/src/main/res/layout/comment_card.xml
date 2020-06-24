@@ -114,13 +114,16 @@
                     android:textColor="?attr/colorSecondary"
                     android:textSize="20sp" />
 
-                <ImageView
+                <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/ivLike"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_margin="5dp"
                     android:tint="?attr/colorSecondary"
-                    app:srcCompat="@drawable/clap" />
+                    app:lottie_autoPlay="false"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/clap"
+                    tools:visibility="visible" />
             </LinearLayout>
 
         </LinearLayout>

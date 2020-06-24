@@ -33,8 +33,6 @@ class FeedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
-        ivLoading.setBackgroundResource(R.drawable.animation_loading)
-        (ivLoading.background as AnimationDrawable).start()
         srlFeed.setOnRefreshListener { onRefresh() }
         val attrs = intArrayOf(R.attr.colorPrimary, R.attr.colorAccent)
         val themeId = packageManager.getActivityInfo(componentName, 0).theme

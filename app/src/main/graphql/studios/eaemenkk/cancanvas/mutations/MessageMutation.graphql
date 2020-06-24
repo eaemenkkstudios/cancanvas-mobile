@@ -1,0 +1,7 @@
+mutation SendMessageToUser($msg: String!, $receiver: String!) {
+    sendMessage(msg: $msg, receiver: $receiver)
+}
+
+mutation SendMessageToBot($msg: String!) {
+    sendMessageToDialogflow(msg: $msg)
+}
