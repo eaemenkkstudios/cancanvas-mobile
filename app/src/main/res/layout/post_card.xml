@@ -14,9 +14,12 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/llProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
             android:orientation="horizontal">
 

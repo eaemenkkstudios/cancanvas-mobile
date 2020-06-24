@@ -11,4 +11,8 @@ class UserInteractor(private val context: Context) {
     fun getSelf(callback: (user: User) -> Unit) {
         repository.getSelf(callback)
     }
+
+    fun getUser(nickname: String, callback: (user: User) -> Unit) {
+        repository.getUser(nickname, callback)
+    }
 }

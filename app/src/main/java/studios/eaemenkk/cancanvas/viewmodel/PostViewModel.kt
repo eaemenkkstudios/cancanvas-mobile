@@ -25,15 +25,7 @@ class PostViewModel(app: Application) : AndroidViewModel(app) {
 
     fun getFeed(page: Int = 1) {
         postInteractor.getFeed(page) {postAuctions ->
-            postAuctions.forEach { auction ->
-                if (auction.author != null) {
-                    auction.author?.nickname = "@${auction.author?.nickname}"
-                }
-                if (auction.host != null) {
-                    auction.host?.nickname = "@${auction.host?.nickname}"
-                }
-                auction.timestamp = auction.timestamp?.let { utils.timestampToTimeInterval(it) }
-            }
+            postAuctions.forEach { auction -> auction.timestamp = auction.timestamp?.let { utils.timestampToTimeInterval(it) } }
             postAuctionList.postValue(postAuctions)
         }
     }

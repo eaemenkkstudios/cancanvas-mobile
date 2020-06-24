@@ -9,12 +9,14 @@ import studios.eaemenkk.cancanvas.interactor.UserInteractor
 class UserViewModel(app: Application) : AndroidViewModel(app) {
     val interactor = UserInteractor(app.applicationContext)
 
+    val userData = MutableLiveData<User>()
     val selfData = MutableLiveData<User>()
 
     fun getSelf() {
-        interactor.getSelf { self ->
-            self.nickname = "@${self.nickname}"
-            selfData.postValue(self)
-        }
+        interactor.getSelf { self -> selfData.postValue(self) }
+    }
+
+    fun getUser(nickname: String) {
+        interactor.getUser(nickname) { user -> userData.postValue(user) }
     }
 }

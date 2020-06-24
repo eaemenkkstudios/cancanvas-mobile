@@ -10,10 +10,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
@@ -29,8 +26,10 @@ import kotlinx.android.synthetic.main.auction_card.view.ivProfile
 import kotlinx.android.synthetic.main.auction_card.view.tvName
 import kotlinx.android.synthetic.main.auction_card.view.tvNickname
 import kotlinx.android.synthetic.main.auction_card.view.tvTime
+import kotlinx.android.synthetic.main.post_card.*
 import kotlinx.android.synthetic.main.post_card.view.*
 import kotlinx.android.synthetic.main.post_card.view.ivMenu
+import kotlinx.android.synthetic.main.post_card.view.llProfile
 import kotlinx.android.synthetic.main.post_card.view.tvDescription
 import kotlinx.android.synthetic.main.post_card.view.tvLikes
 import studios.eaemenkk.cancanvas.R
@@ -78,7 +77,7 @@ class PostAdapter(private val context: Context, private val viewModel: CommentVi
         when (holder) {
             is AuctionViewHolder -> {
                 holder.bids.text = postAuction.bids?.size.toString()
-                holder.nickname.text = postAuction.host?.nickname
+                holder.nickname.text = "@${postAuction.host?.nickname}"
                 holder.name.text = postAuction.host?.name
                 if (postAuction.host?.picture != "") {
                     Picasso.get().load(postAuction.host?.picture).into(holder.picture)
@@ -87,11 +86,16 @@ class PostAdapter(private val context: Context, private val viewModel: CommentVi
                 holder.time.text = postAuction.timestamp
                 holder.description.text = postAuction.description
                 holder.menu.setOnClickListener { inflateMenu(holder.menu, R.menu.auction_menu) }
+                holder.profile.setOnClickListener {
+                    val intent = Intent("CANCANVAS_PROFILE").addCategory("CANCANVAS_PROFILE")
+                        .putExtra("nickname", postAuction.host?.nickname)
+                    context.startActivity(intent)
+                }
             }
             is PostViewHolder -> {
                 holder.likes.text = postAuction.likes.toString()
                 holder.comments.text = postAuction.comments?.count.toString()
-                holder.nickname.text = postAuction.author?.nickname
+                holder.nickname.text = "@${postAuction.author?.nickname}"
                 holder.name.text = postAuction.author?.name
                 if (postAuction.author?.picture != "") {
                     Picasso.get().load(postAuction.author?.picture).into(holder.picture)
@@ -162,6 +166,11 @@ class PostAdapter(private val context: Context, private val viewModel: CommentVi
                 holder.viewComments.setOnClickListener {
                     val intent = Intent("CANCANVAS_COMMENTS").addCategory("CANCANVAS_COMMENTS")
                         .putExtra("id", postAuction.id)
+                    context.startActivity(intent)
+                }
+                holder.profile.setOnClickListener {
+                    val intent = Intent("CANCANVAS_PROFILE").addCategory("CANCANVAS_PROFILE")
+                        .putExtra("nickname", postAuction.author?.nickname)
                     context.startActivity(intent)
                 }
             }
@@ -311,6 +320,7 @@ class PostAdapter(private val context: Context, private val viewModel: CommentVi
         val time: TextView = itemView.tvTime
         val description: TextView = itemView.tvDescription
         val menu: ImageView = itemView.ivMenu
+        val profile: LinearLayout = itemView.llProfile
     }
 
     class PostViewHolder(itemView: View): AuctionPostViewHolder(itemView) {
@@ -325,6 +335,7 @@ class PostAdapter(private val context: Context, private val viewModel: CommentVi
         val content: ImageView = itemView.ivPost
         val description: TextView = itemView.tvDescription
         val menu: ImageView = itemView.ivMenu
+        val profile: LinearLayout = itemView.llProfile
     }
 
     private fun inflateMenu(view: View, menu: Int) {

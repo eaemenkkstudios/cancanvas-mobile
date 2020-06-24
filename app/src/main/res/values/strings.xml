@@ -75,5 +75,6 @@
     <string name="hello_example">Hello, sir.</string>
     <string name="search_example">fractal art</string>
     <string name="search">Search</string>
+    <string name="tags">Please, choose the tags that suit you the most.</string>
 
 </resources>

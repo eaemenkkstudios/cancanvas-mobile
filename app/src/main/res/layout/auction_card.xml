@@ -15,68 +15,62 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/llProfile"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:gravity="left|center_vertical"
-            android:orientation="vertical">
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="0"
-                    app:cardCornerRadius="10dp">
-
-                    <ImageView
-                        android:id="@+id/ivProfile"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="0"
-                        app:srcCompat="@drawable/dummy_profile" />
-                </androidx.cardview.widget.CardView>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvNickname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/nickname_sample"
-                        android:textColor="?attr/colorSecondary" />
-
-                    <TextView
-                        android:id="@+id/tvName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/name_sample"
-                        android:textColor="?attr/colorPrimary"
-                        android:textSize="20sp" />
-                </LinearLayout>
+                android:layout_marginRight="10dp"
+                android:layout_weight="0"
+                app:cardCornerRadius="10dp">
 
                 <ImageView
-                    android:id="@+id/ivMenu"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
+                    android:id="@+id/ivProfile"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_weight="0"
-                    android:tint="?attr/colorSecondary"
-                    app:srcCompat="@drawable/dots" />
+                    app:srcCompat="@drawable/dummy_profile" />
+            </androidx.cardview.widget.CardView>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvNickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/nickname_sample"
+                    android:textColor="?attr/colorSecondary" />
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/name_sample"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="20sp" />
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivMenu"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_weight="0"
+                android:tint="?attr/colorSecondary"
+                app:srcCompat="@drawable/dots" />
 
         </LinearLayout>
 

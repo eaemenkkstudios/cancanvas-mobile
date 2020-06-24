@@ -17,10 +17,7 @@ class CommentViewModel(app: Application) : AndroidViewModel(app) {
 
     fun getComments(postId: String, page: Int = 1) {
         interactor.getComments(postId, page) { comments ->
-            comments.forEach { comment ->
-                comment.author?.nickname = "@${comment.author?.nickname}"
-                comment.timestamp = comment.timestamp?.let { utils.timestampToTimeInterval(it) }
-            }
+            comments.forEach { comment -> comment.timestamp = comment.timestamp?.let { utils.timestampToTimeInterval(it) } }
             commentList.postValue(comments)
         }
     }
