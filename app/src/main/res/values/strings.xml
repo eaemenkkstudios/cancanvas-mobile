@@ -69,5 +69,11 @@
     <string name="subscribe">Subscribe</string>
     <string name="unsubscribe">Unsubscribe</string>
     <string name="comments">Comments</string>
+    <string name="edit_bio">Tell me how you are feeling this wonderful day.</string>
+    <string name="bio_example">I am feeling very well, sir, thank you for asking. You are such a gentleman.</string>
+    <string name="bid">An artist of culture, I see. Tell me, do you plan to counteroffer this proposal?</string>
+    <string name="hello_example">Hello, sir.</string>
+    <string name="search_example">fractal art</string>
+    <string name="search">Search</string>
 
 </resources>

@@ -41,7 +41,7 @@
             android:layout_gravity="left|center_vertical"
             android:layout_margin="10dp"
             android:tint="?attr/colorPrimary"
-            app:srcCompat="@drawable/abc_vector_test" />
+            app:srcCompat="@drawable/ic_left" />
 
     </FrameLayout>
 
@@ -53,6 +53,7 @@
             android:id="@+id/rvComments"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toTopOf="@+id/cardView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +88,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:gravity="start|top"
+                    android:hint="Write a comment."
                     android:inputType="textMultiLine"
                     tools:text="wow. such image. much talent. very nice. such artist." />
 

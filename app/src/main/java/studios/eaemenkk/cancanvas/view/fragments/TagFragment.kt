@@ -13,10 +13,11 @@ import kotlinx.android.synthetic.main.fragment_tag.view.*
 import kotlinx.android.synthetic.main.fragment_tag.view.cvTag
 import studios.eaemenkk.cancanvas.R
 
-class TagFragment(tagName: String) : Fragment() {
+class TagFragment(tagSelector: TagSelectionFragment, tagName: String) : Fragment() {
     private var selected = false
     private var hashedColor = 0
     private var tagName: String? = tagName
+    private var tagSelector = tagSelector
 
     val viewAvailable = MutableLiveData<View>()
 
@@ -56,7 +57,10 @@ class TagFragment(tagName: String) : Fragment() {
     }
 
     fun selectTag() {
-        if(!selected) {
+        if(!selected
+            && tagSelector.selectable
+            && (tagSelector.currentSelections < tagSelector.maxSelections
+                    || tagSelector.maxSelections < 0)) {
             val typedValue = TypedValue()
             val theme = requireContext().theme
             theme.resolveAttribute(R.attr.colorError, typedValue, true)

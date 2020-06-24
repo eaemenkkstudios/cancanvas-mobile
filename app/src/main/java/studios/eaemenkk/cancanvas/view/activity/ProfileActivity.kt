@@ -18,6 +18,8 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         getUserInfo()
+
+        ivEditBio.setOnClickListener {  }
     }
 
     private fun getUserInfo() {

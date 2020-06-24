@@ -20,7 +20,7 @@ import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.view.adapter.PostAdapter
 import studios.eaemenkk.cancanvas.viewmodel.PostViewModel
 
-class FeedActivity : AppCompatActivity() {
+class FollowingActivity : AppCompatActivity() {
     private var page = 1
     private var refresh = true
     private var isLoading = false
@@ -34,7 +34,7 @@ class FeedActivity : AppCompatActivity() {
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_feed)
+        setContentView(R.layout.activity_following)
         srlFeed.setOnRefreshListener { onRefresh() }
         val attrs = intArrayOf(R.attr.colorPrimary, R.attr.colorAccent)
         val themeId = packageManager.getActivityInfo(componentName, 0).theme
@@ -42,12 +42,12 @@ class FeedActivity : AppCompatActivity() {
         srlFeed.setColorSchemeColors(ta.getColor(0, Color.BLACK))
         srlFeed.setProgressBackgroundColorSchemeColor(ta.getColor(1, Color.BLACK))
 
-        bnvFeed.selectedItemId = R.id.btGlobal
+        bnvFeed.selectedItemId = R.id.btFollowing
         bnvFeed.setOnNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId) {
-                R.id.btFollowing -> {
-                    startActivity(Intent("CANCANVAS_FOLLOWING")
-                        .addCategory("CANCANVAS_FOLLOWING")
+                R.id.btGlobal -> {
+                    startActivity(Intent("CANCANVAS_FEED")
+                        .addCategory("CANCANVAS_FEED")
                         .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
                     overridePendingTransition(0, 0)
                 }

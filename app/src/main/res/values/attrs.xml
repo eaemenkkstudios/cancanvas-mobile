@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="TagSelectionFragment">
         <attr name="selectable" format="boolean"/>
+        <attr name="max_selectable" format="integer"/>
         <attr name="searchable" format="boolean"/>
     </declare-styleable>
 </resources>

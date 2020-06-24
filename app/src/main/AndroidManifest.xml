@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="studios.eaemenkk.cancanvas">
+    package="studios.eaemenkk.cancanvas" >
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true" >
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -31,15 +31,15 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".view.activity.WelcomeActivity" />
-        <activity android:name=".view.activity.SplashActivity">
+        <activity android:name=".view.activity.PelicanvasActivity" />
+        <activity android:name=".view.activity.SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.LoginActivity">
+        <activity android:name=".view.activity.LoginActivity" >
             <intent-filter>
                 <action android:name="CANCANVAS_LOGIN" />
 
@@ -47,7 +47,7 @@
                 <category android:name="CANCANVAS_LOGIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.FeedActivity">
+        <activity android:name=".view.activity.FeedActivity" >
             <intent-filter>
                 <action android:name="CANCANVAS_FEED" />
 
@@ -55,7 +55,15 @@
                 <category android:name="CANCANVAS_FEED" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.SignUpActivity">
+        <activity android:name=".view.activity.FollowingActivity" >
+            <intent-filter>
+                <action android:name="CANCANVAS_FOLLOWING" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="CANCANVAS_FOLLOWING" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activity.SignUpActivity" >
             <intent-filter>
                 <action android:name="CANCANVAS_SIGN_UP" />
 
@@ -63,7 +71,7 @@
                 <category android:name="CANCANVAS_SIGN_UP" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.PhotoActivity">
+        <activity android:name=".view.activity.PhotoActivity" >
             <intent-filter>
                 <action android:name="CANCANVAS_PHOTO" />
 
@@ -71,7 +79,7 @@
                 <category android:name="CANCANVAS_PHOTO" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.CommentsActivity">
+        <activity android:name=".view.activity.CommentsActivity" >
             <intent-filter>
                 <action android:name="CANCANVAS_COMMENTS" />
 
@@ -79,7 +87,7 @@
                 <category android:name="CANCANVAS_COMMENTS" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.ProfileActivity">
+        <activity android:name=".view.activity.ProfileActivity" >
             <intent-filter>
                 <action android:name="CANCANVAS_PROFILE" />
 

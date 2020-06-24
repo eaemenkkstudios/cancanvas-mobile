@@ -21,14 +21,17 @@ import studios.eaemenkk.cancanvas.R
 class TagSelectionFragment : Fragment() {
     private var lastRow: LinearLayout? = null
     private var elementsSize: Float = 0f
-    private var selectable = false
-    private var searchable = true
+    var searchable = true
+    var selectable = false
+    var maxSelections = -1
+    var currentSelections = 0
 
     override fun onInflate(context: Context, attrs: AttributeSet, savedInstanceState: Bundle?) {
         super.onInflate(context, attrs, savedInstanceState)
         val a = requireActivity().obtainStyledAttributes(attrs, R.styleable.TagSelectionFragment)
 
         selectable = a.getBoolean(R.styleable.TagSelectionFragment_selectable, false)
+        maxSelections = a.getInteger(R.styleable.TagSelectionFragment_max_selectable, -1)
         searchable = a.getBoolean(R.styleable.TagSelectionFragment_selectable, true)
         a.recycle()
     }
@@ -72,7 +75,7 @@ class TagSelectionFragment : Fragment() {
 
     fun addTag(tagName: String) {
         // Creates fragment
-        val tag = TagFragment(tagName)
+        val tag = TagFragment(this, tagName)
         // Gets screen size
         val density = resources.displayMetrics.density
         val dpWidth = resources.displayMetrics.widthPixels / density
