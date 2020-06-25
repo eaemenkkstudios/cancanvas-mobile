@@ -1,7 +1,6 @@
 package studios.eaemenkk.cancanvas.view.activity
 
 import android.content.Intent
-import android.graphics.drawable.AnimationDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View

@@ -1,11 +1,32 @@
 package studios.eaemenkk.cancanvas.utils
 
 import android.content.Context
+import android.net.Uri
+import android.provider.MediaStore
+import androidx.loader.content.CursorLoader
 import studios.eaemenkk.cancanvas.R
 import kotlin.math.abs
 import kotlin.math.floor
 
 class Utils(private val context: Context) {
+
+    fun getPathFromUri(uri: Uri): String? {
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val loader = CursorLoader(context, uri, projection, null, null, null)
+        val cursor = loader.loadInBackground()
+        val columnIndex = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor?.moveToFirst()
+        return cursor?.getString(columnIndex!!)
+    }
+
+    fun getExtensionFromPath(path: String): String {
+        val regex = """(.+)/(.+)\.(.+)""".toRegex()
+        val matchResult = regex.matchEntire(path)
+        return if (matchResult != null) {
+            val (_, _, extension) = matchResult.destructured
+            extension
+        } else ""
+    }
 
     fun timestampToTimeInterval(timestamp: String): String {
         val currentTimestamp = System.currentTimeMillis() / 1000

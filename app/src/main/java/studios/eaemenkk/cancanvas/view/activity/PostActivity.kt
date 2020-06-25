@@ -1,21 +1,10 @@
 package studios.eaemenkk.cancanvas.view.activity
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
-import com.apollographql.apollo.ApolloCall
-import com.apollographql.apollo.api.Input
-import com.apollographql.apollo.api.Response
-import com.apollographql.apollo.exception.ApolloException
 import kotlinx.android.synthetic.main.activity_post.*
 import studios.eaemenkk.cancanvas.R
-import studios.eaemenkk.cancanvas.mutations.CreatePostMutation
-import studios.eaemenkk.cancanvas.repository.BaseApollo
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
 
 
 class PostActivity() : AppCompatActivity() {

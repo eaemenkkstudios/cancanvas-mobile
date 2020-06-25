@@ -80,5 +80,6 @@
     <string name="load_map_failed">Map loading failed.</string>
     <string name="post">What kind of masterpiece will you post today?</string>
     <string name="post_example">This is the description of my masterpiece.</string>
+    <string name="update_bio">Update Bio</string>
 
 </resources>

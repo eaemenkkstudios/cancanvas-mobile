@@ -2,18 +2,15 @@ package studios.eaemenkk.cancanvas.repository
 
 import android.content.Context
 import com.apollographql.apollo.ApolloCall
+import com.apollographql.apollo.api.FileUpload
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import studios.eaemenkk.cancanvas.domain.CommentList
 import studios.eaemenkk.cancanvas.domain.Post
 import studios.eaemenkk.cancanvas.domain.User
 import studios.eaemenkk.cancanvas.domain.UserWithPosts
-import studios.eaemenkk.cancanvas.mutations.FollowUserMutation
-import studios.eaemenkk.cancanvas.mutations.UnfollowUserMutation
-import studios.eaemenkk.cancanvas.queries.SelfQuery
-import studios.eaemenkk.cancanvas.queries.UserQuery
-import studios.eaemenkk.cancanvas.queries.UserWithPostsQuery
-import studios.eaemenkk.cancanvas.queries.UsersByTagsQuery
+import studios.eaemenkk.cancanvas.mutations.*
+import studios.eaemenkk.cancanvas.queries.*
 
 class UserRepository(context: Context, baseUrl: String, subscriptionUrl: String): BaseApollo(context, baseUrl, subscriptionUrl) {
     fun getSelf(callback: (user: User) -> Unit) {
@@ -136,6 +133,19 @@ class UserRepository(context: Context, baseUrl: String, subscriptionUrl: String)
         })
     }
 
+    fun isFollowing(nickname: String, callback: (status: Boolean) -> Unit) {
+        apolloClient.query(IsFollowingQuery(nickname)).enqueue(object: ApolloCall.Callback<IsFollowingQuery.Data>() {
+            override fun onFailure(e: ApolloException) {
+                println("Apollo Error $e")
+            }
+
+            override fun onResponse(response: Response<IsFollowingQuery.Data>) {
+                response.data?.isFollowing?.let { callback(it) }
+            }
+
+        })
+    }
+
     fun follow(nickname: String, callback: (status: Boolean) -> Unit) {
         apolloClient.mutate(FollowUserMutation(nickname)).enqueue(object: ApolloCall.Callback<FollowUserMutation.Data>() {
             override fun onFailure(e: ApolloException) {
@@ -157,6 +167,45 @@ class UserRepository(context: Context, baseUrl: String, subscriptionUrl: String)
 
             override fun onResponse(response: Response<UnfollowUserMutation.Data>) {
                 response.data?.unfollow?.let { callback(it) }
+            }
+
+        })
+    }
+
+    fun updateUserPicture(picture: FileUpload, callback: (path: String) -> Unit) {
+        apolloClient.mutate(UpdateUserPictureMutation(picture)).enqueue(object: ApolloCall.Callback<UpdateUserPictureMutation.Data>() {
+            override fun onFailure(e: ApolloException) {
+                println("Apollo Error $e")
+            }
+
+            override fun onResponse(response: Response<UpdateUserPictureMutation.Data>) {
+                response.data?.updateUserPicture?.let { callback(it) }
+            }
+
+        })
+    }
+
+    fun updateUserCover(cover: FileUpload, callback: (path: String) -> Unit) {
+        apolloClient.mutate(UpdateUserCoverMutation(cover)).enqueue(object: ApolloCall.Callback<UpdateUserCoverMutation.Data>() {
+            override fun onFailure(e: ApolloException) {
+                println("Apollo Error $e")
+            }
+
+            override fun onResponse(response: Response<UpdateUserCoverMutation.Data>) {
+                response.data?.updateUserCover?.let { callback(it) }
+            }
+
+        })
+    }
+
+    fun updateUserBio(bio: String, callback: (status: Boolean) -> Unit) {
+        apolloClient.mutate(UpdateUserBioMutation(bio)).enqueue(object: ApolloCall.Callback<UpdateUserBioMutation.Data>() {
+            override fun onFailure(e: ApolloException) {
+                println("Apollo Error $e")
+            }
+
+            override fun onResponse(response: Response<UpdateUserBioMutation.Data>) {
+                response.data?.updateUserBio?.let { callback(it) }
             }
 
         })

@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_photo.*
-import kotlinx.android.synthetic.main.activity_photo.view.*
 import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.viewmodel.CommentViewModel
 
@@ -33,7 +32,7 @@ class PhotoActivity : AppCompatActivity() {
         ivMenu.setOnClickListener { inflatePostMenu(ivMenu) }
 
         tvName.text = intent.extras?.get("name") as String
-        tvNickname.text = intent.extras?.get("nickname") as String
+        tvNickname.text = "@${intent.extras?.get("nickname") as String}"
         Picasso.get().load(intent.extras?.get("picture") as String).into(ivProfile)
         Picasso.get().load(intent.extras?.get("content") as String).into(pvPhoto)
         tvComments.text = String.format((intent.extras?.get("comments")).toString())

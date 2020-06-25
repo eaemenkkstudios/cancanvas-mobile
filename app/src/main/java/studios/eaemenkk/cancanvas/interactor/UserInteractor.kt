@@ -1,6 +1,7 @@
 package studios.eaemenkk.cancanvas.interactor
 
 import android.content.Context
+import com.apollographql.apollo.api.FileUpload
 import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.domain.User
 import studios.eaemenkk.cancanvas.domain.UserWithPosts
@@ -23,5 +24,29 @@ class UserInteractor(private val context: Context) {
 
     fun getUsersByTags(tags: ArrayList<String>, callback: (users: ArrayList<User>) -> Unit) {
         repository.getUsersByTags(tags, callback)
+    }
+
+    fun isFollowing(nickname: String, callback: (status: Boolean) -> Unit) {
+        repository.isFollowing(nickname, callback)
+    }
+
+    fun follow(nickname: String, callback: (status: Boolean) -> Unit) {
+        repository.follow(nickname, callback)
+    }
+
+    fun unfollow(nickname: String, callback: (status: Boolean) -> Unit) {
+        repository.unfollow(nickname, callback)
+    }
+
+    fun updateUserPicture(picture: FileUpload, callback: (path: String) -> Unit) {
+        repository.updateUserPicture(picture, callback)
+    }
+
+    fun updateUserCover(cover: FileUpload, callback: (path: String) -> Unit) {
+        repository.updateUserCover(cover, callback)
+    }
+
+    fun updateUserBio(bio: String, callback: (status: Boolean) -> Unit) {
+        repository.updateUserBio(bio, callback)
     }
 }

@@ -40,7 +40,7 @@ class CommentAdapter(private val context: Context): RecyclerView.Adapter<Comment
 
         holder.description.text = comment.text
         holder.name.text = comment.author?.name
-        holder.nickname.text = comment.author?.nickname
+        holder.nickname.text = "@${comment.author?.nickname}"
         if (comment.author?.picture != "") {
             Picasso.get().load(comment.author?.picture).into(holder.picture)
         }

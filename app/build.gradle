@@ -94,4 +94,7 @@ dependencies {
 
 apollo {
     generateKotlinModels.set(true) // or false for Java models
+    customTypeMapping = [
+            "Upload" : "com.apollographql.apollo.api.FileUpload"
+    ]
 }

@@ -6,11 +6,9 @@ import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
 import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_splash.*
 import studios.eaemenkk.cancanvas.R
-import studios.eaemenkk.cancanvas.view.fragments.TagSelectionFragment
 
 
 class SplashActivity: AppCompatActivity() {
