@@ -1,15 +1,12 @@
 package studios.eaemenkk.cancanvas.repository;
 
 import android.content.Context
-import com.apollographql.apollo.ApolloClient;
-import com.apollographql.apollo.api.Response
+import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.subscription.SubscriptionConnectionParams
-import com.apollographql.apollo.subscription.SubscriptionConnectionParamsProvider
 import com.apollographql.apollo.subscription.WebSocketSubscriptionTransport
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import studios.eaemenkk.cancanvas.R
 import java.util.concurrent.TimeUnit
 
 open class BaseApollo(private val context: Context, baseUrl: String, subscriptionUrl: String) {

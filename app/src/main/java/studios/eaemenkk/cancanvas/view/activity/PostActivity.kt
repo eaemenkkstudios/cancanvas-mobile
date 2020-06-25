@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_post.*
 import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.utils.Utils
 import studios.eaemenkk.cancanvas.viewmodel.PostViewModel
-import kotlin.math.PI
 
 
 class PostActivity: AppCompatActivity() {
