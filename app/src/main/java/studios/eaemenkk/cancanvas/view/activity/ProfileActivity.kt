@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
-import com.apollographql.apollo.api.FileUpload
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -31,8 +30,6 @@ import kotlinx.android.synthetic.main.bio_popup.view.*
 import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.utils.Utils
 import studios.eaemenkk.cancanvas.viewmodel.UserViewModel
-import java.io.File
-import java.io.FileOutputStream
 
 class ProfileActivity : AppCompatActivity(), OnMapReadyCallback {
     private val viewModel: UserViewModel by lazy {
@@ -217,16 +214,8 @@ class ProfileActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            val inputStream = data?.data?.let { contentResolver.openInputStream(it) } ?: return
             val utils = Utils(this)
-            val filePath = utils.getPathFromUri(data.data!!)
-            val ext = filePath?.let { utils.getExtensionFromPath(it) }
-            val file = File.createTempFile("image", ".$ext")
-            file.deleteOnExit()
-            val out = FileOutputStream(file)
-            inputStream.copyTo(out)
-            val type = contentResolver.getType(data.data!!) ?: return
-            val upload = FileUpload(type, file.path)
+            val upload = utils.createFileUploadFromUri(data?.data!!) ?: return
             when (requestCode) {
                 PICK_PROFILE_IMAGE -> viewModel.updateUserPicture(upload)
                 PICK_COVER_IMAGE -> viewModel.updateUserCover(upload)
