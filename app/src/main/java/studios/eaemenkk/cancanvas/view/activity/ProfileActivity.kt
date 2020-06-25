@@ -142,7 +142,7 @@ class ProfileActivity : AppCompatActivity(), OnMapReadyCallback {
                 try {
                     val coordinates = LatLng(self.lat!!, self.lng!!)
                     googleMap.addMarker(MarkerOptions().position(coordinates).title(getString(R.string.artist_location)))
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(coordinates))
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 12f))
                 } catch (e: Exception) {
                     Toast.makeText(this, getString(R.string.load_map_failed), Toast.LENGTH_LONG).show()
                 }
@@ -199,10 +199,6 @@ class ProfileActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    fun updateUserBio() {
-        viewModel.updateUserBio(bio)
-    }
-
     private fun popup() {
         popupWindow = PopupWindow(this)
         val view = layoutInflater.inflate(R.layout.bio_popup, null)
@@ -210,7 +206,7 @@ class ProfileActivity : AppCompatActivity(), OnMapReadyCallback {
         view.etBio.setText(bio)
         view.btUpdateBio.setOnClickListener {
             bio = view.etBio.text.toString()
-            updateUserBio()
+            viewModel.updateUserBio(bio)
         }
         clProfile.setOnClickListener { popupWindow.dismiss() }
         popupWindow.isFocusable = true
@@ -251,7 +247,7 @@ class ProfileActivity : AppCompatActivity(), OnMapReadyCallback {
             )
             pickIntent.type = "image/*"
 
-            val chooserIntent = Intent.createChooser(getIntent, "Select Image")
+            val chooserIntent = Intent.createChooser(getIntent, getString(R.string.select_image))
             chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
 
             startActivityForResult(chooserIntent, code)
@@ -264,14 +260,14 @@ class ProfileActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getImageFromGallery(PICK_PROFILE_IMAGE)
                 } else {
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.gallery_denied), Toast.LENGTH_LONG).show()
                 }
             }
             PICK_COVER_IMAGE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getImageFromGallery(PICK_COVER_IMAGE)
                 } else {
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.gallery_denied), Toast.LENGTH_LONG).show()
                 }
             }
         }

@@ -1,13 +1,21 @@
 package studios.eaemenkk.cancanvas.view.activity
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.TypedArray
 import android.graphics.Color
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +26,7 @@ import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.view.adapter.PostAdapter
 import studios.eaemenkk.cancanvas.viewmodel.CommentViewModel
 import studios.eaemenkk.cancanvas.viewmodel.PostViewModel
+import studios.eaemenkk.cancanvas.viewmodel.UserViewModel
 
 class FeedActivity : AppCompatActivity() {
     private var page = 1
@@ -26,12 +35,32 @@ class FeedActivity : AppCompatActivity() {
     private var showLoadingIcon = true
     private val layoutManager = LinearLayoutManager(this)
     private lateinit var adapter: PostAdapter
-
+    private val userViewModel: UserViewModel by lazy {
+        ViewModelProvider(this).get(UserViewModel::class.java)
+    }
     private val commentViewModel: CommentViewModel by lazy {
         ViewModelProvider(this).get(CommentViewModel::class.java)
     }
     private val viewModel: PostViewModel by lazy {
         ViewModelProvider(this).get(PostViewModel::class.java)
+    }
+    private val LOCATION_PERMISSION = 999
+    private var lat: Double = 0.0
+    private var lng: Double = 0.0
+    private val locationListener: LocationListener = object: LocationListener {
+        override fun onLocationChanged(location: Location?) {
+            if (location != null) {
+                lat = location.latitude
+                lng = location.longitude
+                userViewModel.updateUserLocation(lat, lng)
+            }
+        }
+
+        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+
+        override fun onProviderEnabled(provider: String?) {}
+
+        override fun onProviderDisabled(provider: String?) {}
     }
 
     @SuppressLint("ResourceType")
@@ -89,6 +118,7 @@ class FeedActivity : AppCompatActivity() {
             false
         }
 
+        getUserLocation()
         configureRecyclerView()
         getFeed()
         ta.recycle()
@@ -127,6 +157,31 @@ class FeedActivity : AppCompatActivity() {
             }
         })
     }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            LOCATION_PERMISSION -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    getUserLocation()
+                } else {
+                    Toast.makeText(this, getString(R.string.location_denied), Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+    private fun getUserLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                LOCATION_PERMISSION)
+        } else {
+            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0, 0.1f, locationListener)
+        }
+    }
+
 
     private fun getFeed() {
         if(showLoadingIcon) clLoading.visibility = View.VISIBLE

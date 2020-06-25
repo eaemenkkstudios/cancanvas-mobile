@@ -210,4 +210,17 @@ class UserRepository(context: Context, baseUrl: String, subscriptionUrl: String)
 
         })
     }
+
+    fun updateUserLocation(lat: Double, lng: Double, callback: (status: Boolean) -> Unit) {
+        apolloClient.mutate(UpdateUserLocationMutation(lat, lng)).enqueue(object: ApolloCall.Callback<UpdateUserLocationMutation.Data>() {
+            override fun onFailure(e: ApolloException) {
+                println("Apollo Error $e")
+            }
+
+            override fun onResponse(response: Response<UpdateUserLocationMutation.Data>) {
+                response.data?.updateUserLocation?.let { callback(it) }
+            }
+
+        })
+    }
 }

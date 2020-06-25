@@ -49,4 +49,8 @@ class UserInteractor(private val context: Context) {
     fun updateUserBio(bio: String, callback: (status: Boolean) -> Unit) {
         repository.updateUserBio(bio, callback)
     }
+
+    fun updateUserLocation(lat: Double, lng: Double, callback: (status: Boolean) -> Unit) {
+        repository.updateUserLocation(lat, lng, callback)
+    }
 }

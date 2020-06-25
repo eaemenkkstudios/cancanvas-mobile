@@ -81,5 +81,7 @@
     <string name="post">What kind of masterpiece will you post today?</string>
     <string name="post_example">This is the description of my masterpiece.</string>
     <string name="update_bio">Update Bio</string>
-
+    <string name="location_denied">Please allow the location permission if you want to see your location in the profile screen</string>
+    <string name="gallery_denied">Without this permission, you will not be able to create new posts, update your profile picture or update your cover</string>
+    <string name="select_image">Select an image</string>
 </resources>

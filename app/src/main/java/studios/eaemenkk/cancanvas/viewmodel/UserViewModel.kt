@@ -16,6 +16,7 @@ class UserViewModel(app: Application) : AndroidViewModel(app) {
     val followStatus = MutableLiveData<Boolean>()
     val unfollowStatus = MutableLiveData<Boolean>()
     val userBioStatus = MutableLiveData<Boolean>()
+    val userLocationStatus = MutableLiveData<Boolean>()
     val userPicturePath = MutableLiveData<String>()
     val userCoverPath = MutableLiveData<String>()
 
@@ -55,6 +56,10 @@ class UserViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun updateUserBio(bio: String) {
-        interactor.updateUserBio(bio) {status ->  userBioStatus.postValue(status) }
+        interactor.updateUserBio(bio) { status ->  userBioStatus.postValue(status) }
+    }
+
+    fun updateUserLocation(lat: Double, lng: Double) {
+        interactor.updateUserLocation(lat, lng) { status -> userLocationStatus.postValue(status) }
     }
 }
