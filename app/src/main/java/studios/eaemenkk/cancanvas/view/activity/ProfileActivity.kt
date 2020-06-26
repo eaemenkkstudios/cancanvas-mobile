@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.bio_popup.view.*
 import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.utils.Utils
+import studios.eaemenkk.cancanvas.view.fragments.TagSelectionFragment
 import studios.eaemenkk.cancanvas.viewmodel.UserViewModel
 
 class ProfileActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -127,8 +128,10 @@ class ProfileActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun getUserInfo(googleMap: GoogleMap) {
+        viewModel.userTags.observe(this, Observer { tags -> tags.forEach { tag -> (tsTags as TagSelectionFragment).addTag(tag) } })
         if(nickname == null) {
             viewModel.selfData.observe(this, Observer { self ->
+                viewModel.getUserTags(self.nickname!!)
                 tvNickname.text = "@${self.nickname}"
                 tvName.text = self.name
                 tvBio.text = self.bio
@@ -172,7 +175,7 @@ class ProfileActivity : AppCompatActivity(), OnMapReadyCallback {
                 try {
                     val coordinates = LatLng(user.lat!!, user.lng!!)
                     googleMap.addMarker(MarkerOptions().position(coordinates).title(getString(R.string.artist_location)))
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(coordinates))
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 12f))
                 } catch (e: Exception) {
                     Toast.makeText(this, getString(R.string.load_map_failed), Toast.LENGTH_LONG).show()
                 }
@@ -193,6 +196,7 @@ class ProfileActivity : AppCompatActivity(), OnMapReadyCallback {
             })
             viewModel.getUser(nickname!!)
             viewModel.isFollowing(nickname!!)
+            viewModel.getUserTags(nickname!!)
         }
     }
 

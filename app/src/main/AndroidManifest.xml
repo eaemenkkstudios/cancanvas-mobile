@@ -87,13 +87,20 @@
                 <category android:name="CANCANVAS_PROFILE" />
             </intent-filter>
         </activity>
-
         <activity android:name=".view.activity.PelicanvasActivity" >
             <intent-filter>
                 <action android:name="CANCANVAS_PELICANVAS" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="CANCANVAS_PELICANVAS" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activity.SearchActivity" >
+            <intent-filter>
+                <action android:name="CANCANVAS_SEARCH" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="CANCANVAS_SEARCH" />
             </intent-filter>
         </activity>
 

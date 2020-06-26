@@ -84,6 +84,13 @@ class FeedActivity : AppCompatActivity() {
             overridePendingTransition(0, 0)
         }
 
+        fabSearch.setOnClickListener {
+            startActivity(Intent("CANCANVAS_SEARCH")
+                .addCategory("CANCANVAS_SEARCH")
+                .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+            overridePendingTransition(0, 0)
+        }
+
         bnvFeed.selectedItemId = R.id.btGlobal
         bnvFeed.setOnNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId) {

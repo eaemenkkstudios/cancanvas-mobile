@@ -13,11 +13,9 @@ import kotlinx.android.synthetic.main.fragment_tag.view.*
 import kotlinx.android.synthetic.main.fragment_tag.view.cvTag
 import studios.eaemenkk.cancanvas.R
 
-class TagFragment(tagSelector: TagSelectionFragment, tagName: String) : Fragment() {
+class TagFragment(private  val tagSelector: TagSelectionFragment, private  val tagName: String) : Fragment() {
     private var selected = false
     private var hashedColor = 0
-    private var tagName: String? = tagName
-    private var tagSelector = tagSelector
 
     val viewAvailable = MutableLiveData<View>()
 
@@ -64,8 +62,18 @@ class TagFragment(tagSelector: TagSelectionFragment, tagName: String) : Fragment
             val typedValue = TypedValue()
             val theme = requireContext().theme
             theme.resolveAttribute(R.attr.colorError, typedValue, true)
-            cvTag.setCardBackgroundColor(typedValue.data);
-        } else cvTag.setCardBackgroundColor(hashedColor);
+            cvTag.setCardBackgroundColor(typedValue.data)
+            tagSelector.currentSelections++
+            val tagList = ArrayList<String>()
+            tagSelector.selectedTags.value?.forEach { t -> tagList.add(t) }
+            tagList.add(tagName)
+            tagSelector.selectedTags.value = tagList
+        } else {
+            tagSelector.currentSelections--
+            tagSelector.selectedTags.value?.remove(tagName)
+            tagSelector.selectedTags.value = tagSelector.selectedTags.value
+            cvTag.setCardBackgroundColor(hashedColor)
+        }
         selected = !selected
     }
 

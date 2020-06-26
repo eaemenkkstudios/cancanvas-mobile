@@ -37,18 +37,20 @@ class PhotoActivity : AppCompatActivity() {
         Picasso.get().load(intent.extras?.get("content") as String).into(pvPhoto)
         tvComments.text = String.format((intent.extras?.get("comments")).toString())
         liked = intent.extras?.get("liked") as Boolean
+        if (liked) ivLike.playAnimation()
+         else {
+            ivLike.progress = 0F
+            ivLike.pauseAnimation()
+        }
         likes = intent.extras?.get("likes") as Int
         tvLikes.text = likes.toString()
         id = intent.extras?.get("id") as String
         ivLike.setOnClickListener {
             viewModel.likePost(id)
-            ivLike.isClickable = false
-            ivLike.playAnimation()
-            Handler().postDelayed({
+            if (liked) {
                 ivLike.progress = 0F
                 ivLike.pauseAnimation()
-                ivLike.isClickable = true
-            }, 1100)
+            } else ivLike.playAnimation()
         }
         viewModel.likeStatus.observe(this, Observer { status ->
             if (status) {

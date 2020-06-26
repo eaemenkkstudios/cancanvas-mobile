@@ -12,15 +12,17 @@ import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_tag.view.*
 import kotlinx.android.synthetic.main.fragment_tag_selection.*
 import studios.eaemenkk.cancanvas.R
 
 
-class TagSelectionFragment : Fragment() {
+class TagSelectionFragment: Fragment() {
     private var lastRow: LinearLayout? = null
     private var elementsSize: Float = 0f
+    var selectedTags = MutableLiveData<ArrayList<String>>()
     var searchable = true
     var selectable = false
     var maxSelections = -1
@@ -36,15 +38,8 @@ class TagSelectionFragment : Fragment() {
         a.recycle()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_tag_selection, container, false)
-        addTag("2D Painting")
-        addTag("Fractal")
-        addTag("3D Modeling")
-        return view
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_tag_selection, container, false)
     }
 
     private fun getWidth(v: View): Int {

@@ -26,7 +26,7 @@ import studios.eaemenkk.cancanvas.domain.Comment
 class CommentAdapter(private val context: Context): RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
     private var dataSet = ArrayList<Comment>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentAdapter.CommentViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.comment_card, parent, false)
         return CommentViewHolder(view)
     }
@@ -75,7 +75,7 @@ class CommentAdapter(private val context: Context): RecyclerView.Adapter<Comment
         }
     }
 
-    class CommentViewHolder(itemView: View) : PostAdapter.AuctionPostViewHolder(itemView) {
+    class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val picture: ImageView = itemView.ivProfile
         val nickname: TextView = itemView.tvNickname
         val name: TextView = itemView.tvName

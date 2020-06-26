@@ -3,6 +3,7 @@ package studios.eaemenkk.cancanvas.repository
 import android.content.Context
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.api.FileUpload
+import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import studios.eaemenkk.cancanvas.domain.CommentList
@@ -105,8 +106,21 @@ class UserRepository(context: Context, baseUrl: String, subscriptionUrl: String)
         })
     }
 
-    fun getUsersByTags(tags: ArrayList<String>, callback: (users: ArrayList<User>) -> Unit) {
-        apolloClient.query(UsersByTagsQuery(tags)).enqueue(object: ApolloCall.Callback<UsersByTagsQuery.Data>() {
+    fun getUserTags(nickname: String, callback: (tags: ArrayList<String>) -> Unit) {
+        apolloClient.query(UserTagsQuery(nickname)).enqueue(object: ApolloCall.Callback<UserTagsQuery.Data>() {
+            override fun onFailure(e: ApolloException) {
+                println("Apollo Error $e")
+            }
+
+            override fun onResponse(response: Response<UserTagsQuery.Data>) {
+                callback(response.data?.userTags as ArrayList<String>)
+            }
+
+        })
+    }
+
+    fun getUsersByTags(tags: ArrayList<String>, page: Int, callback: (users: ArrayList<User>) -> Unit) {
+        apolloClient.query(UsersByTagsQuery(tags, Input.optional(page))).enqueue(object: ApolloCall.Callback<UsersByTagsQuery.Data>() {
             override fun onFailure(e: ApolloException) {
                 println("Apollo Error $e")
             }
@@ -126,8 +140,8 @@ class UserRepository(context: Context, baseUrl: String, subscriptionUrl: String)
                         lat = user.lat,
                         lng = user.lng
                     ))
-                    callback(users)
                 }
+                callback(users)
             }
 
         })

@@ -22,8 +22,12 @@ class UserInteractor(private val context: Context) {
         repository.getUserWithPosts(nickname, callback)
     }
 
-    fun getUsersByTags(tags: ArrayList<String>, callback: (users: ArrayList<User>) -> Unit) {
-        repository.getUsersByTags(tags, callback)
+    fun getUserTags(nickname: String, callback: (tags: ArrayList<String>) -> Unit) {
+        repository.getUserTags(nickname, callback)
+    }
+
+    fun getUsersByTags(tags: ArrayList<String>, page: Int, callback: (users: ArrayList<User>) -> Unit) {
+        repository.getUsersByTags(tags, page, callback)
     }
 
     fun isFollowing(nickname: String, callback: (status: Boolean) -> Unit) {

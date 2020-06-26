@@ -19,6 +19,7 @@ class UserViewModel(app: Application) : AndroidViewModel(app) {
     val userLocationStatus = MutableLiveData<Boolean>()
     val userPicturePath = MutableLiveData<String>()
     val userCoverPath = MutableLiveData<String>()
+    val userTags = MutableLiveData<ArrayList<String>>()
 
     fun getSelf() {
         interactor.getSelf { self -> selfData.postValue(self) }
@@ -28,8 +29,12 @@ class UserViewModel(app: Application) : AndroidViewModel(app) {
         interactor.getUser(nickname) { user -> userData.postValue(user) }
     }
 
-    fun getUsersByTags(tags: ArrayList<String>) {
-        interactor.getUsersByTags(tags) { u -> users.postValue(u) }
+    fun getUserTags(nickname: String) {
+        interactor.getUserTags(nickname) { tags -> userTags.postValue(tags) }
+    }
+
+    fun getUsersByTags(tags: ArrayList<String>, page: Int) {
+        interactor.getUsersByTags(tags, page) { u -> users.postValue(u) }
     }
 
     fun isFollowing(nickname: String) {

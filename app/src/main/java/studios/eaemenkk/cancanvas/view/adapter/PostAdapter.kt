@@ -159,8 +159,8 @@ class PostAdapter(private val context: Context, private val viewModel: CommentVi
                         .putExtra("picture", postAuction.author?.picture)
                         .putExtra("content", postAuction.content)
                         .putExtra("comments", postAuction.comments?.count)
-                        .putExtra("likes", postAuction.likes)
-                        .putExtra("liked", postAuction.liked)
+                        .putExtra("likes", Integer.parseInt(holder.likes.text as String))
+                        .putExtra("liked", holder.like.isAnimating)
                     context.startActivity(intent)
                 }
                 holder.viewComments.setOnClickListener {

@@ -11,7 +11,7 @@ import studios.eaemenkk.cancanvas.mutations.CreatePostMutation
 import studios.eaemenkk.cancanvas.queries.FeedQuery
 import studios.eaemenkk.cancanvas.queries.TrendingQuery
 
-class PostRepository (context: Context, baseUrl: String, subscriptionUrl: String): BaseApollo(context, baseUrl, subscriptionUrl) {
+class PostRepository(context: Context, baseUrl: String, subscriptionUrl: String): BaseApollo(context, baseUrl, subscriptionUrl) {
     fun trending(page: Int = 1, callback: (ArrayList<PostAuction>) -> Unit) {
         apolloClient.query(TrendingQuery(Input.optional(page)))
             .enqueue(object : ApolloCall.Callback<TrendingQuery.Data>() {
