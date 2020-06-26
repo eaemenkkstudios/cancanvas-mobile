@@ -54,14 +54,6 @@
                 android:text="@string/name_sample"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="20sp" />
-
-<!--            <fragment-->
-<!--                android:id="@+id/tsTags"-->
-<!--                android:name="studios.eaemenkk.cancanvas.view.fragments.TagSelectionFragment"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:searchable="true"-->
-<!--                app:selectable="false" />-->
         </LinearLayout>
 
         <ImageView
