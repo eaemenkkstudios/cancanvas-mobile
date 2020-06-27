@@ -86,4 +86,6 @@
     <string name="select_image">Select an image</string>
     <string name="post_created">Post created</string>
     <string name="post_failed">Failed to create post</string>
+    <string name="bio_updated">Bio updated!</string>
+    <string name="bio_update_failed">Failed to update bio.</string>
 </resources>

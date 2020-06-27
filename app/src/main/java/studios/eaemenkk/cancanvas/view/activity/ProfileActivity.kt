@@ -7,10 +7,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
-import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -26,7 +24,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile.*
-import kotlinx.android.synthetic.main.bio_popup.view.*
 import studios.eaemenkk.cancanvas.R
 import studios.eaemenkk.cancanvas.utils.Utils
 import studios.eaemenkk.cancanvas.view.fragments.TagSelectionFragment
@@ -39,9 +36,9 @@ class ProfileActivity : AppCompatActivity(), OnMapReadyCallback {
     private val layoutManager = LinearLayoutManager(this)
     private val PICK_PROFILE_IMAGE = 999
     private val PICK_COVER_IMAGE = 998
+    private val EDIT_BIO = 997
     private var nickname: String? = null
     private lateinit var bio: String
-    private lateinit var popupWindow: PopupWindow
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -150,11 +147,14 @@ class ProfileActivity : AppCompatActivity(), OnMapReadyCallback {
             viewModel.getSelf()
 
             ivEditBio.visibility = View.VISIBLE
-            ivEditBio.setOnClickListener { popup() }
-            viewModel.userBioStatus.observe(this, Observer { status ->
-                popupWindow.dismiss()
-                if (status) tvBio.text = bio
-            })
+            ivEditBio.setOnClickListener {
+                startActivityForResult(Intent("CANCANVAS_EDIT_BIO")
+                    .addCategory("CANCANVAS_EDIT_BIO")
+                    .putExtra("bio", bio), EDIT_BIO)
+//                startActivity(Intent("CANCANVAS_EDIT_BIO")
+//                    .addCategory("CANCANVAS_EDIT_BIO")
+//                    .putExtra("bio", bio))
+            }
             ivEditCover.visibility = View.VISIBLE
             ivEditCover.setOnClickListener { getImageFromGallery(PICK_COVER_IMAGE) }
             ivEditProfile.visibility = View.VISIBLE
@@ -200,29 +200,21 @@ class ProfileActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun popup() {
-        popupWindow = PopupWindow(this)
-        val view = layoutInflater.inflate(R.layout.bio_popup, null)
-        popupWindow.contentView = view
-        view.etBio.setText(bio)
-        view.btUpdateBio.setOnClickListener {
-            bio = view.etBio.text.toString()
-            viewModel.updateUserBio(bio)
-        }
-        clProfile.setOnClickListener { popupWindow.dismiss() }
-        popupWindow.isFocusable = true
-        popupWindow.isTouchable = true
-        popupWindow.showAtLocation(clProfile, Gravity.CENTER, 0, 0)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            val utils = Utils(this)
-            val upload = utils.createFileUploadFromUri(data?.data!!) ?: return
-            when (requestCode) {
-                PICK_PROFILE_IMAGE -> viewModel.updateUserPicture(upload)
-                PICK_COVER_IMAGE -> viewModel.updateUserCover(upload)
+            if (requestCode == EDIT_BIO) {
+                if (data != null) {
+                    bio = data.extras?.getString("bio").toString()
+                    tvBio.text = bio
+                }
+            } else {
+                val utils = Utils(this)
+                val upload = utils.createFileUploadFromUri(data?.data!!) ?: return
+                when (requestCode) {
+                    PICK_PROFILE_IMAGE -> viewModel.updateUserPicture(upload)
+                    PICK_COVER_IMAGE -> viewModel.updateUserCover(upload)
+                }
             }
         }
     }

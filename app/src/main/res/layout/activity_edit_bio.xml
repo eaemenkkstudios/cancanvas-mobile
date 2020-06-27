@@ -1,79 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?android:attr/colorBackground"
-    android:orientation="vertical"
-    tools:context=".view.activity.EditBioActivity"
-    tools:deviceIds="wear">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="left|center_vertical"
-        android:layout_margin="10dp"
-        android:tint="?attr/colorPrimary"
-        app:srcCompat="@drawable/ic_left" />
-
-    <ImageView
-        android:id="@+id/imageView4"
+    android:layout_height="wrap_content">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:adjustViewBounds="true"
-        android:paddingBottom="-10dp"
-        android:src="@drawable/ic_pelicanvas_talking" />
+        android:background="?android:attr/colorBackground"
+        android:orientation="vertical"
+        tools:context=".view.activity.EditBioActivity"
+        tools:deviceIds="wear">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:text="@string/edit_bio"
-        android:textAlignment="center"
-        android:textSize="25sp" />
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left|center_vertical"
+            android:layout_margin="10dp"
+            android:tint="?attr/colorPrimary"
+            app:srcCompat="@drawable/ic_left" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        app:cardBackgroundColor="?attr/colorAccent"
-        app:cardCornerRadius="10dp">
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imageView4"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:adjustViewBounds="true"
+            android:paddingBottom="-10dp"
+            android:src="@drawable/ic_pelicanvas_talking" />
 
-            <EditText
-                android:id="@+id/etComment"
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="@string/edit_bio"
+            android:textAlignment="center"
+            android:textSize="25sp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardBackgroundColor="?attr/colorAccent"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:hint="@string/bio_example"
-                android:inputType="textMultiLine" />
+                android:orientation="vertical">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabConfirm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:tint="?attr/colorAccent"
-                app:backgroundTint="?attr/colorPrimary"
-                app:fabCustomSize="50dp"
-                app:maxImageSize="30dp"
-                app:srcCompat="@drawable/ic_yes" />
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/etComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="@string/bio_example"
+                    android:inputType="textMultiLine" />
 
-    </androidx.cardview.widget.CardView>
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabConfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:tint="?attr/colorAccent"
+                    app:backgroundTint="?attr/colorPrimary"
+                    app:fabCustomSize="50dp"
+                    app:maxImageSize="30dp"
+                    app:srcCompat="@drawable/ic_yes" />
+            </LinearLayout>
 
-</LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>
